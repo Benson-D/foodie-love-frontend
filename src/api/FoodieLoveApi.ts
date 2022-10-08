@@ -1,15 +1,27 @@
 import axios, { AxiosError } from "axios";
-import { 
-    GetRecipes, 
-    SearchRecipes, 
-    GetSingleRecipe,
-    CreateRecipe, 
-    CreateRecipeIngredients,
-    FoodieRequest,
-    FoodieAxiosRequest
-} from "./foodieInterfaceApi";
+import { GetRecipes, SearchRecipes, GetSingleRecipe } from "./interface/foodieGet";
+import { CreateRecipeForm, CreateRecipeResponse } from "./interface/foodieCreate";
 
 const BASE_URL: string  = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+
+/**
+ * General data sent into axios request method
+ * @interface FoodieRequest
+ */ 
+interface FoodieRequest {
+    url: string; 
+    method: string; 
+    data?: CreateRecipeForm | SearchRecipes;
+};
+
+/**
+ * General data sent back after request
+ * @interface FoodieAxiosRequest
+ */
+interface FoodieAxiosRequest {
+    recipes?: GetRecipes[];
+    recipe?: GetSingleRecipe | CreateRecipeResponse
+};
 
 
 class FoodieLoveApi {
@@ -75,7 +87,7 @@ class FoodieLoveApi {
      * @param {object} createData 
      * @returns {Promise<Array>} JSON
      */
-    static async createRecipe(createData: CreateRecipe): Promise<CreateRecipeIngredients> {
+    static async createRecipe(createData: CreateRecipeForm): Promise<CreateRecipeResponse> {
         try {
             const { data } = await axios({
                 url: `${BASE_URL}/recipes`, 
@@ -84,6 +96,30 @@ class FoodieLoveApi {
             });
 
             return data.recipe;
+
+        } catch (err) {
+            const recipeError = err as AxiosError; 
+
+            console.error("API Error Get", recipeError.response);
+            throw recipeError.response;
+        }
+    }
+
+    /**
+     * Takes in the form data instance uploads a file image to aws,
+     * returns url string 
+     * @param file 
+     * @returns 
+     */
+    static async sendImage(file: FormData): Promise<string> {
+        try {
+            const { data } = await axios({
+                url: `${BASE_URL}/recipes/image`, 
+                data: file,
+                method: 'post'
+            });
+
+            return data.url;
 
         } catch (err) {
             const recipeError = err as AxiosError; 

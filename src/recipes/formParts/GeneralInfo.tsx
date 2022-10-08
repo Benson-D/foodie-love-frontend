@@ -1,4 +1,5 @@
 import React from 'react';
+import { CreateRecipeForm } from "../../api/interface/foodieCreate";
 import { 
     Grid, 
     Typography, 
@@ -7,16 +8,10 @@ import {
     InputLabel 
 } from '@mui/material';
 
-interface RecipeValues {
-    recipeName: string;
-    cookingTime: number; 
-    prepTime: number; 
-    mealType?: string;
-};
 
 function GeneralInfo({ step, formValues, handleChange, handleFile }: { 
     step: number,
-    formValues: RecipeValues, 
+    formValues: CreateRecipeForm, 
     handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
     handleFile: (evt: React.ChangeEvent<HTMLInputElement>) => void
 }) {
