@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
-import { GetRecipes } from "../api/foodieInterfaceApi";
+import { GetRecipes } from "../api/interface/foodieGet";;
 
 function RecipeList() {
     const [ recipes, setRecipes ] = useState<GetRecipes[]>([]);

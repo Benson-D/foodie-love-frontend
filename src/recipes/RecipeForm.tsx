@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CreateRecipe } from "../api/foodieInterfaceApi";
+import { CreateRecipeForm } from "../api/interface/foodieCreate";
 import FoodieLoveApi from "../api/FoodieLoveApi";
 import GeneralInfo from "./formParts/GeneralInfo";
 import AddIngredients from "./formParts/AddIngredients";
@@ -17,17 +17,20 @@ import {
     Button 
 } from "@mui/material";
 
-const INITIAL_DATA = {
+
+const INITIAL_DATA: CreateRecipeForm = {
     recipeName: '',
-    cookingTime: 0,
-    prepTime: 0,
-    mealType: ''
+    cookingTime: '0',
+    prepTime: '0',
+    mealType: '',
+    instructions: '',
+    ingredientList: []
 };
 
 const formLabels = [
-    'Create General Info', 
-    'Add Ingredients', 
-    'Add Steps', 
+    'General Info', 
+    'Ingredients', 
+    'Steps', 
     'Review Recipe'
 ];
 
@@ -38,7 +41,8 @@ const formLabels = [
  *   formSteps: number
  */
 function RecipeForm() {
-    const [formData, setFormData] = useState(INITIAL_DATA);
+    const [formData, setFormData] = useState<CreateRecipeForm>(INITIAL_DATA);
+    const [formImage, setFormImage] = useState<string | File>('');
     const [formSteps, setFormSteps] = useState(0);
 
     /**
@@ -60,10 +64,7 @@ function RecipeForm() {
      */
     function handleFile(evt: React.ChangeEvent<HTMLInputElement>): void {
         const image = evt.target.files?.[0];
-        setFormData((currentFormData) => ({
-             ...currentFormData, 
-             recipeImage: image
-        }));
+        if (image) setFormImage(image);
     }
 
     /**
@@ -73,10 +74,12 @@ function RecipeForm() {
     function handleIngredientChange(ingredientForm: IngredientItems[]): void {
         const ingredients = ingredientForm.map(({id, ...ingredients}) => ingredients);
 
-        setFormData((currentFormData) => ({
-            ...currentFormData,
-            ingredientList: ingredients
-        }));
+        if (ingredients.length) {
+            setFormData((currentFormData) => ({
+                ...currentFormData,
+                ingredientList: JSON.stringify(ingredients)
+            }));
+        }
     }
 
     /**
@@ -85,41 +88,60 @@ function RecipeForm() {
      */
     function handleInstructionsChange(instructionsForm: InstructionItems[]): void {
         const instructions = instructionsForm.map(({instruction}) => instruction);
-
+        
         setFormData((currentFormData)=> ({
             ...currentFormData,
-            instructions: instructions.join(' FOODIE-PART ')
+            instructions: instructions.join(' FOODIE-STEP ')
         }));
     }
 
-    async function addRecipe(formData: CreateRecipe) {
+    /**
+     * Sends a post request to database 
+     * @param formData 
+     */
+    async function addRecipe(formData: CreateRecipeForm) {
         await FoodieLoveApi.createRecipe(formData);
     }
+
+    /**
+     * Sends a post request to aws bucket, returns a url
+     * @param formImage 
+     * @returns 
+     */
+    async function addImage(formImage: FormData): Promise<string> {
+        return await FoodieLoveApi.sendImage(formImage);
+    };
 
     async function handleSubmit(evt: React.FormEvent) {
         evt.preventDefault();
 
         const sendData = new FormData();
+        sendData.append('recipeImage', formImage);
 
-        // for (const key in formData) {
-        //     sendData.append(key, formData[key as keyof GeneralRecipeData]);
-        // }
+        const recipeUrl: string = await addImage(sendData);
 
-        // console.log(sendData);
-
-        // try {
-        //     await addRecipe(sendData);
-        // } catch(err) {
-        //     console.error(err);
-        // }
-
-        console.log(formData);
+        setFormData((currentData) => ({
+            ...currentData,
+            recipeImage: recipeUrl
+        }));
+ 
+        try {
+            await addRecipe(formData);
+        } catch(err) {
+            console.error(err);
+        }
     } 
 
+    /**
+     * Switches Form part to the next page
+     */
     const handleNext = () => {
         setFormSteps(formSteps + 1);
     };
     
+    /**
+     * Switches Form part to the previous page
+     */
     const handleBack = () => {
         setFormSteps(formSteps - 1);
     };
@@ -146,16 +168,15 @@ function RecipeForm() {
                     </Stepper>
 
                     <form onSubmit={handleSubmit}>
+
                         <GeneralInfo 
                             step={formSteps}
                             formValues={formData} 
                             handleChange={handleChange}
                             handleFile={handleFile} /> 
-
                         <AddIngredients 
                             step={formSteps} 
                             handleIngredient={handleIngredientChange} />
-
                         <AddInstructions step={formSteps}
                                 handleInstructions={handleInstructionsChange} />
 
