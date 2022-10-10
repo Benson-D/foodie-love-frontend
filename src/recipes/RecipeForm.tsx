@@ -5,6 +5,7 @@ import GeneralInfo from "./formParts/GeneralInfo";
 import AddIngredients from "./formParts/AddIngredients";
 import AddInstructions from "./formParts/AddInstructions";
 import { IngredientItems, InstructionItems } from "./Interface/formInterface";
+import FoodieFormContext from "./FoodieFormContext";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import { 
     Box, 
@@ -16,7 +17,8 @@ import {
     Typography, 
     Button 
 } from "@mui/material";
-
+import { styled } from '@mui/material/styles';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 
 const INITIAL_DATA: CreateRecipeForm = {
     recipeName: '',
@@ -34,6 +36,29 @@ const formLabels = [
     'Review Recipe'
 ];
 
+//#66cba9
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+    [`&.${stepConnectorClasses.active}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        backgroundColor:'#06a696',
+      },
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        backgroundColor:'#06a696',
+      },
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+      height: 3,
+      border: 0,
+      backgroundColor:
+        theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+      borderRadius: 1,
+    }
+  }));
+
+
 /** Renders a Recipe Form to add a new Recipe
  * 
  * State: 
@@ -43,7 +68,7 @@ const formLabels = [
 function RecipeForm() {
     const [formData, setFormData] = useState<CreateRecipeForm>(INITIAL_DATA);
     const [formImage, setFormImage] = useState<string | File>('');
-    const [formSteps, setFormSteps] = useState(0);
+    const [formSteps, setFormSteps] = useState<number>(0);
 
     /**
      * Handles the inputs of Component General Info 
@@ -151,55 +176,59 @@ function RecipeForm() {
             <Container component="section">
                 <Paper 
                     variant="outlined" 
-                    sx={{my: {xs: 3, md: 6 }, p: { xs: 2, md: 3}, boxShadow: 2}}>
+                    sx={{my: {xs: 3, md: 6 }, p: { xs: 2, md: 5}, boxShadow: 2}}>
                     <Typography component="h1" variant="h4" align="center">
                         Create a Recipe
                         <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
                     </Typography>
 
                     <Stepper 
+                        connector={<ColorlibConnector />}
                         activeStep={formSteps}
-                        sx={{pt: 3, pb: 5}}>
+                        sx={{pt: 4, pb: 5}}>
                         {formLabels.map((label: string) => (
-                            <Step key={label}>
+                            <Step key={label} 
+                                 sx={
+                                     {".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {color: '#06a696'},
+                                    ".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {color: '#06a696'}}
+                                }>
                                 <StepLabel>{label}</StepLabel>
                             </Step>
                         ))}
                     </Stepper>
 
                     <form onSubmit={handleSubmit}>
+                        <FoodieFormContext.Provider value={{formSteps}}>
+                            <GeneralInfo 
+                                formValues={formData} 
+                                handleChange={handleChange}
+                                handleFile={handleFile} /> 
+                            <AddIngredients 
+                                handleIngredient={handleIngredientChange} />
+                            <AddInstructions 
+                                    handleInstructions={handleInstructionsChange} />
 
-                        <GeneralInfo 
-                            step={formSteps}
-                            formValues={formData} 
-                            handleChange={handleChange}
-                            handleFile={handleFile} /> 
-                        <AddIngredients 
-                            step={formSteps} 
-                            handleIngredient={handleIngredientChange} />
-                        <AddInstructions step={formSteps}
-                                handleInstructions={handleInstructionsChange} />
-
-                        <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                            {formSteps !== 0 && (
-                                <Button 
-                                    sx={{mt: 3, ml:1}} 
-                                    onClick={handleBack}>
-                                    Back
-                                </Button>
-                            )}
-                            <Button 
-                                sx={{mt: 3, ml: 1}} 
-                                variant="contained"
-                                type={formSteps === formLabels.length - 1 
-                                    ? 'submit' 
-                                    : 'button'}
-                                onClick={handleNext}>
-                                {formSteps === formLabels.length - 1 
-                                        ? 'Submit' 
-                                        : 'Next'}
-                            </Button>
-                        </Box>             
+                            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                {formSteps !== 0 && (
+                                    <Button 
+                                        sx={{mt: 3, ml:1}} 
+                                        onClick={handleBack}>
+                                        Back
+                                    </Button>
+                                )}
+                                    <Button 
+                                        sx={{mt: 3, ml: 1}} 
+                                        variant="contained"
+                                        type={formSteps === formLabels.length - 1 
+                                            ? 'submit' 
+                                            : 'button'}
+                                        onClick={handleNext}>
+                                        {formSteps === formLabels.length - 1 
+                                                ? 'Submit' 
+                                                : 'Next'}
+                                    </Button>
+                                </Box>             
+                            </FoodieFormContext.Provider>
                     </form>
                             
 

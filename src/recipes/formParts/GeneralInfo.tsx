@@ -1,4 +1,5 @@
-import React from 'react';
+import { useContext } from 'react';
+import FoodieFormContext from '../FoodieFormContext';
 import { CreateRecipeForm } from "../../api/interface/foodieCreate";
 import { 
     Grid, 
@@ -9,14 +10,15 @@ import {
 } from '@mui/material';
 
 
-function GeneralInfo({ step, formValues, handleChange, handleFile }: { 
-    step: number,
+function GeneralInfo({ formValues, handleChange, handleFile }: { 
     formValues: CreateRecipeForm, 
     handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
     handleFile: (evt: React.ChangeEvent<HTMLInputElement>) => void
 }) {
 
-    const componentDisplay = step === 0 ? 'block' : 'none';
+    const foodie = useContext(FoodieFormContext); 
+
+    const componentDisplay = foodie?.formSteps === 0 ? 'block' : 'none';
     const minuteProps = {
         endAdornment: <InputAdornment position="end">Minutes</InputAdornment>
     };

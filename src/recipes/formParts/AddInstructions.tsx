@@ -1,18 +1,20 @@
 import { Grid, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import FoodieFormContext from "../FoodieFormContext";
 import { InstructionItems } from "../Interface/formInterface";
 import { v4 as uuidv4 } from "uuid";
 import Instruction from "./Instruction";
 
 
-function AddInstructions({ step, handleInstructions }: { 
-    step: number,
+function AddInstructions({ handleInstructions }: { 
     handleInstructions: (formData: InstructionItems[]) => void
 }) {
     const [instructions, setInstructions] = useState<InstructionItems[]>([{
         id: uuidv4(),
         instruction: ''
     }]);
+
+    const foodie = useContext(FoodieFormContext); 
 
     const addInstruction = () => {
         const addIngredientList = instructions.concat({
@@ -37,7 +39,7 @@ function AddInstructions({ step, handleInstructions }: {
         handleInstructions(instructions);
     }
 
-    let componentDisplay = step === 2 ? 'block' : 'none';
+    let componentDisplay = foodie?.formSteps === 2 ? 'block' : 'none';
 
     return (
         <div style={{ display: componentDisplay }}>

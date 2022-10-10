@@ -1,5 +1,6 @@
 import { Grid, Typography, Button } from '@mui/material';
-import { useState } from "react"; 
+import { useState, useContext } from "react"; 
+import FoodieFormContext from '../FoodieFormContext';
 import { v4 as uuidv4 } from "uuid";
 import { GeneralList, IngredientItems } from "../Interface/formInterface";
 import Ingredient from './Ingredient';
@@ -16,11 +17,11 @@ const starterList = Array(5).fill({}).map(() => ({
     ...generalIngredientList
 }));
 
-function AddIngredients({ step, handleIngredient }: { 
-    step: number, 
+function AddIngredients({handleIngredient }: { 
     handleIngredient: (formData: IngredientItems[]) => void 
 }) {
     const [currentList, setCurrentList] = useState<IngredientItems[]>(starterList);
+    const foodie = useContext(FoodieFormContext); 
 
     const addListItem = () => {
         const addIngredientList = currentList.concat({
@@ -45,7 +46,7 @@ function AddIngredients({ step, handleIngredient }: {
             (currentList) => currentList.filter((list) => list.id !== id));
     }
 
-    let componentDisplay = step === 1 ? 'block' : 'none';
+    let componentDisplay = foodie?.formSteps === 1 ? 'block' : 'none';
 
     return (
         <div style={{ display: componentDisplay }}>

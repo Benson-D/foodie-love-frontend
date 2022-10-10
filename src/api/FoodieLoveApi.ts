@@ -9,8 +9,8 @@ const BASE_URL: string  = process.env.REACT_APP_BASE_URL || "http://localhost:30
  * @interface FoodieRequest
  */ 
 interface FoodieRequest {
-    url: string; 
-    method: string; 
+    endpoint: string; 
+    method?: string; 
     data?: CreateRecipeForm | SearchRecipes;
 };
 
@@ -19,8 +19,8 @@ interface FoodieRequest {
  * @interface FoodieAxiosRequest
  */
 interface FoodieAxiosRequest {
-    recipes?: GetRecipes[];
-    recipe?: GetSingleRecipe | CreateRecipeResponse
+    recipes: GetRecipes[];
+    recipe: GetSingleRecipe | CreateRecipeResponse
 };
 
 
@@ -29,8 +29,9 @@ class FoodieLoveApi {
     static token: string;
 
     static async request(axiosData: FoodieRequest): Promise<FoodieAxiosRequest> {
-        const { url, data } = axiosData;
+        const { endpoint, data } = axiosData;
 
+        const url = `${BASE_URL}/${endpoint}`;
         let method = axiosData.method || 'GET';
         const params = method === 'GET' ? axiosData.data : {};
 
@@ -52,15 +53,8 @@ class FoodieLoveApi {
      * @returns {Promise<Array>} JSON
      */
     static async getRecipes(params: SearchRecipes = {}): Promise<GetRecipes[]> {
-        try {
-            const { data } = await axios({url: `${BASE_URL}/recipes`, params});
-            return data.recipes; 
-        } catch (err) {
-            const recipeError = err as AxiosError; 
-
-            console.error("API Error Get", recipeError.response);
-            throw recipeError.response;
-        }
+        const res = await this.request({ endpoint: `recipes`, data: params });
+        return res.recipes;
     }
 
     /**
