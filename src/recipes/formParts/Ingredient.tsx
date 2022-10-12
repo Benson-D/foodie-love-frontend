@@ -12,7 +12,6 @@ function Ingredient({ index, removeItem }: IngredientProps) {
         <Fragment>
             <Grid item xs={3} sm={3}>
                 <TextField 
-                    required
                     name={`ingredientList.${index}.amount`}
                     label="Amount"
                     fullWidth
@@ -27,7 +26,6 @@ function Ingredient({ index, removeItem }: IngredientProps) {
             </Grid>
             <Grid item xs={6} sm={4}>
                 <TextField 
-                    required
                     name={`ingredientList.${index}.ingredient`}
                     label="Ingredient"
                     fullWidth

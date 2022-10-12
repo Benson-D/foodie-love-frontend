@@ -28,11 +28,11 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
                     {({remove, push}) => (
                     <>
                         {values.map((ingredient: IngredientItems, index: number) => (
-                        <Ingredient 
-                            key={index}
-                            index={index} 
-                            removeItem={remove} />
-                            ))}    
+                            <Ingredient 
+                                key={index}
+                                index={index} 
+                                removeItem={remove} />
+                                ))}    
                         <Button 
                             type="button"
                             sx={{ my: 3}} 

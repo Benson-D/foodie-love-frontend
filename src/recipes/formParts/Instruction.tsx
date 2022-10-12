@@ -1,9 +1,6 @@
 import { Fragment } from "react";
 import { Grid, TextField, Button } from "@mui/material"; 
 
-interface AddInstructionProps {
-    instruction?: string;
-};
 
 interface InstructionProps {
     index: number;
