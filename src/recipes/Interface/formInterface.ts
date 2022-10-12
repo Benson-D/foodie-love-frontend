@@ -14,7 +14,6 @@ interface IngredientItems extends GeneralList {
 }
 
 interface InstructionItems {
-    id: string;
     instruction?: string;
 };
 

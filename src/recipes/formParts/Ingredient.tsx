@@ -1,60 +1,44 @@
 import { Grid, TextField, Button } from '@mui/material';
 import { Fragment } from "react"; 
-import { IngredientItems } from "../Interface/formInterface";
-
 
 interface IngredientProps {
-    listItem: IngredientItems;
-    removeItem: (id: string) => void;
-    handleChange: (idx: number, evt: React.ChangeEvent<HTMLInputElement>) => void;
-    index: number
+    index: number;
+    removeItem: (index: number) => void;
 }
 
-function Ingredient({ listItem, removeItem, handleChange, index }: IngredientProps) {
-
-    const removeIngredient = () => {
-        removeItem(listItem.id);
-    };
+function Ingredient({ index, removeItem }: IngredientProps) {
 
     return (
         <Fragment>
             <Grid item xs={3} sm={3}>
                 <TextField 
                     required
-                    id="ingredient-amount"
-                    name="amount"
+                    name={`ingredientList.${index}.amount`}
                     label="Amount"
                     fullWidth
-                    defaultValue={listItem.amount}
-                    variant="standard"
-                    onChange={(evt:React.ChangeEvent<HTMLInputElement>
-                        ): void => handleChange(index, evt)} />
+                    variant="standard" />
             </Grid>
             <Grid item xs={3} sm={3}>
                 <TextField 
-                    id="ingredient-measurement"
-                    name="measurement"
+                    name={`ingredientList.${index}.measurement`}
                     label="Measurement"
                     fullWidth
-                    defaultValue={listItem.measurement}
-                    variant="standard"
-                    onChange={(evt:React.ChangeEvent<HTMLInputElement>
-                        ): void => handleChange(index, evt)} />
+                    variant="standard" />
             </Grid>
             <Grid item xs={6} sm={4}>
                 <TextField 
                     required
-                    id="ingredient-name"
-                    name="ingredient"
+                    name={`ingredientList.${index}.ingredient`}
                     label="Ingredient"
                     fullWidth
-                    defaultValue={listItem.ingredient}
-                    variant="standard"
-                    onChange={(evt:React.ChangeEvent<HTMLInputElement>
-                        ): void => handleChange(index, evt)} />
+                    variant="standard" />
             </Grid>
             <Grid item xs={6} sm={2}>
-                <Button onClick={removeIngredient}>Delete</Button>
+                <Button 
+                    type="button" 
+                    onClick={() => removeItem(index)}>
+                        Delete
+                </Button>
             </Grid>
         </Fragment>
     );

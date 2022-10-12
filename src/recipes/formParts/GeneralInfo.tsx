@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import FoodieFormContext from '../FoodieFormContext';
-import { CreateRecipeForm } from "../../api/interface/foodieCreate";
 import { 
     Grid, 
     Typography, 
@@ -9,14 +8,26 @@ import {
     InputLabel 
 } from '@mui/material';
 
+interface FormProperties {
+    name: string;
+    label: string;
+    errorMsg?: string
+}
 
-function GeneralInfo({ formValues, handleChange, handleFile }: { 
-    formValues: CreateRecipeForm, 
-    handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void,
+interface FormField {
+    recipeName: FormProperties;
+    mealType: FormProperties;
+    prepTime: FormProperties;
+    cookingTime: FormProperties;
+}
+
+function GeneralInfo({ formField, handleFile }: { 
+    formField: FormField,
     handleFile: (evt: React.ChangeEvent<HTMLInputElement>) => void
 }) {
 
     const foodie = useContext(FoodieFormContext); 
+    const { recipeName, mealType, prepTime, cookingTime } = formField; 
 
     const componentDisplay = foodie?.formSteps === 0 ? 'block' : 'none';
     const minuteProps = {
@@ -32,53 +43,40 @@ function GeneralInfo({ formValues, handleChange, handleFile }: {
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         required
-                        id="recipeName"
-                        name="recipeName"
-                        label="Recipe Name"
+                        name={recipeName.name}
+                        label={recipeName.label}
                         fullWidth
-                        variant="standard"
-                        defaultValue={formValues.recipeName}
-                        onChange={handleChange} />
+                        variant="standard" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField 
-                        id="mealType"
-                        name="mealType"
-                        label="Meal Type"
-                        fullWidth
-                        variant="standard"
-                        defaultValue={formValues.mealType}
-                        onChange={handleChange} />
+                        name={mealType.name}
+                        label={mealType.label}
+                        fullWidth 
+                        variant="standard" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField 
-                        id="prepTime"
-                        name="prepTime"
-                        label="Prep Time"
+                        name={prepTime.name}
+                        label={prepTime.label}
                         fullWidth
                         variant="standard"
                         type="number"
-                        InputProps={minuteProps}
-                        defaultValue={formValues.prepTime}
-                        onChange={handleChange} />
+                        InputProps={minuteProps} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField 
                         required
-                        id="cookingTime"
-                        name="cookingTime"
-                        label="Cooking Time"
+                        name={cookingTime.name}
+                        label={cookingTime.label}
                         fullWidth
                         variant="standard"
                         type="number"
-                        InputProps={minuteProps}
-                        defaultValue={formValues.cookingTime}
-                        onChange={handleChange} />
+                        InputProps={minuteProps} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <InputLabel >Recipe Image</InputLabel>
                     <TextField 
-                        id="recipeImage"
                         name="recipeImage"
                         fullWidth
                         type="file"

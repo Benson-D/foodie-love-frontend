@@ -4,7 +4,9 @@ import FoodieLoveApi from "../api/FoodieLoveApi";
 import GeneralInfo from "./formParts/GeneralInfo";
 import AddIngredients from "./formParts/AddIngredients";
 import AddInstructions from "./formParts/AddInstructions";
-import { IngredientItems, InstructionItems } from "./Interface/formInterface";
+import FormReview from "./formParts/FormReview";
+import { Formik, Form } from "formik"; 
+import { initialValues, formField } from "./FormModel/FoodieModel";
 import FoodieFormContext from "./FoodieFormContext";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import { 
@@ -15,26 +17,13 @@ import {
     Step, 
     StepLabel, 
     Typography, 
-    Button 
+    Button, 
+    formLabelClasses
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 
-const INITIAL_DATA: CreateRecipeForm = {
-    recipeName: '',
-    cookingTime: '0',
-    prepTime: '0',
-    mealType: '',
-    instructions: '',
-    ingredientList: []
-};
-
-const formLabels = [
-    'General Info', 
-    'Ingredients', 
-    'Steps', 
-    'Review Recipe'
-];
+const formLabels = [ 'General Info', 'Ingredients', 'Steps', 'Review Recipe' ];
 
 //#66cba9
 
@@ -66,22 +55,9 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
  *   formSteps: number
  */
 function RecipeForm() {
-    const [formData, setFormData] = useState<CreateRecipeForm>(INITIAL_DATA);
     const [formImage, setFormImage] = useState<string | File>('');
     const [formSteps, setFormSteps] = useState<number>(0);
-
-    /**
-     * Handles the inputs of Component General Info 
-     * @param evt 
-     */
-    function handleChange(evt: React.ChangeEvent<HTMLInputElement>): void {
-        const { name, value } = evt.target;
-
-        setFormData((previousData) => ({ 
-            ...previousData, 
-            [name]: value
-        }));
-    }
+    const isLastStep = formSteps === formLabels.length - 1; 
 
     /**
      * Handles the file image input of Component General Info
@@ -90,34 +66,6 @@ function RecipeForm() {
     function handleFile(evt: React.ChangeEvent<HTMLInputElement>): void {
         const image = evt.target.files?.[0];
         if (image) setFormImage(image);
-    }
-
-    /**
-     * Handles the various inputs of Component AddIngredients 
-     * @param ingredientForm 
-     */
-    function handleIngredientChange(ingredientForm: IngredientItems[]): void {
-        const ingredients = ingredientForm.map(({id, ...ingredients}) => ingredients);
-
-        if (ingredients.length) {
-            setFormData((currentFormData) => ({
-                ...currentFormData,
-                ingredientList: JSON.stringify(ingredients)
-            }));
-        }
-    }
-
-    /**
-     * Handles the various instructions of Component AddInstructions
-     * @param instructionsForm 
-     */
-    function handleInstructionsChange(instructionsForm: InstructionItems[]): void {
-        const instructions = instructionsForm.map(({instruction}) => instruction);
-        
-        setFormData((currentFormData)=> ({
-            ...currentFormData,
-            instructions: instructions.join(' FOODIE-STEP ')
-        }));
     }
 
     /**
@@ -137,25 +85,14 @@ function RecipeForm() {
         return await FoodieLoveApi.sendImage(formImage);
     };
 
-    async function handleSubmit(evt: React.FormEvent) {
-        evt.preventDefault();
 
-        const sendData = new FormData();
-        sendData.append('recipeImage', formImage);
-
-        const recipeUrl: string = await addImage(sendData);
-
-        setFormData((currentData) => ({
-            ...currentData,
-            recipeImage: recipeUrl
-        }));
- 
-        try {
-            await addRecipe(formData);
-        } catch(err) {
-            console.error(err);
+    async function _submitForm(values: any, actions: any) {
+        if (isLastStep) {
+            console.log(values, actions)
+        } else {
+            actions.setSubmitting(false);
         }
-    } 
+    };
 
     /**
      * Switches Form part to the next page
@@ -197,40 +134,43 @@ function RecipeForm() {
                         ))}
                     </Stepper>
 
-                    <form onSubmit={handleSubmit}>
-                        <FoodieFormContext.Provider value={{formSteps}}>
-                            <GeneralInfo 
-                                formValues={formData} 
-                                handleChange={handleChange}
-                                handleFile={handleFile} /> 
-                            <AddIngredients 
-                                handleIngredient={handleIngredientChange} />
-                            <AddInstructions 
-                                    handleInstructions={handleInstructionsChange} />
-
-                            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                {formSteps !== 0 && (
-                                    <Button 
-                                        sx={{mt: 3, ml:1}} 
-                                        onClick={handleBack}>
-                                        Back
-                                    </Button>
-                                )}
-                                    <Button 
-                                        sx={{mt: 3, ml: 1}} 
-                                        variant="contained"
-                                        type={formSteps === formLabels.length - 1 
-                                            ? 'submit' 
-                                            : 'button'}
-                                        onClick={handleNext}>
-                                        {formSteps === formLabels.length - 1 
-                                                ? 'Submit' 
-                                                : 'Next'}
-                                    </Button>
-                                </Box>             
-                            </FoodieFormContext.Provider>
-                    </form>
-                            
+                    <FoodieFormContext.Provider value={{formSteps}}>
+                        <Formik 
+                            initialValues={initialValues}
+                            onSubmit={_submitForm}>
+                            {({ values })=> (
+                                <Form>
+                                    <GeneralInfo 
+                                        formField={formField}
+                                        handleFile={handleFile} /> 
+                                    <AddIngredients 
+                                        values={values.ingredientList} />
+                                    <AddInstructions 
+                                        values={values.instructions} />
+                                    <FormReview/>
+                                    <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                        {formSteps !== 0 && (
+                                            <Button 
+                                                sx={{mt: 3, ml:1}} 
+                                                onClick={handleBack}>
+                                                Back
+                                            </Button>
+                                        )}
+                                            <Button 
+                                                sx={{mt: 3, ml: 1}} 
+                                                variant="contained"
+                                                type="submit"
+                                                onClick={handleNext}>
+                                                {formSteps === formLabels.length - 1 
+                                                        ? 'Submit' 
+                                                        : 'Next'}
+                                            </Button>
+                                    </Box>             
+                                </Form>
+                            )}
+                           
+                        </Formik>
+                    </FoodieFormContext.Provider>
 
                 </Paper>
             </Container>

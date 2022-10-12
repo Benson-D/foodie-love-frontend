@@ -2,44 +2,33 @@ import { Fragment } from "react";
 import { Grid, TextField, Button } from "@mui/material"; 
 
 interface AddInstructionProps {
-    id: string;
     instruction?: string;
 };
 
 interface InstructionProps {
-    step: AddInstructionProps;
-    removeInstruction: (id: string) => void;
-    handleChange: (idx: number, evt: React.ChangeEvent<HTMLInputElement>) => void;
     index: number;
+    removeItem: (index: number) => void;
 };
 
+function Instruction({ index, removeItem }: InstructionProps) {
 
-function Instruction({ step, removeInstruction, handleChange, index }: InstructionProps) {
-
-    const removeStep = () => {
-        removeInstruction(step.id);
-    }
-    
     return (
         <Fragment>
-             <Fragment key={step.id}>
-                <Grid item xs={9} sm={9}>
-                    <TextField
-                        id="foodie-instructions"
-                        name="instruction"
-                        label="Add Instruction"
-                        multiline
-                        fullWidth
-                        maxRows={4} 
-                        defaultValue={step.instruction}
-                        onChange={(evt:React.ChangeEvent<HTMLInputElement>
-                            ): void => handleChange(index, evt)} />
-                </Grid>
-                <Grid item xs={2} sm={2}>
-                    <Button onClick={removeStep}>Delete</Button>
-                </Grid>
-            </Fragment>
-
+            <Grid item xs={9} sm={9}>
+                <TextField
+                    name={`instructions.${index}.instruction`}
+                    label="Instruction"
+                    multiline
+                    fullWidth
+                    maxRows={4} />
+            </Grid>
+            <Grid item xs={2} sm={2}>
+                <Button 
+                    type="button"
+                    onClick={() => removeItem(index)}>
+                        Delete
+                </Button>
+            </Grid>
         </Fragment>
     )
 }
