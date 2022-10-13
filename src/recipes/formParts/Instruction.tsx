@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Grid, TextField, Button } from "@mui/material"; 
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface InstructionProps {
     index: number;
@@ -23,7 +23,7 @@ function Instruction({ index, removeItem }: InstructionProps) {
                 <Button 
                     type="button"
                     onClick={() => removeItem(index)}>
-                        Delete
+                        <DeleteIcon sx={{ml: 2, mt: 1, fontSize: '20px'}}/>
                 </Button>
             </Grid>
         </Fragment>

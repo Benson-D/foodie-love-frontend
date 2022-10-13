@@ -3,7 +3,7 @@ import { useContext } from "react";
 import FoodieFormContext from "../FoodieFormContext";
 import { FieldArray } from "formik";
 import Instruction from "./Instruction";
-import { InstructionItems } from "../Interface/formInterface";
+import { InstructionItems } from "../../interface";
 
 
 function AddInstructions({ values }: { values: InstructionItems[] }) {

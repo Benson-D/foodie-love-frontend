@@ -1,19 +1,15 @@
 import { Grid, Typography, Button } from '@mui/material';
 import { useContext } from "react"; 
 import FoodieFormContext from '../FoodieFormContext';
-import { GeneralList } from "../Interface/formInterface";
 import Ingredient from './Ingredient';
 import { FieldArray } from "formik";
-import { RemoveCircleOutline } from '@mui/icons-material';
-import { IngredientItems } from "../Interface/formInterface";
+import { IngredientItems } from "../../interface";
 
-
-const generalIngredientList: GeneralList = { 
+const generalIngredientList: IngredientItems = { 
     amount: '',
     measurement: '',
     ingredient: ''
 };
-
 
 function AddIngredients({ values }: { values: IngredientItems[] }) {
     const foodie = useContext(FoodieFormContext); 

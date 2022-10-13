@@ -1,6 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { GetRecipes, SearchRecipes, GetSingleRecipe } from "./interface/foodieGet";
-import { CreateRecipeForm, CreateRecipeResponse } from "./interface/foodieCreate";
+import { 
+    GetRecipes, 
+    SearchRecipes, 
+    GetRecipe, 
+    CreateRecipe, 
+    CreatedRecipe 
+} from "../interface";
 
 const BASE_URL: string  = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -11,7 +16,7 @@ const BASE_URL: string  = process.env.REACT_APP_BASE_URL || "http://localhost:30
 interface FoodieRequest {
     endpoint: string; 
     method?: string; 
-    data?: CreateRecipeForm | SearchRecipes;
+    data?: CreateRecipe | SearchRecipes;
 };
 
 /**
@@ -20,7 +25,7 @@ interface FoodieRequest {
  */
 interface FoodieAxiosRequest {
     recipes: GetRecipes[];
-    recipe: GetSingleRecipe | CreateRecipeResponse
+    recipe: GetRecipe | CreatedRecipe
 };
 
 
@@ -63,7 +68,7 @@ class FoodieLoveApi {
      * @param {string} id 
      * @returns {Promise<Array>} JSON
      */
-    static async getSingleRecipe(id: string): Promise<GetSingleRecipe> {
+    static async getSingleRecipe(id: string): Promise<GetRecipe> {
         try {
             const { data } = await axios({ url:`${BASE_URL}/recipes/${id}`})
             return data.recipe;
@@ -81,7 +86,7 @@ class FoodieLoveApi {
      * @param {object} createData 
      * @returns {Promise<Array>} JSON
      */
-    static async createRecipe(createData: CreateRecipeForm): Promise<CreateRecipeResponse> {
+    static async createRecipe(createData: CreateRecipe): Promise<CreatedRecipe> {
         try {
             const { data } = await axios({
                 url: `${BASE_URL}/recipes`, 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CreateRecipeForm } from "../api/interface/foodieCreate";
+import { CreateRecipe } from "../interface";
 import FoodieLoveApi from "../api/FoodieLoveApi";
 import GeneralInfo from "./formParts/GeneralInfo";
 import AddIngredients from "./formParts/AddIngredients";
@@ -18,7 +18,6 @@ import {
     StepLabel, 
     Typography, 
     Button, 
-    formLabelClasses
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
@@ -72,7 +71,7 @@ function RecipeForm() {
      * Sends a post request to database 
      * @param formData 
      */
-    async function addRecipe(formData: CreateRecipeForm) {
+    async function addRecipe(formData: CreateRecipe) {
         await FoodieLoveApi.createRecipe(formData);
     }
 

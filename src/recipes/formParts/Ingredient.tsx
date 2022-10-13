@@ -1,5 +1,6 @@
 import { Grid, TextField, Button } from '@mui/material';
 import { Fragment } from "react"; 
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface IngredientProps {
     index: number;
@@ -10,32 +11,32 @@ function Ingredient({ index, removeItem }: IngredientProps) {
 
     return (
         <Fragment>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={2} sm={3}>
                 <TextField 
                     name={`ingredientList.${index}.amount`}
                     label="Amount"
                     fullWidth
                     variant="standard" />
             </Grid>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={2} sm={3}>
                 <TextField 
                     name={`ingredientList.${index}.measurement`}
                     label="Measurement"
                     fullWidth
                     variant="standard" />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid item xs={5} sm={4}>
                 <TextField 
                     name={`ingredientList.${index}.ingredient`}
                     label="Ingredient"
                     fullWidth
                     variant="standard" />
             </Grid>
-            <Grid item xs={6} sm={2}>
+            <Grid item xs={3} sm={2}>
                 <Button 
                     type="button" 
                     onClick={() => removeItem(index)}>
-                        Delete
+                        <DeleteIcon sx={{ml: 2, mt: 3, fontSize: '20px'}}/>
                 </Button>
             </Grid>
         </Fragment>
