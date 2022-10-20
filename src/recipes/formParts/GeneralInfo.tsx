@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import FoodieFormContext from '../FoodieFormContext';
+import InputField from './InputField';
 import { 
     Grid, 
     Typography, 
@@ -41,36 +42,26 @@ function GeneralInfo({ formField, handleFile }: {
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <TextField 
-                        required
+                    <InputField 
                         name={recipeName.name}
-                        label={recipeName.label}
-                        fullWidth
-                        variant="standard" />
+                        label={recipeName.label} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField 
+                    <InputField 
                         name={mealType.name}
-                        label={mealType.label}
-                        fullWidth 
-                        variant="standard" />
+                        label={mealType.label} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField 
+                    <InputField
                         name={prepTime.name}
                         label={prepTime.label}
-                        fullWidth
-                        variant="standard"
                         type="number"
                         InputProps={minuteProps} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField 
-                        required
+                    <InputField 
                         name={cookingTime.name}
                         label={cookingTime.label}
-                        fullWidth
-                        variant="standard"
                         type="number"
                         InputProps={minuteProps} />
                 </Grid>
