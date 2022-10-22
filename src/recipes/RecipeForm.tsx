@@ -86,22 +86,15 @@ function RecipeForm() {
         return await FoodieLoveApi.sendImage(formImage);
     };
 
-
     async function _submitForm(values: any, actions: any) {
         if (isLastStep) {
             console.log(values, actions)
         } else {
+            setFormSteps(formSteps + 1);
             actions.setSubmitting(false);
         }
     };
 
-    /**
-     * Switches Form part to the next page
-     */
-    const handleNext = () => {
-        setFormSteps(formSteps + 1);
-    };
-    
     /**
      * Switches Form part to the previous page
      */
@@ -140,7 +133,7 @@ function RecipeForm() {
                             initialValues={initialValues}
                             validationSchema={currentValidation}
                             onSubmit={_submitForm}>
-                            {({ values })=> (
+                            {({ values, isSubmitting })=> (
                                 <Form>
                                     <GeneralInfo 
                                         formField={formField}
@@ -159,10 +152,10 @@ function RecipeForm() {
                                             </Button>
                                         )}
                                             <Button 
+                                                disabled={isSubmitting}
                                                 sx={{mt: 3, ml: 1}} 
                                                 variant="contained"
-                                                type="submit"
-                                                onClick={handleNext}>
+                                                type="submit">
                                                 {formSteps === formLabels.length - 1 
                                                         ? 'Submit' 
                                                         : 'Next'}
