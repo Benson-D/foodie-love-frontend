@@ -1,7 +1,7 @@
 import { Grid, Button } from '@mui/material';
 import { Fragment } from "react"; 
 import DeleteIcon from '@mui/icons-material/Delete';
-import InputField from './InputField';
+import InputField from './FormFields/InputField';
 
 interface IngredientProps {
     index: number;
@@ -15,7 +15,7 @@ function Ingredient({ index, removeItem }: IngredientProps) {
             <Grid item xs={2} sm={3}>
                 <InputField 
                     name={`ingredientList.${index}.amount`}
-                    label="Amount" />
+                    label="Amount*" />
             </Grid>
             <Grid item xs={2} sm={3}>
                 <InputField 
@@ -25,7 +25,7 @@ function Ingredient({ index, removeItem }: IngredientProps) {
             <Grid item xs={5} sm={4}>
                 <InputField 
                     name={`ingredientList.${index}.ingredient`}
-                    label="Ingredient" />
+                    label="Ingredient*" />
             </Grid>
             <Grid item xs={3} sm={2}>
                 <Button 

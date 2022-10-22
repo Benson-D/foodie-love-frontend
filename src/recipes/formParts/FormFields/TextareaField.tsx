@@ -1,28 +1,23 @@
 import { useField } from 'formik';
 import { TextField } from '@mui/material';
 
-interface IconProps {
-    endAdornment: JSX.Element;
-}
-
 interface InputProps {
     name: string; 
     label: string;
-    type?: string;
-    InputProps?: IconProps;
 }
 
-function InputField(props: InputProps) {
+function TextareaField(props: InputProps) {
     const { ...rest } = props; 
-    const [field, meta] = useField(props);
+    const [field] = useField(props);
 
     return (
         <TextField
+            multiline
             fullWidth
-            variant="standard"
+            maxRows={4}
         {...field}
         {...rest} />
     )
 }
 
-export default InputField; 
+export default TextareaField; 

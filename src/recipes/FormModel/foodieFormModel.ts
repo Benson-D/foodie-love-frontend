@@ -2,7 +2,8 @@
 interface FormProperties {
     name: string;
     label: string;
-    errorMsg?: string
+    errorMsg?: string;
+    invalidMsg?: string
 }
 
 interface FormField {
@@ -16,7 +17,7 @@ interface FormField {
 const formField: FormField = {
     recipeName: {
         name: 'recipeName',
-        label: 'Recipe Name',
+        label: 'Recipe Name*',
         errorMsg: 'Recipe name is required'
     },
     mealType: {
@@ -29,11 +30,11 @@ const formField: FormField = {
     },
     cookingTime: {
         name: 'cookingTime',
-        label: 'Cooking Time',
-        errorMsg: 'A number of minutes is required'
+        label: 'Cooking Time*',
+        errorMsg: 'A number of minutes is required',
+        invalidMsg: 'Must be at least be 5 minutes'
     }
 };
-
 
 const starterList = Array(5).fill({
     amount: '',

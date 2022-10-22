@@ -27,8 +27,8 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
                             <Ingredient 
                                 key={index}
                                 index={index} 
-                                removeItem={remove} />
-                                ))}    
+                                removeItem={remove} />        
+                        ))}    
                         <Button 
                             type="button"
                             sx={{ my: 3}} 

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { CreateRecipe } from "../interface";
 import FoodieLoveApi from "../api/FoodieLoveApi";
-import GeneralInfo from "./formParts/GeneralInfo";
-import AddIngredients from "./formParts/AddIngredients";
-import AddInstructions from "./formParts/AddInstructions";
-import FormReview from "./formParts/FormReview";
+import GeneralInfo from "./FormParts/GeneralInfo";
+import AddIngredients from "./FormParts/AddIngredients";
+import AddInstructions from "./FormParts/AddInstructions";
+import FormReview from "./FormParts/FormReview";
 import { Formik, Form } from "formik"; 
-import { initialValues, formField } from "./FormModel/FoodieModel";
+import { initialValues, formField } from "./FormModel/foodieFormModel";
 import FoodieFormContext from "./FoodieFormContext";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
+import FoodieValidationSchema from "./FormModel/validateSchema";
 import { 
     Box, 
     Container, 
@@ -57,6 +58,7 @@ function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
     const [formSteps, setFormSteps] = useState<number>(0);
     const isLastStep = formSteps === formLabels.length - 1; 
+    const currentValidation = FoodieValidationSchema[formSteps as number];
 
     /**
      * Handles the file image input of Component General Info
@@ -136,6 +138,7 @@ function RecipeForm() {
                     <FoodieFormContext.Provider value={{formSteps}}>
                         <Formik 
                             initialValues={initialValues}
+                            validationSchema={currentValidation}
                             onSubmit={_submitForm}>
                             {({ values })=> (
                                 <Form>
