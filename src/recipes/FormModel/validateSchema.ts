@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { formField } from "./foodieFormModel";
+import { formField } from "./foodieFormField";
 
 const FoodieValidationSchema = [
     Yup.object().shape({
@@ -9,7 +9,7 @@ const FoodieValidationSchema = [
         prepTime: Yup.number(),
         cookingTime: Yup.number()
             .positive(formField.cookingTime.invalidMsg)
-            .moreThan(4)
+            .min(5)
             .required(formField.cookingTime.errorMsg),
         
     }),
@@ -17,7 +17,8 @@ const FoodieValidationSchema = [
         ingredientList: Yup.array().of(
             Yup.object().shape({
                 amount: Yup.string().required('An amount is required'),
-                ingredient: Yup.string().required('An ingredient is requred')
+                measurement: Yup.string(),
+                ingredient: Yup.string().required('An ingredient is required')
             })
         )
     })

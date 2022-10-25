@@ -1,40 +1,4 @@
-
-interface FormProperties {
-    name: string;
-    label: string;
-    errorMsg?: string;
-    invalidMsg?: string
-}
-
-interface FormField {
-    recipeName: FormProperties;
-    mealType: FormProperties;
-    prepTime: FormProperties;
-    cookingTime: FormProperties;
-}
-
-
-const formField: FormField = {
-    recipeName: {
-        name: 'recipeName',
-        label: 'Recipe Name*',
-        errorMsg: 'Recipe name is required'
-    },
-    mealType: {
-        name: 'mealType',
-        label: 'Meal Type'
-    },
-    prepTime: {
-        name: 'prepTime',
-        label: 'Prep Time'
-    },
-    cookingTime: {
-        name: 'cookingTime',
-        label: 'Cooking Time*',
-        errorMsg: 'A number of minutes is required',
-        invalidMsg: 'Must be at least be 5 minutes'
-    }
-};
+import { CreateRecipe } from "../../interface";
 
 const starterList = Array(5).fill({
     amount: '',
@@ -42,18 +6,65 @@ const starterList = Array(5).fill({
     ingredient: ''
 });
 
-const initialValues = {
+const initialValues: CreateRecipe = {
     recipeName: '',
     mealType: '',
-    prepTime: '0',
-    cookingTime: '0',
+    prepTime: 0,
+    cookingTime: 0,
     ingredientList: starterList,
     instructions: [
         { instruction: '' }
     ]
 }
 
+const measurements = [
+    {
+        value: '',
+        label: 'none',
+    },
+    {
+        value: 'tsp',
+        label: 'tsp'
+    },
+    {
+        value: 'tbsp',
+        label: 'tbsp'
+    },
+    {
+        value: 'cup',
+        label: 'cup'
+    },
+    {
+        value: 'oz',
+        label: 'oz'
+    },
+    {
+        value: 'pint',
+        label: 'pint'
+    },
+    {
+        value: 'quart',
+        label: 'quart'
+    },
+    {
+        value: 'gallon',
+        label: 'gallon'
+    },
+    {
+        value: 'small',
+        label: 'small'
+    },
+    {
+        value: 'medium',
+        label: 'medium'
+    },
+    {
+        value: 'large',
+        label: 'large'
+    },
+]
+
 export  {
     initialValues,
-    formField,
+    measurements
 };

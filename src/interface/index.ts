@@ -64,10 +64,10 @@ interface SearchRecipes {
 interface CreateRecipe  {
     recipeName: string;
     mealType?: string; 
-    prepTime?: string | number;
-    cookingTime: string | number;  
-    instructions?: string;
-    ingredientList: IngredientItems[] | string; 
+    prepTime?: number;
+    cookingTime: number;  
+    instructions: InstructionItems[];
+    ingredientList: IngredientItems[]; 
     recipeImage?: string;
 };
 

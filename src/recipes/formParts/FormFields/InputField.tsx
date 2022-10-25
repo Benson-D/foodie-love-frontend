@@ -29,7 +29,9 @@ function InputField(props: InputProps) {
         error: false
     }
 
-    if (meta && meta.touched && meta.error) {
+    if (meta.touched && meta.error) {
+
+        console.log(meta.touched, meta.error, props.name);
         configInputAttribute.error = true;
         configInputAttribute.helperText = meta.error;
     }

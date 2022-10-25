@@ -1,7 +1,6 @@
-import { Fragment } from "react";
-import { Grid, Button } from "@mui/material"; 
+import { Grid, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import TextareaField from "./FormFields/TextareaField";
+import TextareaField from './FormFields/TextareaField';
 
 interface InstructionProps {
     index: number;
@@ -11,7 +10,7 @@ interface InstructionProps {
 function Instruction({ index, removeItem }: InstructionProps) {
 
     return (
-        <Fragment>
+        <>
             <Grid item xs={9} sm={9}>
                 <TextareaField
                     name={`instructions.${index}.instruction`}
@@ -24,7 +23,7 @@ function Instruction({ index, removeItem }: InstructionProps) {
                         <DeleteIcon sx={{ml: 2, mt: 1, fontSize: '20px'}}/>
                 </Button>
             </Grid>
-        </Fragment>
+        </>
     )
 }
 

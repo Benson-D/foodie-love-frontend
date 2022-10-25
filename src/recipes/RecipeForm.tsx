@@ -5,8 +5,9 @@ import GeneralInfo from "./FormParts/GeneralInfo";
 import AddIngredients from "./FormParts/AddIngredients";
 import AddInstructions from "./FormParts/AddInstructions";
 import FormReview from "./FormParts/FormReview";
-import { Formik, Form } from "formik"; 
-import { initialValues, formField } from "./FormModel/foodieFormModel";
+import { Formik, Form, FormikHelpers, FormikState } from "formik"; 
+import { initialValues } from "./FormModel/foodieFormModel";
+import { formField } from "./FormModel/foodieFormField"
 import FoodieFormContext from "./FoodieFormContext";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import FoodieValidationSchema from "./FormModel/validateSchema";
@@ -70,14 +71,6 @@ function RecipeForm() {
     }
 
     /**
-     * Sends a post request to database 
-     * @param formData 
-     */
-    async function addRecipe(formData: CreateRecipe) {
-        await FoodieLoveApi.createRecipe(formData);
-    }
-
-    /**
      * Sends a post request to aws bucket, returns a url
      * @param formImage 
      * @returns 
@@ -86,7 +79,22 @@ function RecipeForm() {
         return await FoodieLoveApi.sendImage(formImage);
     };
 
-    async function _submitForm(values: any, actions: any) {
+    async function handleSubmission(recipeForm: CreateRecipe) {
+        const sendData = new FormData(); 
+        sendData.append('recipeImage', formImage);
+        const recipeImage = await addImage(sendData);
+
+        if (recipeImage) {
+            recipeForm['recipeImage'] = recipeImage;
+        }
+
+        await FoodieLoveApi.createRecipe(recipeForm);
+    }
+
+    async function _submitForm(
+        values: CreateRecipe, 
+        actions: FormikHelpers<CreateRecipe>) {
+
         if (isLastStep) {
             console.log(values, actions)
         } else {
@@ -133,7 +141,7 @@ function RecipeForm() {
                             initialValues={initialValues}
                             validationSchema={currentValidation}
                             onSubmit={_submitForm}>
-                            {({ values, isSubmitting })=> (
+                            {({ values, isSubmitting }: FormikState<CreateRecipe>)=> (
                                 <Form>
                                     <GeneralInfo 
                                         formField={formField}
