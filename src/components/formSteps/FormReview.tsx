@@ -1,6 +1,9 @@
 import { useContext } from 'react';
 import FoodieFormContext from '../../context/FoodieFormContext';
 import { Grid, Typography } from '@mui/material';
+import { useFormikContext } from 'formik';
+import GeneralReview from '../GeneralReview';
+import { CreateRecipe } from '../../interface/';
 
 /**
  * Last page of Foodie Recipe Form, 
@@ -11,6 +14,7 @@ import { Grid, Typography } from '@mui/material';
  */
 function FormReview() {
     const foodie = useContext(FoodieFormContext);
+    const { values }: { values: CreateRecipe } = useFormikContext();
 
     return (
         <div style={{display:`${foodie?.formSteps === 3 ? 'block' : 'none'}`}}>
@@ -18,7 +22,7 @@ function FormReview() {
                 Review of Recipe
             </Typography>
             <Grid container spacing={3}>
-                Formik Values to Display
+                <GeneralReview formValues={values} />
             </Grid>
         </div>
     )

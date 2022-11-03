@@ -1,10 +1,21 @@
-# FoodieLove - Frontend
+# Foodie Love - Frontend
 
-## Scripts
+Foodie Love is a fullstack web application. The frontend consist of React, TypeScript, and Material UI. The backend utilizes Node, Express, and PostgreSQL.
 
-To start project run:
+  - For more details on the backend documentation please click [here](https://github.com/Benson-D/foodie-love-backend)
 
-### `npm start`
+## Installation/Scripts
+
+**Frontend Setup**
+
+- `cd` into the project directory 
+- `npm install` to install the dependencies needed for the application
+- `npm start` to start the server
+
+```console
+npm install
+npm start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,12 +23,16 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-To run test in project: 
+**Frontend Test** 
 
-### `npm test`
+```console
+npm test
+```
 
-To build project: 
-### `npm run build`
+**Frontend Build** 
+```console
+npm run build
+```
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
