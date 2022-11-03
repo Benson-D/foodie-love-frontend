@@ -1,12 +1,20 @@
 import { Grid, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import TextareaField from './FormFields/TextareaField';
+import TextareaField from './formFields/TextareaField';
 
 interface InstructionProps {
     index: number;
     removeItem: (index: number) => void;
 };
 
+/**
+ *  Renders a single container for instruction inputs 
+ * 
+ * Props: 
+ *     index: number 
+ *     removeItem: Formik helper (function)
+ * State: none
+ */
 function Instruction({ index, removeItem }: InstructionProps) {
 
     return (

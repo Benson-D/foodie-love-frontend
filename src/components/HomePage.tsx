@@ -1,5 +1,5 @@
-import {Box, Typography } from "@mui/material";
-import "./HomePage.css";
+import {Box, Typography } from '@mui/material';
+import '../styles/HomePage.css';
 
 const homePageDesign = {
     py: 7, 
@@ -7,7 +7,12 @@ const homePageDesign = {
     color: 'white'
 };
 
-
+/**
+ * Initial page when a user is signed in or not
+ * 
+ * Props: none
+ * State: none  
+ */
 function HomePage() {
     return (
         <Box sx={homePageDesign} className="foodieHome" component="section">

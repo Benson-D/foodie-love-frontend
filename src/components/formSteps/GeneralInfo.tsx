@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import FoodieFormContext from '../FoodieFormContext';
-import InputField from './FormFields/InputField';
+import FoodieFormContext from '../../context/FoodieFormContext';
+import InputField from '../formFields/InputField';
 import { 
     Grid, 
     Typography, 
@@ -22,6 +22,14 @@ interface FormField {
     cookingTime: FormProperties;
 }
 
+/**
+ * First page of Foodie Recipe Form 
+ *
+ * Props: 
+ *     formField: { recipeName, mealType, prepTime, cookingTime }
+ *     handleFild: function 
+ * State: none
+ */
 function GeneralInfo({ formField, handleFile }: { 
     formField: FormField,
     handleFile: (evt: React.ChangeEvent<HTMLInputElement>) => void

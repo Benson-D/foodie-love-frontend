@@ -1,17 +1,25 @@
 import { Grid, Button } from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import InputField from './FormFields/InputField';
-import SelectField from './FormFields/SelectField';
-import { measurements } from '../FormModel/foodieFormModel';
+import InputField from './formFields/InputField';
+import SelectField from './formFields/SelectField';
+import { measurements } from '../data/foodieFormModel';
 
 interface IngredientProps {
     index: number;
     removeItem: (index: number) => void;
 }
 
+/**
+ *  Renders a single container for ingredient inputs 
+ * 
+ * Props: 
+ *     index: number 
+ *     removeItem: Formik helper (function)
+ * State: none
+ */
 function Ingredient({ index, removeItem }: IngredientProps) {
-
+    
     return (
         <React.Fragment>
             <Grid item xs={2} sm={3}>

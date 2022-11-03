@@ -30,8 +30,6 @@ function InputField(props: InputProps) {
     }
 
     if (meta.touched && meta.error) {
-
-        console.log(meta.touched, meta.error, props.name);
         configInputAttribute.error = true;
         configInputAttribute.helperText = meta.error;
     }

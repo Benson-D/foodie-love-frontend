@@ -29,6 +29,9 @@ interface FoodieAxiosRequest {
 };
 
 
+/**
+ * Main Class for handling various Foodie api calls
+ */
 class FoodieLoveApi {
     
     static token: string;

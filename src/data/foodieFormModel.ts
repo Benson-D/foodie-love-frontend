@@ -1,4 +1,4 @@
-import { CreateRecipe } from "../../interface";
+import { CreateRecipe } from "../interface";
 
 const starterList = Array(5).fill({
     amount: '',
@@ -6,6 +6,7 @@ const starterList = Array(5).fill({
     ingredient: ''
 });
 
+//Initial Values of Foodie Form 
 const initialValues: CreateRecipe = {
     recipeName: '',
     mealType: '',
@@ -17,6 +18,7 @@ const initialValues: CreateRecipe = {
     ]
 }
 
+//Measurement list for Foodie Form of ingredients
 const measurements = [
     {
         value: '',

@@ -2,6 +2,15 @@ import { useEffect, useState } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
 import { GetRecipes } from "../interface";
 
+/**
+ * Displays a list of recipes created 
+ * 
+ * Props: none
+ * State: 
+ *     recipes: [{recipe1}, {recipe2}, etc...]
+ * 
+ * @returns 
+ */
 function RecipeList() {
     const [ recipes, setRecipes ] = useState<GetRecipes[]>([]);
 

@@ -1,8 +1,14 @@
 import {Routes, Route} from "react-router-dom";
-import HomePage from "../HomePage";
-import RecipeList from "../recipes/RecipeList";
-import RecipeForm from "../recipes/RecipeForm";
+import HomePage from "../components/HomePage";
+import RecipeList from "../pages/RecipeList";
+import RecipeForm from "../pages/RecipeForm";
 
+/**
+ * Main Router for Foodie App
+ * 
+ * Props: none 
+ * State: none
+ */
 function FoodieRoutes() {
     return (
         <Routes>

@@ -1,7 +1,7 @@
 import { Grid, Typography, Button } from '@mui/material';
 import { useContext } from "react"; 
-import FoodieFormContext from '../FoodieFormContext';
-import Ingredient from './Ingredient';
+import FoodieFormContext from '../../context/FoodieFormContext';
+import Ingredient from '../Ingredient';
 import { FieldArray } from "formik";
 import { IngredientItems } from "../../interface";
 
@@ -21,8 +21,8 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
             </Typography>
             <Grid container spacing={3}>
                 <FieldArray name="ingredientList">
-                    {({remove, push}) => (
-                    <>
+                    {({ remove, push }) => (  
+                    <>  
                         {values.map((ingredient: IngredientItems, index: number) => (
                             <Ingredient 
                                 key={index}

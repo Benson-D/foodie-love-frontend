@@ -19,6 +19,12 @@ const buttonStyle = {
     }
 } as const; 
 
+/**
+ * Main nav bar for Foodie Recipe page
+ * 
+ * Props: none 
+ * State: none 
+ */
 function NavBar() {
     return (
         <AppBar position="static" sx={navStyles}>

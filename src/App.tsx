@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import NavBar from './routes/NavBar';
+import NavBar from './components/NavBar';
 import FoodieRoutes from './routes/FoodieRoutes';
 
 function App() {

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { CreateRecipe } from "../interface";
 import FoodieLoveApi from "../api/FoodieLoveApi";
-import GeneralInfo from "./FormParts/GeneralInfo";
-import AddIngredients from "./FormParts/AddIngredients";
-import AddInstructions from "./FormParts/AddInstructions";
-import FormReview from "./FormParts/FormReview";
+import GeneralInfo from "../components/formSteps/GeneralInfo";
+import AddIngredients from "../components/formSteps/AddIngredients";
+import AddInstructions from "../components/formSteps/AddInstructions";
+import FormReview from "../components/formSteps/FormReview";
 import { Formik, Form, FormikHelpers, FormikState } from "formik"; 
-import { initialValues } from "./FormModel/foodieFormModel";
-import { formField } from "./FormModel/foodieFormField"
-import FoodieFormContext from "./FoodieFormContext";
+import { initialValues } from "../data/foodieFormModel";
+import { formField } from "../data/foodieFormField"
+import FoodieFormContext from "../context/FoodieFormContext";
 import FoodBankIcon from '@mui/icons-material/FoodBank';
-import FoodieValidationSchema from "./FormModel/validateSchema";
+import FoodieValidationSchema from "../data/validateSchema";
 import { 
     Box, 
     Container, 
@@ -49,15 +49,17 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   }));
 
 
-/** Renders a Recipe Form to add a new Recipe
+/** Renders a multi step form to add a new Recipe
  * 
+ * Props: none
  * State: 
- *   formData: { recipeName, cookingTime, prepTime, mealType } 
+ *   formImage: File | string 
  *   formSteps: number
  */
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
     const [formSteps, setFormSteps] = useState<number>(0);
+    
     const isLastStep = formSteps === formLabels.length - 1; 
     const currentValidation = FoodieValidationSchema[formSteps as number];
 
@@ -99,6 +101,7 @@ function RecipeForm() {
             console.log(values, actions)
         } else {
             setFormSteps(formSteps + 1);
+            console.log(actions, 'actions');
             actions.setSubmitting(false);
         }
     };
@@ -109,6 +112,7 @@ function RecipeForm() {
     const handleBack = () => {
         setFormSteps(formSteps - 1);
     };
+
 
     return (
         <div>

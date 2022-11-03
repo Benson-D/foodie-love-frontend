@@ -1,8 +1,8 @@
 import { Grid, Typography, Button } from "@mui/material";
 import { useContext } from "react";
-import FoodieFormContext from "../FoodieFormContext";
+import FoodieFormContext from "../../context/FoodieFormContext";
 import { FieldArray } from "formik";
-import Instruction from "./Instruction";
+import Instruction from "../Instruction";
 import { InstructionItems } from "../../interface";
 
 

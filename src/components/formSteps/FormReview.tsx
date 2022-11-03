@@ -1,7 +1,14 @@
 import { useContext } from "react";
-import FoodieFormContext from "../FoodieFormContext";
+import FoodieFormContext from "../../context/FoodieFormContext";
 import { Grid, Typography } from '@mui/material';
 
+/**
+ * Last page of Foodie Recipe Form, 
+ * displays a review list of all items before submission
+ *
+ * Props: none
+ * State: none
+ */
 function FormReview() {
     const foodie = useContext(FoodieFormContext);
 
