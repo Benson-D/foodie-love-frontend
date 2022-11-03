@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { CreateRecipe } from "../interface";
-import FoodieLoveApi from "../api/FoodieLoveApi";
-import GeneralInfo from "../components/formSteps/GeneralInfo";
-import AddIngredients from "../components/formSteps/AddIngredients";
-import AddInstructions from "../components/formSteps/AddInstructions";
-import FormReview from "../components/formSteps/FormReview";
-import { Formik, Form, FormikHelpers, FormikState } from "formik"; 
-import { initialValues } from "../data/foodieFormModel";
-import { formField } from "../data/foodieFormField"
-import FoodieFormContext from "../context/FoodieFormContext";
+import React, { useState } from 'react';
+import { CreateRecipe } from '../interface';
+import FoodieLoveApi from '../api/FoodieLoveApi';
+import GeneralInfo from '../components/formSteps/GeneralInfo';
+import AddIngredients from '../components/formSteps/AddIngredients';
+import AddInstructions from '../components/formSteps/AddInstructions';
+import FormReview from '../components/formSteps/FormReview';
+import { Formik, Form, FormikHelpers, FormikState } from 'formik'; 
+import { initialValues } from '../data/foodieFormModel';
+import { formField } from '../data/foodieFormField'
+import FoodieFormContext from '../context/FoodieFormContext';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
-import FoodieValidationSchema from "../data/validateSchema";
+import FoodieValidationSchema from '../data/validateSchema';
 import { 
     Box, 
     Container, 
@@ -59,7 +59,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
     const [formSteps, setFormSteps] = useState<number>(0);
-    
+
     const isLastStep = formSteps === formLabels.length - 1; 
     const currentValidation = FoodieValidationSchema[formSteps as number];
 
@@ -93,15 +93,17 @@ function RecipeForm() {
         await FoodieLoveApi.createRecipe(recipeForm);
     }
 
+
     async function _submitForm(
         values: CreateRecipe, 
         actions: FormikHelpers<CreateRecipe>) {
 
         if (isLastStep) {
-            console.log(values, actions)
+            console.log(values);
+            handleSubmission(values);
         } else {
             setFormSteps(formSteps + 1);
-            console.log(actions, 'actions');
+            actions.setTouched({});
             actions.setSubmitting(false);
         }
     };
@@ -145,7 +147,7 @@ function RecipeForm() {
                             initialValues={initialValues}
                             validationSchema={currentValidation}
                             onSubmit={_submitForm}>
-                            {({ values, isSubmitting }: FormikState<CreateRecipe>)=> (
+                            {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
                                 <Form>
                                     <GeneralInfo 
                                         formField={formField}
@@ -166,11 +168,9 @@ function RecipeForm() {
                                             <Button 
                                                 disabled={isSubmitting}
                                                 sx={{mt: 3, ml: 1}} 
-                                                variant="contained"
-                                                type="submit">
-                                                {formSteps === formLabels.length - 1 
-                                                        ? 'Submit' 
-                                                        : 'Next'}
+                                                type="submit"
+                                                variant="contained">
+                                                {isLastStep ? 'Submit' : 'Next'}
                                             </Button>
                                     </Box>             
                                 </Form>
