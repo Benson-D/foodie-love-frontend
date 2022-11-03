@@ -1,9 +1,9 @@
 import { Grid, Typography, Button } from '@mui/material';
-import { useContext } from "react"; 
+import { useContext } from 'react'; 
 import FoodieFormContext from '../../context/FoodieFormContext';
 import Ingredient from '../Ingredient';
-import { FieldArray } from "formik";
-import { IngredientItems } from "../../interface";
+import { FieldArray } from 'formik';
+import { IngredientItems } from '../../interface';
 
 const generalIngredientList: IngredientItems = { 
     amount: '',

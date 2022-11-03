@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { formField } from "./foodieFormField";
+import { formField } from './foodieFormField';
 
 //Foodie Validation Schema for Form
 const FoodieValidationSchema = [
@@ -21,7 +21,7 @@ const FoodieValidationSchema = [
                 ingredient: Yup.string()
                                .required('An ingredient is required')
             })
-        )
+        ).min(1)
     })
 ];
 

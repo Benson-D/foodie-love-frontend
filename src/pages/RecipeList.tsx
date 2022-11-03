@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
-import { GetRecipes } from "../interface";
+import { GetRecipes } from '../interface';
 
 /**
  * Displays a list of recipes created 

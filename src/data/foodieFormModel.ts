@@ -1,4 +1,4 @@
-import { CreateRecipe } from "../interface";
+import { CreateRecipe } from '../interface';
 
 const starterList = Array(5).fill({
     amount: '',
