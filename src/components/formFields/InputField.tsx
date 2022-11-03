@@ -15,9 +15,16 @@ interface InputProps {
 interface ConfigAttributes extends InputProps {
     fullWidth: boolean;
     helperText: string;
-    error: boolean
+    error: boolean;
 }
 
+/**
+ * Input field for general inputs 
+ * 
+ * Props: 
+ *     inputField: { name, label, type, InputProps }
+ * State: none
+ */
 function InputField(props: InputProps) {
     const { ...rest } = props; 
     const [field, meta] = useField(props);

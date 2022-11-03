@@ -15,7 +15,7 @@ const headerStyle = {
 const buttonStyle = {
     color: 'inherit',
     "&:hover": {
-        backgroundColor: "#40d7966b"
+        backgroundColor: '#40d7966b'
     }
 } as const; 
 
@@ -24,6 +24,8 @@ const buttonStyle = {
  * 
  * Props: none 
  * State: none 
+ * 
+ * App -> Nav
  */
 function NavBar() {
     return (
@@ -49,6 +51,7 @@ function NavBar() {
                             Create Recipe
                     </Button>
                 </Stack>
+
             </Toolbar>
         </AppBar>
     );

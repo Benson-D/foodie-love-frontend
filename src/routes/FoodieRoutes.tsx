@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import HomePage from "../components/HomePage";
+import HomePage from "../pages/HomePage";
 import RecipeList from "../pages/RecipeList";
 import RecipeForm from "../pages/RecipeForm";
 
@@ -8,6 +8,8 @@ import RecipeForm from "../pages/RecipeForm";
  * 
  * Props: none 
  * State: none
+ * 
+ * App -> Routes ->{ HomePage, RecipeList, RecipeForm }
  */
 function FoodieRoutes() {
     return (

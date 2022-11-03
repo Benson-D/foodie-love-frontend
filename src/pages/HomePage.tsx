@@ -12,6 +12,8 @@ const homePageDesign = {
  * 
  * Props: none
  * State: none  
+ * 
+ * Routes -> Homepage
  */
 function HomePage() {
     return (

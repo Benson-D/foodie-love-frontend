@@ -24,7 +24,7 @@ import {
 import { styled } from '@mui/material/styles';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 
-const formLabels = [ 'General Info', 'Ingredients', 'Steps', 'Review Recipe' ];
+const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review Recipe'];
 
 //#66cba9
 
@@ -48,13 +48,15 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     }
   }));
 
-
-/** Renders a multi step form to add a new Recipe
+/** 
+ * Renders a multi step form to add a new Recipe
  * 
  * Props: none
  * State: 
  *   formImage: File | string 
  *   formSteps: number
+ * 
+ * Routes -> RecipeForm
  */
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
@@ -70,7 +72,7 @@ function RecipeForm() {
     function handleFile(evt: React.ChangeEvent<HTMLInputElement>): void {
         const image = evt.target.files?.[0];
         if (image) setFormImage(image);
-    }
+    };
 
     /**
      * Sends a post request to aws bucket, returns a url
@@ -93,7 +95,6 @@ function RecipeForm() {
         await FoodieLoveApi.createRecipe(recipeForm);
     }
 
-
     async function _submitForm(
         values: CreateRecipe, 
         actions: FormikHelpers<CreateRecipe>) {
@@ -114,7 +115,6 @@ function RecipeForm() {
     const handleBack = () => {
         setFormSteps(formSteps - 1);
     };
-
 
     return (
         <div>

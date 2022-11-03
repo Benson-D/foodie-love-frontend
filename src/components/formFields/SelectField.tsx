@@ -13,8 +13,15 @@ interface SelectProps {
     fullWidth: boolean
 }
 
+/**
+ * Select field for general select dropdown
+ * 
+ * Props: 
+ *     selectField: { name, label, data, fullWidth }
+ * State: none
+ */
 function SelectField(props: SelectProps) {
-    const { label, data, ...rest} = props;
+    const { label, data, ...rest } = props;
     const [field] = useField(props);
 
     return(

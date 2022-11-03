@@ -9,10 +9,10 @@ import { GetRecipes } from '../interface';
  * State: 
  *     recipes: [{recipe1}, {recipe2}, etc...]
  * 
- * @returns 
+ * Routes -> RecipeList 
  */
 function RecipeList() {
-    const [ recipes, setRecipes ] = useState<GetRecipes[]>([]);
+    const [recipes, setRecipes] = useState<GetRecipes[]>([]);
 
     useEffect(
         function fetchRecipes() {
