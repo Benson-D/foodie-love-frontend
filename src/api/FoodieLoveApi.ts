@@ -7,7 +7,7 @@ import {
     CreatedRecipe 
 } from "../interface";
 
-const BASE_URL: string  = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL: string  = "http://localhost:3001";
 
 /**
  * General data sent into axios request method

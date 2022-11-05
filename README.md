@@ -9,34 +9,19 @@ Foodie Love is a fullstack web application. The frontend consist of React, TypeS
 **Frontend Setup**
 
 - `cd` into the project directory 
-- `npm install` to install the dependencies needed for the application
-- `npm start` to start the server
+- `pnpm install` to install the dependencies needed for the application
+- `pnpm run dev` to start the server
 
 ```console
-npm install
-npm start
-```
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-**Frontend Test** 
-
-```console
-npm test
+pnpm install
+pnpm run dev
 ```
 
 **Frontend Build** 
 ```console
-npm run build
+pnpm run build
 ```
 
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
 
 
 
