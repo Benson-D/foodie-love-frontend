@@ -9,44 +9,11 @@ import { Formik, Form, FormikHelpers, FormikState } from 'formik';
 import { initialValues } from '../data/foodieFormModel';
 import { formField } from '../data/foodieFormField'
 import FoodieFormContext from '../context/FoodieFormContext';
-import FoodBankIcon from '@mui/icons-material/FoodBank';
 import FoodieValidationSchema from '../data/validateSchema';
-import { 
-    Box, 
-    Container, 
-    Paper, 
-    Stepper, 
-    Step, 
-    StepLabel, 
-    Typography, 
-    Button, 
-} from "@mui/material";
-import { styled } from '@mui/material/styles';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
+import FormLayout from '../layout/FormLayout';
 
 const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review Recipe'];
-
-//#66cba9
-
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-    [`&.${stepConnectorClasses.active}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundColor:'#06a696',
-      },
-    },
-    [`&.${stepConnectorClasses.completed}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundColor:'#06a696',
-      },
-    },
-    [`& .${stepConnectorClasses.line}`]: {
-      height: 3,
-      border: 0,
-      backgroundColor:
-        theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
-      borderRadius: 1,
-    }
-  }));
 
 /** 
  * Renders a multi step form to add a new Recipe
@@ -117,71 +84,53 @@ function RecipeForm() {
     };
 
     return (
-        <div>
-            <Container component="section">
-                <Paper 
-                    variant="outlined" 
-                    sx={{my: {xs: 3, md: 6 }, p: { xs: 2, md: 5}, boxShadow: 2}}>
-                    <Typography component="h1" variant="h4" align="center">
-                        Create a Recipe
-                        <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
-                    </Typography>
+        <FormLayout title="Create a Recipe">
+            <>
+                <Stepper activeStep={formSteps} sx={{pt: 4, pb: 5}}>
+                    {formLabels.map((label: string) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
 
-                    <Stepper 
-                        connector={<ColorlibConnector />}
-                        activeStep={formSteps}
-                        sx={{pt: 4, pb: 5}}>
-                        {formLabels.map((label: string) => (
-                            <Step key={label} 
-                                 sx={
-                                     {".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active": {color: '#06a696'},
-                                    ".css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed": {color: '#06a696'}}
-                                }>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-
-                    <FoodieFormContext.Provider value={{formSteps}}>
-                        <Formik 
-                            initialValues={initialValues}
-                            validationSchema={currentValidation}
-                            onSubmit={_submitForm}>
-                            {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
-                                <Form>
-                                    <GeneralInfo 
-                                        formField={formField}
-                                        handleFile={handleFile} /> 
-                                    <AddIngredients 
-                                        values={values.ingredientList} />
-                                    <AddInstructions 
-                                        values={values.instructions} />
-                                    <FormReview/>
-                                    <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-                                        {formSteps !== 0 && (
-                                            <Button 
-                                                sx={{mt: 3, ml:1}} 
-                                                onClick={handleBack}>
-                                                Back
-                                            </Button>
-                                        )}
-                                            <Button 
-                                                disabled={isSubmitting}
-                                                sx={{mt: 3, ml: 1}} 
-                                                type="submit"
-                                                variant="contained">
-                                                {isLastStep ? 'Submit' : 'Next'}
-                                            </Button>
-                                    </Box>             
-                                </Form>
-                            )}
-                           
-                        </Formik>
-                    </FoodieFormContext.Provider>
-
-                </Paper>
-            </Container>
-        </div>
+                <FoodieFormContext.Provider value={{formSteps}}>
+                    <Formik 
+                        initialValues={initialValues}
+                        validationSchema={currentValidation}
+                        onSubmit={_submitForm}>
+                        {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
+                            <Form>
+                                <GeneralInfo 
+                                    formField={formField}
+                                    handleFile={handleFile} /> 
+                                <AddIngredients 
+                                    values={values.ingredientList} />
+                                <AddInstructions 
+                                    values={values.instructions} />
+                                <FormReview/>
+                                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                    {formSteps !== 0 && (
+                                        <Button 
+                                            sx={{mt: 3, ml:1}} 
+                                            onClick={handleBack}>
+                                            Back
+                                        </Button>
+                                    )}
+                                        <Button 
+                                            disabled={isSubmitting}
+                                            sx={{mt: 3, ml: 1}} 
+                                            type="submit"
+                                            variant="contained">
+                                            {isLastStep ? 'Submit' : 'Next'}
+                                        </Button>
+                                </Box>             
+                            </Form>
+                        )}
+                    </Formik>
+                </FoodieFormContext.Provider>
+            </>
+        </FormLayout>
     );
 };
 
