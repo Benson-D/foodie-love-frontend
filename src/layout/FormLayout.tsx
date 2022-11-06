@@ -1,4 +1,4 @@
-import { Container, Paper, Typography } from '@mui/material';
+import { Box, Container, Paper, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 
@@ -6,6 +6,26 @@ const formTheme = createTheme({
     palette: {
         primary:  {
             main: '#06a696'
+        }
+    },
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: '#fff'
+                }
+            },
+            variants: [
+                {
+                    props: { variant: 'h4' },
+                    style: {
+                        padding: '10px 0',
+                        backgroundColor: '#06a696',
+                        textAlign: 'center'
+                    }
+                }
+            ]
+
         }
     }
 
@@ -23,15 +43,17 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
 
     return (
         <ThemeProvider theme={formTheme}>
-            <Container component="section">
+            <Container component="section" sx={{maxWidth: '45rem'}}>
                 <Paper 
                     variant="outlined" 
-                    sx={{my: {xs: 3, md: 6 }, p: { xs: 2, md: 5}, boxShadow: 2}}>
-                    <Typography component="h1" variant="h4" align="center">
+                    sx={{my: {xs: 3, md: 6 }, boxShadow: 2}}>
+                    <Typography component="h1" variant="h4">
                         {title}
-                    <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
-                </Typography>
-                    {children}
+                        <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
+                    </Typography>
+                    <Box sx={{p: { xs: 2, md: 5}}}>
+                        {children}
+                    </Box>
                 </Paper>
             </Container>
         </ThemeProvider>

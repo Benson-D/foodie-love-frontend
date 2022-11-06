@@ -13,7 +13,7 @@ import FoodieValidationSchema from '../data/validateSchema';
 import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
 import FormLayout from '../layout/FormLayout';
 
-const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review Recipe'];
+const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
 
 /** 
  * Renders a multi step form to add a new Recipe
@@ -30,7 +30,7 @@ function RecipeForm() {
     const [formSteps, setFormSteps] = useState<number>(0);
 
     const isLastStep = formSteps === formLabels.length - 1; 
-    const currentValidation = FoodieValidationSchema[formSteps as number];
+    const validation = FoodieValidationSchema[formSteps as number];
 
     /**
      * Handles the file image input of Component General Info
@@ -97,7 +97,7 @@ function RecipeForm() {
                 <FoodieFormContext.Provider value={{formSteps}}>
                     <Formik 
                         initialValues={initialValues}
-                        validationSchema={currentValidation}
+                        validationSchema={validation}
                         onSubmit={_submitForm}>
                         {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
                             <Form>
@@ -109,7 +109,9 @@ function RecipeForm() {
                                 <AddInstructions 
                                     values={values.instructions} />
                                 <FormReview/>
-                                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                                <Box sx={{
+                                    display: 'flex', 
+                                    justifyContent: 'flex-end'}}>
                                     {formSteps !== 0 && (
                                         <Button 
                                             sx={{mt: 3, ml:1}} 
