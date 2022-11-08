@@ -31,7 +31,7 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
                         ))}    
                         <Button 
                             type="button"
-                            sx={{ my: 3}} 
+                            sx={{ my: 3, ml: 2 }} 
                             onClick={() => push(generalIngredientList)}>
                                 Add Ingredient
                         </Button>

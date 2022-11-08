@@ -1,14 +1,9 @@
-import { Grid, Button } from '@mui/material';
-import React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid } from '@mui/material';
 import InputField from './formFields/InputField';
 import SelectField from './formFields/SelectField';
 import { measurements } from '../data/foodieFormModel';
-
-interface IngredientProps {
-    index: number;
-    removeItem: (index: number) => void;
-}
+import { FormStepProps } from '../interface';
+import DeleteItem from './DeleteItem';
 
 /**
  *  Renders a single container for ingredient inputs 
@@ -18,10 +13,10 @@ interface IngredientProps {
  *     removeItem: Formik helper (function)
  * State: none
  */
-function Ingredient({ index, removeItem }: IngredientProps) {
+function Ingredient({ index, removeItem }: FormStepProps) {
     
     return (
-        <React.Fragment>
+        <>
             <Grid item xs={2} sm={3}>
                 <InputField 
                     name={`ingredientList.${index}.amount`}
@@ -40,13 +35,9 @@ function Ingredient({ index, removeItem }: IngredientProps) {
                     label="Ingredient*" />
             </Grid>
             <Grid item xs={3} sm={2}>
-                <Button 
-                    type="button" 
-                    onClick={() => removeItem(index)}>
-                        <DeleteIcon sx={{ml: 2, mt: 3, fontSize: '20px'}}/>
-                </Button>
+                <DeleteItem index={index} removeItem={removeItem} />
             </Grid>
-        </React.Fragment>
+        </>
     );
 }
 

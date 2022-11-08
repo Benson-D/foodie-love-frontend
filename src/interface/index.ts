@@ -95,6 +95,13 @@ interface InstructionItems {
     instruction?: string;
 }
 
+/**
+ * A generic type of props passed in each step
+ */
+interface FormStepProps {
+    index: number;
+    removeItem: (index: number) => void;
+}
 
 export type {
     GetRecipes,
@@ -103,5 +110,6 @@ export type {
     CreateRecipe,
     CreatedRecipe,
     IngredientItems,
-    InstructionItems
+    InstructionItems,
+    FormStepProps
 }

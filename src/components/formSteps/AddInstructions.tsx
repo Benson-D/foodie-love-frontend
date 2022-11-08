@@ -26,7 +26,7 @@ function AddInstructions({ values }: { values: InstructionItems[] }) {
                             ))}
                             <Button 
                                 type="button"
-                                sx={{ my: 3}}
+                                sx={{ my: 3, ml: 2 }}
                                 onClick={() => push({instruction: ''})}>
                                     Add Instruction
                             </Button>

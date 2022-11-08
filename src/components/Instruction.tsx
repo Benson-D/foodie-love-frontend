@@ -1,11 +1,7 @@
-import { Grid, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid } from '@mui/material';
 import TextareaField from './formFields/TextareaField';
-
-interface InstructionProps {
-    index: number;
-    removeItem: (index: number) => void;
-};
+import { FormStepProps } from '../interface';
+import DeleteItem from './DeleteItem';
 
 /**
  *  Renders a single container for instruction inputs 
@@ -15,7 +11,7 @@ interface InstructionProps {
  *     removeItem: Formik helper (function)
  * State: none
  */
-function Instruction({ index, removeItem }: InstructionProps) {
+function Instruction({ index, removeItem }: FormStepProps) {
 
     return (
         <>
@@ -25,11 +21,7 @@ function Instruction({ index, removeItem }: InstructionProps) {
                     label="Instruction" />
             </Grid>
             <Grid item xs={2} sm={2}>
-                <Button 
-                    type="button"
-                    onClick={() => removeItem(index)}>
-                        <DeleteIcon sx={{ml: 2, mt: 1, fontSize: '20px'}}/>
-                </Button>
+                <DeleteItem index={index} removeItem={removeItem}/>
             </Grid>
         </>
     )
