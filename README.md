@@ -1,6 +1,8 @@
 # Foodie Love - Frontend
 
-Foodie Love is a fullstack web application. The frontend consist of React, TypeScript, and Material UI. The backend utilizes Node, Express, and PostgreSQL.
+Foodie Love is a fullstack recipe web application. A user can create, and view recipe/grocery list.   
+The frontend consist of React, TypeScript, and Material UI. 
+The backend utilizes Node, Express, and PostgreSQL.
 
   - For more details on the backend documentation please click [here](https://github.com/Benson-D/foodie-love-backend)
 

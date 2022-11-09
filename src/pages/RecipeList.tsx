@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
 import { GetRecipes } from '../interface';
+import { Card, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material';
+import defaultImage from '../img/default-image.jpg';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import ListCard from '../components/ListCard';
 
 /**
  * Displays a list of recipes created 
@@ -28,9 +32,14 @@ function RecipeList() {
         },[]
     );
 
-    console.log(recipes, 'recipe values');
+    return (
+        <Grid container spacing={2} sx={{ padding: 5 }}>
+            {recipes.map((recipe, idx) => (
+               <ListCard key={idx} recipe={recipe} />
+            ))}
 
-    return (<section>Recipes</section>);
+        </Grid>
+    );
 };
 
 export default RecipeList;
