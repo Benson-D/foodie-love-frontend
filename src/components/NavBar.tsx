@@ -15,7 +15,7 @@ const headerStyle = {
 const buttonStyle = {
     color: 'inherit',
     "&:hover": {
-        backgroundColor: '#40d7966b'
+        backgroundColor: '#40d7966b' 
     }
 } as const; 
 
