@@ -15,9 +15,8 @@ import { Box } from '@mui/material';
 function Arrow({ direction, handleClick }: 
     {direction: string; handleClick: () => void;}) {
 
-    const arrowDirection = direction === 'left' 
-        ? { left: 0 } 
-        : { right: '12px' };
+    const arrowDirection = direction === 'left' ? 'left' : 'right';
+    const arrowPosition  = { [arrowDirection]: 7 };
 
     return (
         <Box onClick={handleClick} sx={{ 
@@ -28,7 +27,7 @@ function Arrow({ direction, handleClick }:
             alignItems: 'center',
             backgroundColor: '#00000042',
             borderRadius: '50%',
-            ...arrowDirection,
+            ...arrowPosition,
             '&:hover': {
                 backgroundColor: '#0000008f'
             }}}>
