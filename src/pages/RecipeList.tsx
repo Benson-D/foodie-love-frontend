@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
 import { GetRecipes } from '../interface';
-import { Card, CardContent, CardHeader, CardMedia, Grid, IconButton, Typography } from '@mui/material';
-import defaultImage from '../img/default-image.jpg';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { Grid } from '@mui/material';
 import ListCard from '../components/ListCard';
 
 /**

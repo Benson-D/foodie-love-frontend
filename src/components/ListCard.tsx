@@ -8,13 +8,24 @@ import {
     IconButton, 
     Typography 
 } from '@mui/material';
-import defaultImage from '../img/default-image.jpg';
+import defaultImage from '/img/default-image.jpg';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
-function ListCard( {recipe, key }: {recipe : GetRecipes, key: number} ) {
+/**
+ * Individual list card that displays a recipe 
+ * 
+ * Props: 
+ *    recipe: { recipeName, prepTime, cookingTime, mealType, recipeImage } 
+ * State: none 
+ * 
+ * RecipeList -> ListCard
+ */
+function ListCard( {recipe }: {recipe : GetRecipes} ) {
+    const { prepTime, cookingTime } = recipe;
+
     return (
-        <Grid key={key} item xs={6} sm={4}>
-            <Card sx={{ maxWidth: 345 }}>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Card sx={{ maxWidth: 345, boxShadow: 3, cursor: 'pointer' }}>
                 <CardHeader 
                     titleTypographyProps={{
                         fontSize: 14,
@@ -32,15 +43,15 @@ function ListCard( {recipe, key }: {recipe : GetRecipes, key: number} ) {
                 <CardMedia
                     component="img"
                     height="194"
-                    image={defaultImage}
+                    image={recipe.recipeImage || defaultImage}
                     alt="main-recipe-image"
                 />
                 <CardContent>
                     <Typography sx={{fontSize: '12px'}}>
-                            Prep Time: {`${recipe?.prepTime} minutes`}
+                            Prep Time: {`${prepTime} minutes`}
                     </Typography>
                     <Typography sx={{fontSize: '12px'}}>
-                        Cooking Time: {`${recipe?.cookingTime} minutes`}
+                        Cooking Time: {`${cookingTime} minutes`}
                     </Typography>
                 </CardContent>
             </Card>
