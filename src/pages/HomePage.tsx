@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import homeImage from '../img/foodie-background.jpg';
+import homeImage from '/img/foodie-background.jpg';
+import ImageSlider from '../components/ImageSlider';
 
 const HomeLayout = styled('section')({
     backgroundImage: `url(${homeImage})`,
@@ -24,10 +25,14 @@ const HomeLayout = styled('section')({
  */
 function HomePage() {
     return (
-        <HomeLayout>
-            <Typography variant="h3">Welcome To Foodie Love!</Typography>
-            <p>A place to keep your recipes in check</p>
-        </HomeLayout>
+        <>
+            <HomeLayout>
+                <Typography variant="h3">Welcome To Foodie Love!</Typography>
+                <p>A place to keep your recipes in check</p>
+            </HomeLayout>
+            <ImageSlider />
+        </>
+
     );
 }
 
