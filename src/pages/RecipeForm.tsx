@@ -7,11 +7,12 @@ import AddInstructions from '../components/formSteps/AddInstructions';
 import FormReview from '../components/formSteps/FormReview';
 import { Formik, Form, FormikHelpers, FormikState } from 'formik'; 
 import { initialValues } from '../data/foodieFormModel';
-import { formField } from '../data/foodieFormField'
+import { formField } from '../data/foodieFormField';
 import FoodieFormContext from '../context/FoodieFormContext';
 import FoodieValidationSchema from '../data/validateSchema';
 import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
 import FormLayout from '../layout/FormLayout';
+import useStep from '../hooks/useStep';
 
 const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
 
@@ -21,16 +22,19 @@ const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
  * Props: none
  * State: 
  *   formImage: File | string 
- *   formSteps: number
  * 
  * Routes -> RecipeForm
  */
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
-    const [formSteps, setFormSteps] = useState<number>(0);
+    const [step, helpers] = useStep(5);
 
-    const isLastStep = formSteps === formLabels.length - 1; 
-    const validation = FoodieValidationSchema[formSteps as number];
+    const {
+        canGoToPreviousStep,
+        canGoToNextStep,
+        previousStep,
+        nextStep
+    } = helpers;
 
     /**
      * Handles the file image input of Component General Info
@@ -66,27 +70,20 @@ function RecipeForm() {
         values: CreateRecipe, 
         actions: FormikHelpers<CreateRecipe>) {
 
-        if (isLastStep) {
+        if (!canGoToNextStep) {
             console.log(values);
             handleSubmission(values);
         } else {
-            setFormSteps(formSteps + 1);
+            nextStep();
             actions.setTouched({});
             actions.setSubmitting(false);
         }
     };
 
-    /**
-     * Switches Form part to the previous page
-     */
-    const handleBack = () => {
-        setFormSteps(formSteps - 1);
-    };
-
     return (
         <FormLayout title="Create a Recipe">
             <>
-                <Stepper activeStep={formSteps} sx={{pt: 4, pb: 5}}>
+                <Stepper activeStep={step - 1} sx={{pt: 4, pb: 5}}>
                     {formLabels.map((label: string) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
@@ -94,10 +91,10 @@ function RecipeForm() {
                     ))}
                 </Stepper>
 
-                <FoodieFormContext.Provider value={{formSteps}}>
+                <FoodieFormContext.Provider value={{step}}>
                     <Formik 
                         initialValues={initialValues}
-                        validationSchema={validation}
+                        validationSchema={FoodieValidationSchema[step - 1]}
                         onSubmit={_submitForm}>
                         {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
                             <Form>
@@ -112,10 +109,10 @@ function RecipeForm() {
                                 <Box sx={{
                                     display: 'flex', 
                                     justifyContent: 'flex-end'}}>
-                                    {formSteps !== 0 && (
+                                    {canGoToPreviousStep && (
                                         <Button 
                                             sx={{mt: 3, ml:1}} 
-                                            onClick={handleBack}>
+                                            onClick={previousStep}>
                                             Back
                                         </Button>
                                     )}
@@ -124,7 +121,7 @@ function RecipeForm() {
                                             sx={{mt: 3, ml: 1}} 
                                             type="submit"
                                             variant="contained">
-                                            {isLastStep ? 'Submit' : 'Next'}
+                                            {!canGoToNextStep ? 'Submit' : 'Next'}
                                         </Button>
                                 </Box>             
                             </Form>

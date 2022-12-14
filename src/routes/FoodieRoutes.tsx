@@ -1,7 +1,7 @@
-import {Routes, Route} from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import RecipeList from "../pages/RecipeList";
-import RecipeForm from "../pages/RecipeForm";
+import { Routes, Route } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
+import RecipeList from '../pages/RecipeList';
+import RecipeForm from '../pages/RecipeForm';
 
 /**
  * Main Router for Foodie App

@@ -13,9 +13,10 @@ const generalIngredientList: IngredientItems = {
 
 function AddIngredients({ values }: { values: IngredientItems[] }) {
     const foodie = useContext(FoodieFormContext); 
+    console.log(foodie, 'test');
 
     return (
-        <div style={{display:`${foodie?.formSteps === 1 ? 'block' : 'none'}`}}>
+        <div style={{display:`${foodie?.step === 2 ? 'block' : 'none'}`}}>
             <Typography variant="h6" gutterBottom>
                 Ingredient List
             </Typography>

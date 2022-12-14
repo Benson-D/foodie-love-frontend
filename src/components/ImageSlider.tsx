@@ -34,13 +34,32 @@ function ImageSlider () {
     }
     
     return (
-        <Box sx={{ width: 350, height: 300, mt: 2, ml: 3, position: 'relative'}}>
-            <div style={{
-                backgroundImage: `url(${items[image].url})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
+        <Box sx={{ 
+            maxWidth: 500,
+            width: 500,
+            height: 300, 
+            mt: 2, 
+            ml: 3, 
+            position: 'relative', 
+            overflow: 'hidden'}}>
+            <div style={{ 
+                display: 'flex', 
                 height: '100%',
-                width: '100%'}}/>
+                width: '500px',
+                transform: `translateX(0px)`,
+                transition: 'transform ease-out 0.45s'}}>
+                {items.map((image, idx) => (
+                    <div key={idx} style={{
+                        backgroundImage: `url(${image.url})`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        height: '100%',
+                        width: '100%'
+                    }}
+                    ></div>
+                ))}
+            </div>
             <Arrow direction='left' handleClick={prevSlide}/>
             <Arrow direction='right' handleClick={nextSlide}/>
         </Box>
