@@ -1,11 +1,16 @@
 import { Box, Drawer } from "@mui/material";
 
+/**
+ * Side modal to display additional information, 
+ * or serve as nav bar for mobile display
+ * 
+ */
 function SideModal({ modalOpen, sideWidth = 300, handleToggle, children }: { 
     modalOpen: boolean; 
     sideWidth?: number;
     handleToggle: () => void;
     children: JSX.Element }) {
-        
+
   return (
     <Box component="nav">
         <Drawer open={modalOpen} 

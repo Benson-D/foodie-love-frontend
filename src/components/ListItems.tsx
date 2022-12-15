@@ -1,5 +1,12 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Link } from "react-router-dom";
+import { 
+    Box, 
+    List, 
+    ListItem, 
+    ListItemButton, 
+    ListItemIcon, 
+    ListItemText 
+} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 interface ListProps {
     title: string;
@@ -7,6 +14,9 @@ interface ListProps {
     icon?: JSX.Element;
 }
 
+/** 
+ * Main Component that displays a list of item
+ */
 function ListItems({ handleToggle, listItems }: { 
     handleToggle: () => void;
     listItems: ListProps[]
