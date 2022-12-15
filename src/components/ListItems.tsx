@@ -29,7 +29,7 @@ function ListItems({ handleToggle, listItems }: {
                         <ListItemButton component={Link} 
                                         to={item.link}>
                             {item?.icon && (
-                                <ListItemIcon>
+                                <ListItemIcon sx={{ minWidth: 40 }}>
                                     {item.icon}
                                 </ListItemIcon> )}
                             <ListItemText primary={item.title} />

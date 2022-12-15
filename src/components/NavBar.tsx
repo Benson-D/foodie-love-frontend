@@ -40,7 +40,7 @@ function NavBar() {
                             <Button key={idx} 
                                     component={Link}
                                     to={item.link}
-                                    sx={{ color: '#fff' }}>
+                                    sx={{ color: '#fff', ml: 1 }}>
                                 {item.title}
                             </Button>
                         ))}
