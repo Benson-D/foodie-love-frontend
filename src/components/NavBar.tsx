@@ -7,17 +7,16 @@ import {
     Toolbar, 
     Typography, 
     Button, 
-    IconButton 
+    IconButton
 }  from '@mui/material';
-
-const navItems = [ 
-    { title: 'Home', link: '/' },
-    { title: 'Recipes', link: '/recipes' },
-    { title: 'Create Recipe', link: '/create-recipe' }
-]
+import useToggle from '../hooks/useToggle';
+import SideModal from './SideModal';
+import ListItems from './ListItems';
+import { navItems } from '../data/navLinks';
 
 /**
- * Main nav bar for Foodie Recipe page
+ * Main nav bar for Foodie Recipe page, 
+ * responsive and can open close menu bar in mobile display
  * 
  * Props: none 
  * State: none 
@@ -25,6 +24,7 @@ const navItems = [
  * App -> Nav
  */
 function NavBar() {
+    const [value, toggleValue] = useToggle();
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -47,11 +47,17 @@ function NavBar() {
                     </Box>
                     <IconButton color="inherit"
                                 aria-label="open drawer"
+                                onClick={() => toggleValue()}
                                 sx={{ display: { sm: 'none' } }} >
                                     <MenuIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            <SideModal modalOpen={value} 
+                       handleToggle={() => toggleValue()}>
+                        <ListItems handleToggle={() => toggleValue()}
+                                   listItems={navItems}/>
+            </SideModal>
         </Box>
     );
 }; 
