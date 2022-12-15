@@ -1,23 +1,20 @@
-import { NavLink, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Stack, Button }  from '@mui/material';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import { 
+    Box, 
+    CssBaseline, 
+    AppBar, 
+    Toolbar, 
+    Typography, 
+    Button, 
+    IconButton 
+}  from '@mui/material';
 
-const navStyles = {
-    backgroundColor: 'white',
-    borderBottom: 1,
-    borderColor: 'text.secondary'
-} as const;
-
-const headerStyle = {
-    textDecoration: 'none', 
-    color: 'inherit'
-} as const; 
-
-const buttonStyle = {
-    color: 'inherit',
-    "&:hover": {
-        backgroundColor: '#40d7966b' 
-    }
-} as const; 
+const navItems = [ 
+    { title: 'Home', link: '/' },
+    { title: 'Recipes', link: '/recipes' },
+    { title: 'Create Recipe', link: '/create-recipe' }
+]
 
 /**
  * Main nav bar for Foodie Recipe page
@@ -29,31 +26,33 @@ const buttonStyle = {
  */
 function NavBar() {
     return (
-        <AppBar position="static" sx={navStyles}>
-            <Toolbar sx={{ color: 'text.secondary' }}>
-                <Typography variant="h6" 
-                            component={Link} 
-                            to="/" 
-                            sx={headerStyle}>
-                            Foodie Love
-                </Typography>
-
-                <Stack direction="row" spacing={2} sx={{flexGrow: 1}}>
-                    <Button component={NavLink} 
-                            to="/recipes" 
-                            sx={{...buttonStyle, marginLeft: 'auto'}}>
-                            Recipes
-                    </Button>
-
-                    <Button component={NavLink} 
-                            to="/create-recipe"
-                            sx={buttonStyle}>
-                            Create Recipe
-                    </Button>
-                </Stack>
-
-            </Toolbar>
-        </AppBar>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar component="nav" 
+                    position="static" 
+                    sx={{ backgroundColor: '#04b597'}}>
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        Foodie Love
+                    </Typography>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {navItems.map((item, idx) => (
+                            <Button key={idx} 
+                                    component={Link}
+                                    to={item.link}
+                                    sx={{ color: '#fff' }}>
+                                {item.title}
+                            </Button>
+                        ))}
+                    </Box>
+                    <IconButton color="inherit"
+                                aria-label="open drawer"
+                                sx={{ display: { sm: 'none' } }} >
+                                    <MenuIcon />
+                    </IconButton>
+                </Toolbar>
+            </AppBar>
+        </Box>
     );
 }; 
 
