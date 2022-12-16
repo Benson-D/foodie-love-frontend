@@ -38,12 +38,11 @@ function ImageSlider () {
             maxWidth: 500,
             width: 500,
             height: 300, 
-            mt: 2, 
+            mt: 10, 
             ml: 3, 
             position: 'relative', 
             overflow: 'hidden'}}>
             <div style={{ 
-                display: 'flex', 
                 height: '100%',
                 width: '500px',
                 transform: `translateX(0px)`,

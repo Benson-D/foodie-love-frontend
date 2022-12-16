@@ -4,16 +4,19 @@ import homeImage from '/img/foodie-background.jpg';
 import ImageSlider from '../components/ImageSlider';
 
 const HomeLayout = styled('section')({
-    backgroundImage: `url(${homeImage})`,
+    backgroundImage: `linear-gradient(4deg, 
+                       rgb(168 120 99 / 30%) 45%,
+                       rgba(232,120,12,0.3) 100%), 
+                       url(${homeImage})`,
     backgroundPosition: 'bottom left',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    height: '100vh',
     color: '#fff',
-    height: '40vh',
-    paddingTop: 56,
-    paddingBottom: 56,
+    paddingTop: 60,
+    paddingBottom: 70,
     paddingLeft: 26,
-})
+});
 
 /**
  * Initial page when a user is signed in or not
@@ -25,14 +28,13 @@ const HomeLayout = styled('section')({
  */
 function HomePage() {
     return (
-        <>
-            <HomeLayout>
-                <Typography variant="h3">Welcome To Foodie Love!</Typography>
-                <p>A place to keep your recipes in check</p>
-            </HomeLayout>
+        <HomeLayout>
+            <Typography variant="h3">
+                        Welcome To Foodie Love! 
+            </Typography>
+            <p>A place to keep your recipes in check</p>
             <ImageSlider />
-        </>
-
+        </HomeLayout>
     );
 }
 
