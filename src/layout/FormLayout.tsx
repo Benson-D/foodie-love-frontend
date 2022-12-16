@@ -8,16 +8,11 @@ const formTheme = createTheme({
             main: '#06a696'
         },
         secondary: {
-            main: '#000000'
+            main: '#ffffff'
         }
     },
     components: {
         MuiTypography: {
-            styleOverrides: {
-                root: {
-                    color: '#fff'
-                }
-            },
             variants: [
                 {
                     props: { variant: 'h4' },
@@ -52,7 +47,7 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
                 <Paper 
                     variant="outlined" 
                     sx={{my: {xs: 3, md: 6 }, boxShadow: 2}}>
-                    <Typography component="h1" variant="h4">
+                    <Typography component="h1" variant="h4" color="secondary">
                         {title}
                         <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
                     </Typography>
