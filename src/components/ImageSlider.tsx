@@ -1,15 +1,19 @@
 import { useState } from 'react'; 
 import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import Arrow from './Arrow';
 import useStep from '../hooks/useStep';
+import { sliderImage } from '../data/sliderImage';
 
-const sliderImage = [
-    { url: "/img/gallery1.jpg", title: "mexican" },
-    { url: "/img/gallery2.jpg", title: "burger" },
-    { url: "/img/gallery3.jpg", title: "indian" },
-    { url: "/img/gallery4.jpg", title: "pizza" },
-    { url: "/img/gallery5.jpg", title: "pasta" }
-];
+const ImageLayout = styled(Box)({
+    position: 'relative',
+    overflow: 'hidden',
+    maxWidth: 500,
+    width: 500,
+    height: 300,
+    mt: 10, 
+    ml: 3
+});
 
 /**
  * Image Slider rendering on Home Page, 
@@ -27,16 +31,9 @@ function ImageSlider () {
     const [image, helpers] = useStep(sliderImage.length + 1);
 
     const { nextSwitchStep, prevSwitchStep } = helpers;
-    
+
     return (
-        <Box sx={{ 
-            maxWidth: 500,
-            width: 500,
-            height: 300, 
-            mt: 10, 
-            ml: 3, 
-            position: 'relative', 
-            overflow: 'hidden'}}>
+        <ImageLayout>
             <div style={{ 
                 height: '100%',
                 width: '500px',
@@ -53,7 +50,7 @@ function ImageSlider () {
             </div>
             <Arrow direction='left' handleClick={prevSwitchStep}/>
             <Arrow direction='right' handleClick={nextSwitchStep}/>
-        </Box>
+        </ImageLayout>
     );
 }
 
