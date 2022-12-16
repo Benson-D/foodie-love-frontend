@@ -6,6 +6,9 @@ const formTheme = createTheme({
     palette: {
         primary:  {
             main: '#06a696'
+        },
+        secondary: {
+            main: '#000000'
         }
     },
     components: {

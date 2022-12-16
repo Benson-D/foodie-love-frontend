@@ -14,23 +14,26 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe}) {
     return (
         <>
             <Grid item xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" color="secondary" gutterBottom>
                     General Info
                 </Typography>
-                <Typography gutterBottom>Name: {recipeName}</Typography>
-                <Typography gutterBottom>
+                <Typography color="secondary" 
+                            gutterBottom>
+                            Name: {recipeName}
+                </Typography>
+                <Typography color="secondary" gutterBottom>
                     Prep Time: {prepTime || '0'}
                 </Typography>
-                <Typography gutterBottom>
+                <Typography color="secondary" gutterBottom>
                     Cooking Time: {cookingTime}
                 </Typography>
-                <Typography gutterBottom>
+                <Typography color="secondary" gutterBottom>
                     Meal Type: {mealType || 'Not Specified'}
                 </Typography>
             </Grid>
 
             <Grid item container direction="column" xs={12} sm={6}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" color="secondary" gutterBottom>
                     Ingredient List
                 </Typography>
 
@@ -38,7 +41,7 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe}) {
                     {ingredientList?.map(({amount, ingredient, measurement}, idx) => (
                         <React.Fragment key={idx}>
                             <Grid item xs={6}>
-                                <Typography gutterBottom>
+                                <Typography color="secondary" gutterBottom >
                                     {`${amount} ${measurement || '' } ${ingredient}`}
                                 </Typography>
                             </Grid>

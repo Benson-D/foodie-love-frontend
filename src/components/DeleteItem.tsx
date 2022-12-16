@@ -3,6 +3,8 @@ import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const delectIcon = {
+    width: '3em',
+    height: '2em',
     fontSize: '20px',
     color: 'hsl(0deg 0% 0% / 38%)',
     padding: '10px',
