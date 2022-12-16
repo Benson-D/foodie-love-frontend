@@ -16,7 +16,7 @@ function Arrow({ direction, handleClick }: {
     direction: string; 
     handleClick: () => void;
 }) {
-
+    
     const arrowDirection = direction === 'left' ? 'left' : 'right';
     const arrowPosition  = { [arrowDirection]: 7 };
 

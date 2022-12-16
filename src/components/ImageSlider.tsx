@@ -1,6 +1,7 @@
 import { useState } from 'react'; 
 import { Box } from '@mui/material';
 import Arrow from './Arrow';
+import useStep from '../hooks/useStep';
 
 const sliderImage = [
     { url: "/img/gallery1.jpg", title: "mexican" },
@@ -23,15 +24,9 @@ const sliderImage = [
  */
 function ImageSlider () {
     const [items, setItems] = useState(sliderImage);
-    const [image, setImage] = useState<number>(0);
+    const [image, helpers] = useStep(sliderImage.length + 1);
 
-    const prevSlide = () => {
-        setImage(currImage => currImage === 0 ? items.length - 1 : currImage - 1)
-    }
-
-    const nextSlide = () => {
-        setImage(currImage => currImage === items.length - 1 ? 0 : currImage + 1);
-    }
+    const { nextSwitchStep, prevSwitchStep } = helpers;
     
     return (
         <Box sx={{ 
@@ -47,20 +42,17 @@ function ImageSlider () {
                 width: '500px',
                 transform: `translateX(0px)`,
                 transition: 'transform ease-out 0.45s'}}>
-                {items.map((image, idx) => (
-                    <div key={idx} style={{
-                        backgroundImage: `url(${image.url})`,
+                    <div style={{
+                        backgroundImage: `url(${items[image - 1].url})`,
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         height: '100%',
                         width: '100%'
-                    }}
-                    ></div>
-                ))}
+                    }}></div>
             </div>
-            <Arrow direction='left' handleClick={prevSlide}/>
-            <Arrow direction='right' handleClick={nextSlide}/>
+            <Arrow direction='left' handleClick={prevSwitchStep}/>
+            <Arrow direction='right' handleClick={nextSwitchStep}/>
         </Box>
     );
 }

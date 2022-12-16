@@ -20,7 +20,7 @@ const formTheme = createTheme({
                     props: { variant: 'h4' },
                     style: {
                         padding: '10px 0',
-                        backgroundColor: '#06a696',
+                        backgroundColor: '#04b597',
                         textAlign: 'center'
                     }
                 }
@@ -43,7 +43,9 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
 
     return (
         <ThemeProvider theme={formTheme}>
-            <Container component="section" sx={{maxWidth: '45rem'}}>
+            <Container component="section" 
+                       maxWidth={false} 
+                       sx={{maxWidth: '45rem'}}>
                 <Paper 
                     variant="outlined" 
                     sx={{my: {xs: 3, md: 6 }, boxShadow: 2}}>

@@ -5,6 +5,9 @@ interface StepOutput {
     canGoToPreviousStep: boolean;
     nextStep: () => void;
     previousStep: () => void;
+    reset: () => void;
+    prevSwitchStep: () => void;
+    nextSwitchStep: () => void;
 }
 
 /**
@@ -28,11 +31,38 @@ function useStep(maxStep: number): [number, StepOutput] {
     }, [canGoToNextStep]);
 
     const previousStep = useCallback(() => {
-        console.log(canGoToPreviousStep, 'value');
         if(canGoToPreviousStep) {
             setCurrentStep(step => step - 1);
         }
     }, [canGoToPreviousStep]);
+
+    const setStep = useCallback((step: number): void => {    
+        if (!(step >= 1 && step <= maxStep)) {
+            throw new Error('Step not valid')
+        }
+        
+        setCurrentStep(step)
+    },[maxStep, currentStep]);
+
+    const reset = useCallback(() => {
+        setCurrentStep(1)
+    }, []);
+
+    const prevSwitchStep = useCallback(() => {
+        if (canGoToPreviousStep) {
+            setCurrentStep(step => step - 1);
+        } else {
+            setStep(maxStep - 1);
+        }
+    }, [maxStep, canGoToPreviousStep])
+
+    const nextSwitchStep = useCallback(() => {
+        if (canGoToNextStep) {
+            setCurrentStep(step => step + 1);
+        } else {
+            reset();
+        }
+    }, [canGoToNextStep])
 
     return [
         currentStep,
@@ -40,7 +70,10 @@ function useStep(maxStep: number): [number, StepOutput] {
             canGoToPreviousStep,
             canGoToNextStep,
             previousStep,
-            nextStep
+            nextStep,
+            reset,
+            prevSwitchStep,
+            nextSwitchStep
         }
     ]
 
