@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import homeImage from '/img/foodie-background.jpg';
 import ImageSlider from '../components/ImageSlider';
+import useTitle from '../hooks/useTitle';
 
 const HomeLayout = styled('section')({
     backgroundImage: `linear-gradient(4deg, 
@@ -27,6 +28,8 @@ const HomeLayout = styled('section')({
  * Routes -> Homepage
  */
 function HomePage() {
+    useTitle('Foodie Love');
+
     return (
         <HomeLayout>
             <Typography variant="h3">

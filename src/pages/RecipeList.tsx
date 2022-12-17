@@ -3,6 +3,7 @@ import FoodieLoveApi from '../api/FoodieLoveApi';
 import { GetRecipes } from '../interface';
 import { Grid } from '@mui/material';
 import ListCard from '../components/ListCard';
+import useTitle from '../hooks/useTitle';
 
 /**
  * Displays a list of recipes created 
@@ -15,6 +16,7 @@ import ListCard from '../components/ListCard';
  */
 function RecipeList() {
     const [recipes, setRecipes] = useState<GetRecipes[]>([]);
+    useTitle('Recipe Items');
 
     useEffect(
         function fetchRecipes() {

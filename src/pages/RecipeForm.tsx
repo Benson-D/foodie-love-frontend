@@ -13,6 +13,7 @@ import FoodieValidationSchema from '../data/validateSchema';
 import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
 import FormLayout from '../layout/FormLayout';
 import useStep from '../hooks/useStep';
+import useTitle from '../hooks/useTitle';
 
 const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
 
@@ -28,6 +29,7 @@ const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
     const [step, helpers] = useStep(5);
+    useTitle('Create Recipe');
 
     const {
         canGoToPreviousStep,

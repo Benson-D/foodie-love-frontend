@@ -33,7 +33,7 @@ function ImageSlider () {
     return (
         <ImageLayout>
             <div style={{ 
-                height: '500px',
+                height: '100%',
                 width: '500px',
                 transform: `translateX(0px)`,
                 transition: 'transform ease-out 0.45s'}}>
