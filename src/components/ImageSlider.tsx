@@ -10,9 +10,7 @@ const ImageLayout = styled(Box)({
     overflow: 'hidden',
     maxWidth: 500,
     width: 500,
-    height: 300,
-    mt: 10, 
-    ml: 3
+    height: 300
 });
 
 /**
@@ -35,7 +33,7 @@ function ImageSlider () {
     return (
         <ImageLayout>
             <div style={{ 
-                height: '100%',
+                height: '500px',
                 width: '500px',
                 transform: `translateX(0px)`,
                 transition: 'transform ease-out 0.45s'}}>
