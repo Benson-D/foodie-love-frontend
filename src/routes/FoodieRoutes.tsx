@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import RecipeList from '../pages/RecipeList';
 import RecipeForm from '../pages/RecipeForm';
+import NotFound from '../pages/NotFound';
 
 /**
  * Main Router for Foodie App
@@ -17,6 +18,7 @@ function FoodieRoutes() {
             <Route path="/" element={<HomePage/>} />
             <Route path="/recipes" element={<RecipeList/>} />
             <Route path="/create-recipe" element={<RecipeForm/>} />
+            <Route path="*" element={<NotFound/>} />
         </Routes>
     );
 }
