@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const delectIcon = {
-    width: '3em',
+    width: '40px',
     height: '2em',
     fontSize: '20px',
     color: 'hsl(0deg 0% 0% / 38%)',
@@ -29,7 +29,10 @@ function DeleteItem({ index, removeItem }: FormStepProps) {
         <Button 
             type="button" 
             onClick={() => removeItem(index)} sx={
-                { "&:hover": {
+                { minWidth: '40px',
+                  mt: 1,
+                  padding: 0,
+                  "&:hover": {
                     backgroundColor: 'transparent' }}}>
                 <DeleteIcon sx={delectIcon}/>
         </Button>
