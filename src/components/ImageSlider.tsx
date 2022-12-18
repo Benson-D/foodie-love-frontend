@@ -9,7 +9,8 @@ import useInterval from '../hooks/useInterval';
 const ImageLayout = styled(Box)({
     position: 'relative',
     overflow: 'hidden',
-    maxWidth: 500
+    maxWidth: 450,
+    marginTop: 70
 });
 
 /**

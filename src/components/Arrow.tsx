@@ -24,7 +24,7 @@ function Arrow({ direction, handleClick }: {
         <Box onClick={handleClick} sx={{ 
             position: 'absolute', 
             cursor: 'pointer', 
-            top: '7rem', 
+            top: '8rem', 
             display: 'flex',
             alignItems: 'center',
             backgroundColor: '#00000042',

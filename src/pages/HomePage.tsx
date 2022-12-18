@@ -32,7 +32,7 @@ function HomePage() {
 
     return (
         <HomeLayout>
-            <Typography variant="h3">
+            <Typography variant="h3" sx={{ fontSize: { xs: 30, sm: 45, md: 50 }}}>
                         Welcome To Foodie Love! 
             </Typography>
             <p>A place to keep your recipes in check</p>
