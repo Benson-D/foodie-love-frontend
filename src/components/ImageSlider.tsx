@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import Arrow from './Arrow';
 import useStep from '../hooks/useStep';
 import { sliderImage } from '../data/sliderImage';
+import useInterval from '../hooks/useInterval';
 
 const ImageLayout = styled(Box)({
     position: 'relative',
@@ -27,6 +28,8 @@ function ImageSlider () {
     const [image, helpers] = useStep(sliderImage.length);
 
     const { nextSwitchStep, prevSwitchStep } = helpers;
+
+    useInterval(nextSwitchStep, 2500);
 
     return (
         <ImageLayout>
