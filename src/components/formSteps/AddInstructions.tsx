@@ -10,7 +10,7 @@ function AddInstructions({ values }: { values: InstructionItems[] }) {
     const foodie = useContext(FoodieFormContext); 
 
     return (
-        <div style={{display:`${foodie?.step === 3 ? 'block' : 'none'}`}}>
+        <div style={{display:`${foodie?.step === 2 ? 'block' : 'none'}`}}>
             <Typography variant="h6" gutterBottom>
                 Add Recipe Instructions
             </Typography>

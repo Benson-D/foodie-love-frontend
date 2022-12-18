@@ -38,7 +38,7 @@ function GeneralInfo({ formField, handleFile }: {
     const foodie = useContext(FoodieFormContext); 
     const { recipeName, mealType, prepTime, cookingTime } = formField; 
 
-    const componentDisplay = foodie?.step === 1 ? 'block' : 'none';
+    const componentDisplay = foodie?.step === 0 ? 'block' : 'none';
     const minuteProps = {
         endAdornment: <InputAdornment position="end">Minutes</InputAdornment>
     };

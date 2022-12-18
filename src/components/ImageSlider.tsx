@@ -8,9 +8,7 @@ import { sliderImage } from '../data/sliderImage';
 const ImageLayout = styled(Box)({
     position: 'relative',
     overflow: 'hidden',
-    maxWidth: 500,
-    width: 500,
-    height: 300
+    maxWidth: 500
 });
 
 /**
@@ -26,25 +24,30 @@ const ImageLayout = styled(Box)({
  */
 function ImageSlider () {
     const [items, setItems] = useState(sliderImage);
-    const [image, helpers] = useStep(sliderImage.length + 1);
+    const [image, helpers] = useStep(sliderImage.length);
 
     const { nextSwitchStep, prevSwitchStep } = helpers;
 
     return (
         <ImageLayout>
             <div style={{ 
-                height: '100%',
-                width: '500px',
-                transform: `translateX(0px)`,
-                transition: 'transform ease-out 0.45s'}}>
-                    <div style={{
-                        backgroundImage: `url(${items[image - 1].url})`,
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        height: '100%',
-                        width: '100%'
-                    }}></div>
+                height: '300px',
+                width: '100%',
+                whiteSpace: 'nowrap',
+                transform: `translate3d(${-(image) * 100}%, 0, 0)`,
+                transition: 'transform ease-out 1s'}}>
+                    {items.map((item, idx) => (
+                        <div key={idx} style={{
+                            display: 'inline-block',
+                            backgroundImage:`url(${item.url})`,
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            height: '100%',
+                            width: '100%'
+                        }}>
+                        </div>
+                    ))}
             </div>
             <Arrow direction='left' handleClick={prevSwitchStep}/>
             <Arrow direction='right' handleClick={nextSwitchStep}/>

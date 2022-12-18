@@ -28,7 +28,7 @@ const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
  */
 function RecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
-    const [step, helpers] = useStep(5);
+    const [step, helpers] = useStep(4);
     useTitle('Create Recipe');
 
     const {
@@ -85,7 +85,7 @@ function RecipeForm() {
     return (
         <FormLayout title="Create a Recipe">
             <>
-                <Stepper activeStep={step - 1} sx={{pt: 4, pb: 5}}>
+                <Stepper activeStep={step} sx={{pt: 4, pb: 5}}>
                     {formLabels.map((label: string) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
@@ -96,7 +96,7 @@ function RecipeForm() {
                 <FoodieFormContext.Provider value={{step}}>
                     <Formik 
                         initialValues={initialValues}
-                        validationSchema={FoodieValidationSchema[step - 1]}
+                        validationSchema={FoodieValidationSchema[step]}
                         onSubmit={_submitForm}>
                         {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
                             <Form>

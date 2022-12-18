@@ -17,7 +17,7 @@ function FormReview() {
     const { values }: { values: CreateRecipe } = useFormikContext();
 
     return (
-        <div style={{display:`${foodie?.step === 4 ? 'block' : 'none'}`}}>
+        <div style={{display:`${foodie?.step === 3 ? 'block' : 'none'}`}}>
             <Typography variant="h6" gutterBottom>
                 Review of Recipe
             </Typography>

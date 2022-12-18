@@ -15,7 +15,7 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
     const foodie = useContext(FoodieFormContext); 
 
     return (
-        <div style={{display:`${foodie?.step === 2 ? 'block' : 'none'}`}}>
+        <div style={{display:`${foodie?.step === 1 ? 'block' : 'none'}`}}>
             <Typography variant="h6" gutterBottom>
                 Ingredient List
             </Typography>
