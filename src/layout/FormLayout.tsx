@@ -26,7 +26,6 @@ const formTheme = createTheme({
 
         }
     }
-
 });
 
 /**
@@ -46,12 +45,13 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
                        sx={{maxWidth: '45rem'}}>
                 <Paper 
                     variant="outlined" 
-                    sx={{my: {xs: 3, md: 6 }, boxShadow: 2}}>
+                    sx={{my: {xs: 3, md: 6}, boxShadow: 2}}>
                     <Typography component="h1" variant="h4" color="secondary">
                         {title}
-                        <FoodBankIcon sx={{ml: 2, fontSize: '40px'}}/>
+                        <FoodBankIcon sx={{ml: 2, 
+                        fontSize: { xs: '30px', sm: '30px', md: '40px'}}}/>
                     </Typography>
-                    <Box sx={{p: { xs: 2, md: 5}}}>
+                    <Box sx={{p: {xs: 2, md: 5}}}>
                         {children}
                     </Box>
                 </Paper>
@@ -59,6 +59,5 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
         </ThemeProvider>
     )
 }
-
 
 export default FormLayout;

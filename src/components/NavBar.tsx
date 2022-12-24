@@ -53,6 +53,7 @@ function NavBar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            
             <SideModal modalOpen={value} 
                        handleToggle={() => toggleValue()}>
                         <ListItems handleToggle={() => toggleValue()}

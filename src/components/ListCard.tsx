@@ -25,7 +25,7 @@ function ListCard( {recipe }: {recipe : GetRecipes} ) {
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <Card sx={{ maxWidth: 345, boxShadow: 3, cursor: 'pointer' }}>
+            <Card sx={{ maxWidth: 345, boxShadow: 3, cursor: 'pointer', margin: '0 auto' }}>
                 <CardHeader 
                     titleTypographyProps={{
                         fontSize: 14,

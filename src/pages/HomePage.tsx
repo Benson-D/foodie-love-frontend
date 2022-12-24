@@ -30,6 +30,8 @@ const HomeLayout = styled('section')({
 function HomePage() {
     useTitle('Foodie Love');
 
+    console.log(HomeLayout, 'values');
+
     return (
         <HomeLayout>
             <Typography variant="h3" sx={{ fontSize: { xs: 30, sm: 45, md: 50 }}}>
