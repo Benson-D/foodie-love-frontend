@@ -132,5 +132,4 @@ class FoodieLoveApi {
     }
 }
 
-
 export default FoodieLoveApi;

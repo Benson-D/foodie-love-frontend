@@ -3,8 +3,15 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Arrow from './Arrow';
 import useStep from '../hooks/useStep';
-import { sliderImage } from '../data/sliderImage';
 import useInterval from '../hooks/useInterval';
+
+const sliderImage = [
+    { url: "/img/gallery1.jpg", title: "mexican" },
+    { url: "/img/gallery2.jpg", title: "burger" },
+    { url: "/img/gallery3.jpg", title: "indian" },
+    { url: "/img/gallery4.jpg", title: "pizza" },
+    { url: "/img/gallery5.jpg", title: "pasta" }
+];
 
 const ImageLayout = styled(Box)({
     position: 'relative',

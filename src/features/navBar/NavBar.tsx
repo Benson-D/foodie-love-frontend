@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { 
     Box, 
     CssBaseline, 
@@ -9,10 +12,27 @@ import {
     Button, 
     IconButton
 }  from '@mui/material';
-import useToggle from '../hooks/useToggle';
-import SideModal from './SideModal';
+import useToggle from '../../hooks/useToggle';
+import SideModal from '../../components/SideModal';
 import ListItems from './ListItems';
-import { navItems } from '../data/navLinks';
+
+const navItems = [ 
+    { 
+        title: 'Home', 
+        link: '/', 
+        icon: <HomeIcon /> 
+    },
+    { 
+        title: 'Recipes', 
+        link: '/recipes', 
+        icon: <RestaurantMenuIcon /> 
+    },
+    { 
+        title: 'Create Recipe', 
+        link: '/create-recipe', 
+        icon: <AddBoxIcon /> 
+    }
+]
 
 /**
  * Main nav bar for Foodie Recipe page, 

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { CreateRecipe } from '../interface';
 import FoodieLoveApi from '../api/FoodieLoveApi';
-import GeneralInfo from '../components/formSteps/GeneralInfo';
-import AddIngredients from '../components/formSteps/AddIngredients';
-import AddInstructions from '../components/formSteps/AddInstructions';
-import FormReview from '../components/formSteps/FormReview';
+import GeneralInfo from '../features/createForm/GeneralInfo';
+import AddIngredients from '../features/createForm/AddIngredients';
+import AddInstructions from '../features/createForm/AddInstructions';
+import FormReview from '../features/createForm/FormReview';
 import { Formik, Form, FormikHelpers, FormikState } from 'formik'; 
-import { initialValues } from '../data/foodieFormModel';
 import { formField } from '../data/foodieFormField';
 import FoodieFormContext from '../context/FoodieFormContext';
 import FoodieValidationSchema from '../data/validateSchema';
@@ -14,6 +13,22 @@ import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
 import FormLayout from '../layout/FormLayout';
 import useStep from '../hooks/useStep';
 import useTitle from '../hooks/useTitle';
+
+//Initial Values of Foodie Form 
+const initialValues: CreateRecipe = {
+    recipeName: '',
+    mealType: '',
+    prepTime: 0,
+    cookingTime: 0,
+    ingredientList: Array(5).fill({
+        amount: '',
+        measurement: '',
+        ingredient: ''
+    }),
+    instructions: [
+        { instruction: '' }
+    ]
+}
 
 const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
 

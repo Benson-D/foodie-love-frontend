@@ -37,7 +37,6 @@ function RecipeList() {
             {recipes.map((recipe, idx) => (
                <ListCard key={idx} recipe={recipe} />
             ))}
-
         </Grid>
     );
 };
