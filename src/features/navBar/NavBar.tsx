@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import { 
     Box, 
     CssBaseline, 
@@ -26,11 +25,6 @@ const navItems = [
         title: 'Recipes', 
         link: '/recipes', 
         icon: <RestaurantMenuIcon /> 
-    },
-    { 
-        title: 'Create Recipe', 
-        link: '/create-recipe', 
-        icon: <AddBoxIcon /> 
     }
 ]
 

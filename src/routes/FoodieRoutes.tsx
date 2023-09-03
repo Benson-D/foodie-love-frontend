@@ -17,7 +17,6 @@ function FoodieRoutes() {
         <Routes>
             <Route path="/" element={<HomePage/>} />
             <Route path="/recipes" element={<RecipeList/>} />
-            <Route path="/create-recipe" element={<RecipeForm/>} />
             <Route path="*" element={<NotFound/>} />
         </Routes>
     );
