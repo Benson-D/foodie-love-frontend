@@ -9,7 +9,7 @@ import { Formik, Form, FormikHelpers, FormikState } from 'formik';
 import { formField } from '../data/foodieFormField';
 import FoodieFormContext from '../context/FoodieFormContext';
 import FoodieValidationSchema from '../data/validateSchema';
-import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
+import { Box, Stepper, Step, StepLabel, Button, MobileStepper } from "@mui/material";
 import FormLayout from '../layout/FormLayout';
 import useStep from '../hooks/useStep';
 import useTitle from '../hooks/useTitle';
@@ -100,7 +100,7 @@ function RecipeForm() {
     return (
         <FormLayout title="Create a Recipe">
             <>
-                <Stepper activeStep={step} sx={{pt: 4, pb: 5}}>
+                <Stepper activeStep={step} sx={{pt: 4, pb: 5, display: { xs: 'none', sm: 'flex'}}}>
                     {formLabels.map((label: string) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
@@ -124,7 +124,7 @@ function RecipeForm() {
                                     values={values.instructions} />
                                 <FormReview/>
                                 <Box sx={{
-                                    display: 'flex', 
+                                    display: { xs: 'none', sm: 'flex'},
                                     justifyContent: 'flex-end'}}>
                                     {canGoToPreviousStep && (
                                         <Button 
@@ -140,7 +140,20 @@ function RecipeForm() {
                                             variant="contained">
                                             {!canGoToNextStep ? 'Submit' : 'Next'}
                                         </Button>
-                                </Box>             
+                                </Box>
+                                <MobileStepper variant="text" 
+                                               steps={4} 
+                                               sx={{display: { xs: 'flex', sm: 'none'}}}
+                                               position="static"
+                                               activeStep={step}
+                                               nextButton={
+                                               <Button size="small" type="submit">
+                                                     {!canGoToNextStep ? 'Submit' : 'Next'}
+                                                </Button>}
+                                                backButton={
+                                                <Button size="small" onClick={previousStep}>
+                                                    Back
+                                                </Button>} />             
                             </Form>
                         )}
                     </Formik>

@@ -34,24 +34,24 @@ const measurements = [
 function Ingredient({ index, removeItem }: FormStepProps) {
     return (
         <>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6} md={3}>
                 <InputField 
                     name={`ingredientList.${index}.amount`}
                     label="Amount*" />
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={6} sm={6} md={3}>
                 <SelectField 
                     name={`ingredientList.${index}.measurement`}
                     label="Measurement"
                     data={measurements}
                     fullWidth />
             </Grid>
-            <Grid item xs={10} sm={4}>
+            <Grid item xs={10} sm={10} md={4}>
                 <InputField 
                     name={`ingredientList.${index}.ingredient`}
                     label="Ingredient*" />
             </Grid>
-            <Grid item xs={2} sm={2}>
+            <Grid item xs={2} sm={2} md={2}>
                 <DeleteItem index={index} removeItem={removeItem} />
             </Grid>
         </>

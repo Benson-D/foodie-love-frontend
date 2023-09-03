@@ -42,7 +42,7 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe}) {
                         <React.Fragment key={idx}>
                             <Grid item xs={6}>
                                 <Typography gutterBottom >
-                                    {`${amount} ${measurement || '' } ${ingredient}`}
+                                    &bull; {`${amount} ${measurement || '' } ${ingredient}`}
                                 </Typography>
                             </Grid>
                         </React.Fragment>

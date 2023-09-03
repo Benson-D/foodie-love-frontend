@@ -10,7 +10,7 @@ function MainModal({ children}: { children: ReactNode }) {
   
     const getModalWidth = () => {
       if (isSmallScreen) {
-        return 350;
+        return 375;
       } else if (isMediumScreen) {
         return 600;
       } else if (isLargeScreen) {
@@ -30,7 +30,7 @@ function MainModal({ children}: { children: ReactNode }) {
         border: '1px solid #000',
         boxShadow: 20,
 		maxHeight: '90vh', // Set a maximum height for the content
-		overflowY: 'scroll',
+		overflowY: 'auto',
       };
 
     const [value, toggleValue] = useToggle();  
