@@ -32,11 +32,11 @@ const ImageLayout = styled(Box)({
  * HomePage -> ImageSlider
  */
 function ImageSlider () {
-    const [items, setItems] = useState(sliderImage);
+    const [items] = useState(sliderImage);
     const [image, helpers] = useStep(sliderImage.length);
-
     const { nextSwitchStep, prevSwitchStep } = helpers;
 
+    // Switch images through interval changes
     useInterval(nextSwitchStep, 2500);
 
     return (
