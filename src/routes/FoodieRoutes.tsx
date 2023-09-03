@@ -3,6 +3,7 @@ import HomePage from '../pages/HomePage';
 import RecipeList from '../pages/RecipeList';
 import RecipeForm from '../pages/RecipeForm';
 import NotFound from '../pages/NotFound';
+import RecipeDetail from '../pages/RecipeDetail';
 
 /**
  * Main Router for Foodie App
@@ -15,8 +16,9 @@ import NotFound from '../pages/NotFound';
 function FoodieRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<HomePage/>} />
-            <Route path="/recipes" element={<RecipeList/>} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/recipes" element={<RecipeList />} />
+            <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="*" element={<NotFound/>} />
         </Routes>
     );
