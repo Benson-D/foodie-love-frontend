@@ -29,6 +29,7 @@ interface IngredientList {
  */
 interface GetRecipe {
     id: number; 
+    recipeName: string;
     prepTime: string | null;
     cookingTime: string; 
     recipeImage: string | null; 

@@ -78,6 +78,7 @@ class FoodieLoveApi {
     static async getSingleRecipe(id: string): Promise<GetRecipe> {
         try {
             const { data } = await axios({ url:`${BASE_URL}/recipes/${id}`})
+
             return data.recipe;
         } catch (err) {
             const recipeError = err as AxiosError; 
