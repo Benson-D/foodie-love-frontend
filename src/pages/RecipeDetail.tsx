@@ -9,7 +9,7 @@ import defaultImage from '/img/default-image.jpg';
 function convertToFraction(num: number): string {
 	if (Number.isInteger(num)) {
 		return String(Math.round(num));
-	  }
+	}
   
 	const denominator: number = 1 / num;
   
