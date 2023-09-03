@@ -40,12 +40,10 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
 
     return (
         <ThemeProvider theme={formTheme}>
-            <Container component="section" 
-                       maxWidth={false} 
-                       sx={{maxWidth: '45rem'}}>
+            <Box component="section">
                 <Paper 
                     variant="outlined" 
-                    sx={{my: {xs: 3, md: 6}, boxShadow: 2}}>
+                    sx={{ boxShadow: 2 }}>
                     <Typography component="h1" variant="h4" color="secondary">
                         {title}
                         <FoodBankIcon sx={{ml: 2, 
@@ -55,7 +53,7 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
                         {children}
                     </Box>
                 </Paper>
-            </Container>
+            </Box>
         </ThemeProvider>
     )
 }
