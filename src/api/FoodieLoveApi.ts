@@ -60,7 +60,11 @@ class FoodieLoveApi {
      * @param {object} params 
      * @returns {Promise<Array>} JSON
      */
-    static async getRecipes(params: SearchRecipes = {}): Promise<GetRecipes[]> {
+    static async getRecipes(params: SearchRecipes = {
+        skip: 0
+    }): Promise<GetRecipes[]> {
+        console.log(params.skip, typeof params.skip);
+
         const res = await this.request({ endpoint: `recipes`, data: params });
         return res.recipes;
     }

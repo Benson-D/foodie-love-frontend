@@ -44,6 +44,7 @@ interface SearchRecipes {
     recipeName?: string;
     cookingTime?: number;
     mealType?: string; 
+    skip: number;
 };
 
 /**
