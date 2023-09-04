@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Box, Button, Card, CardHeader, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardHeader, CardContent, CardMedia, Divider, Typography } from "@mui/material";
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import { styled } from '@mui/material/styles';
 import FoodieLoveApi from '../api/FoodieLoveApi';
 import Loader from '../components/Loader';
@@ -58,26 +59,51 @@ function RecipeDetail() {
                     image={currentRecipe?.recipeImage ?? defaultImage}
                     alt="fight-map"
                 />
-				<CardLayout>
-					<Box>
-						<Typography sx={{fontSize: '12px'}}>
-							Prep Time: {currentRecipe?.prepTime}
+				<CardContent>
+					<Divider><AccessAlarmIcon/></Divider>
+					<Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 6}}>
+						<Typography variant="h4" sx={{fontSize: '20px', color: 'grey'}}>
+							Prep Time
 						</Typography>
-						<Typography sx={{fontSize: '12px'}}>
-							Cooking Time: {currentRecipe?.cookingTime}
+						<Typography variant="h4" sx={{fontSize: '20px', color: 'grey'}}>
+							Cooking Time
 						</Typography>
 					</Box>
-					<Box sx={{ display: 'block !important'}}>
-						<Typography variant="h4">Ingredients</Typography>
+					<Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 8}}>
+						<Typography sx={{fontSize: '15px'}}>
+						{currentRecipe?.prepTime}
+						</Typography>
+						<Typography sx={{fontSize: '15px'}}>
+						{currentRecipe?.cookingTime}
+						</Typography>
+					</Box>
+					<Divider sx={{marginY: 3}} textAlign="left">
+						<Typography variant="h4" 
+									sx={{fontSize: '20px', color: 'grey'}}>
+										Ingredients
+						</Typography>
+					</Divider>
+					<Box>
+						
 						{currentRecipe?.ingredients.length ? 
 							(currentRecipe.ingredients.map((item, idx) => (
-								<Typography sx={{ textAlign: 'center' }} key={idx}>
-									{`${convertToFraction(Number(item.amount))} ${item?.measurement ?? ''} ${item.ingredient}`}
+								<Typography key={idx}>
+									&bull; {`${convertToFraction(Number(item.amount))} ${item?.measurement ?? ''} ${item.ingredient}`}
 								</Typography>
-							))) : ''	
-					}
+							))) : 'No ingredients'}
 					</Box>
-				</CardLayout>
+					<Divider sx={{marginY: 3}} textAlign="left">
+						<Typography variant="h4" 
+									sx={{fontSize: '20px', color: 'grey'}}>
+										Instructions
+						</Typography>
+					</Divider>
+					<Box>
+						{currentRecipe?.instructions?.length ? 
+							(<Typography>{currentRecipe?.instructions}</Typography>) 
+							: 'No instructions'}
+					</Box>
+				</CardContent>
 
 			</Card>
 		</Box>

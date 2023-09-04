@@ -34,7 +34,7 @@ interface GetRecipe {
     cookingTime: string; 
     recipeImage: string | null; 
     mealType: string | null; 
-    intructions: string | null;
+    instructions: string | null;
     ingredients: IngredientList[];
 };
 
