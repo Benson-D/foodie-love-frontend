@@ -29,6 +29,10 @@ function RecipeList() {
     /** Handles search event handler, updates state */
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(e.target.value.trim());
+
+        if (e.target.value.trim() !== '') {
+            setSkip(0);
+        }
 	};
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -42,10 +46,19 @@ function RecipeList() {
     useEffect(
         function fetchRecipes() {
             async function getAllRecipes() {
-                try {
 
-                    const data = await FoodieLoveApi.getRecipes({ recipeName: debounceValue, skip: skip });
-                    setRecipes([...recipes, ...data]);
+                try {
+                    const data = await FoodieLoveApi.getRecipes({ 
+                        recipeName: debounceValue, 
+                        skip: skip 
+                    });
+
+                    if (skip === 0) {
+                        setRecipes(data);
+                    } else {
+                        setRecipes(recipes => [...recipes, ...data]);
+                    }
+
                 } catch (err) {
                     console.error(err);
                 }; 
