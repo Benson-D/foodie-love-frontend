@@ -1,7 +1,7 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
 import { GetRecipes } from '../interface';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import useTitle from '../hooks/useTitle';
 import useDebounce from '../hooks/useDebounce';
 import ListCard from '../components/ListCard';
@@ -30,7 +30,7 @@ function RecipeList() {
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearchTerm(e.target.value.trim());
 
-        if (e.target.value.trim() !== '') {
+        if (e.target.value.trim() || e.target.value.trim() === '') {
             setSkip(0);
         }
 	};
@@ -84,7 +84,6 @@ function RecipeList() {
                     <ListCard key={idx} recipe={recipe} />
                     ))}
                 </Grid>
-
             </Box>
         </Box>
     );

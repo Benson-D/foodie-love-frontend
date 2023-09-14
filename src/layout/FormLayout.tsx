@@ -1,8 +1,8 @@
-import { Box, Container, Paper, Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Paper, Typography } from '@mui/material';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 
-const formTheme = createTheme({
+let formTheme = createTheme({
     palette: {
         primary:  {
             main: '#06a696'
@@ -17,7 +17,8 @@ const formTheme = createTheme({
                 {
                     props: { variant: 'h4' },
                     style: {
-                        padding: '10px 0',
+                        fontSize: '30px',
+                        padding: '14px 0',
                         backgroundColor: '#04b597',
                         textAlign: 'center'
                     }
@@ -27,6 +28,8 @@ const formTheme = createTheme({
         }
     }
 });
+
+formTheme = responsiveFontSizes(formTheme);
 
 /**
  * General Form Layout  
@@ -44,7 +47,11 @@ function FormLayout(props: { children: JSX.Element, title: string }) {
                 <Paper 
                     variant="outlined" 
                     sx={{ boxShadow: 2 }}>
-                    <Typography component="h1" variant="h4" color="secondary">
+                    <Typography component="h1" variant="h4" color="secondary" 
+                                sx={{ 
+                                    display: 'flex', 
+                                    justifyContent: 'center', 
+                                    alignItems: 'center'}}>
                         {title}
                         <FoodBankIcon sx={{ml: 2, 
                         fontSize: { xs: '30px', sm: '30px', md: '40px'}}}/>
