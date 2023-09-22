@@ -6,7 +6,7 @@ import InputField from '../../components/formFields/InputField';
 import SelectField from '../../components/formFields/SelectField';
 import DeleteItem from '../../components/DeleteItem';
 import { IngredientItems } from '../../interface';
-import { FormStepProps } from '../../interface/';
+import { FormStepProps } from '../../interface';
 
 //Measurement list for Foodie Form of ingredients
 const measurements = [
@@ -67,6 +67,11 @@ const generalIngredientList: IngredientItems = {
 function AddIngredients({ values }: { values: IngredientItems[] }) {
     const foodie = useContext(FoodieFormContext); 
 
+    function remove(index: number): void {
+        throw new Error('Function not implemented.');
+    }
+
+    //(list: IngredientItems) => void
     return (
         <div style={{display:`${foodie?.step === 1 ? 'block' : 'none'}`}}>
             <Typography variant="h6" gutterBottom>
@@ -74,7 +79,7 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
             </Typography>
             <Grid container spacing={3}>
                 <FieldArray name="ingredientList">
-                    {({ remove, push }) => (  
+                    {({ remove, push }: { remove: (index: number) => void; push: (list: IngredientItems) => void}) => (  
                     <>  
                         {values.map((ingredient: IngredientItems, index: number) => (
                             <Ingredient 

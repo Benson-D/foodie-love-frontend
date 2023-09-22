@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { CreateRecipe } from '../interface';
-import FoodieLoveApi from '../api/FoodieLoveApi';
-import GeneralInfo from '../features/createForm/GeneralInfo';
-import AddIngredients from '../features/createForm/AddIngredients';
-import AddInstructions from '../features/createForm/AddInstructions';
-import FormReview from '../features/createForm/FormReview';
+import { CreateRecipe } from '../../interface';
+import FoodieLoveApi from '../../api/FoodieLoveApi';
+import GeneralInfo from './GeneralInfo';
+import AddIngredients from './AddIngredients';
+import AddInstructions from './AddInstructions';
+import FormReview from './FormReview';
 import { Formik, Form, FormikHelpers, FormikState } from 'formik'; 
-import { formField } from '../data/foodieFormField';
-import FoodieFormContext from '../context/FoodieFormContext';
-import FoodieValidationSchema from '../data/validateSchema';
+import { formField } from '../../data/foodieFormField';
+import FoodieFormContext from '../../context/FoodieFormContext';
+import FoodieValidationSchema from '../../data/validateSchema';
 import { Box, Stepper, Step, StepLabel, Button, MobileStepper } from "@mui/material";
-import FormLayout from '../layout/FormLayout';
-import useStep from '../hooks/useStep';
-import useTitle from '../hooks/useTitle';
+import FormLayout from '../../layout/FormLayout';
+import useStep from '../../hooks/useStep';
 
 //Initial Values of Foodie Form 
 const initialValues: CreateRecipe = {
@@ -38,13 +37,10 @@ const formLabels = ['General Info', 'Ingredients', 'Steps', 'Review'];
  * Props: none
  * State: 
  *   formImage: File | string 
- * 
- * Routes -> RecipeForm
  */
-function RecipeForm() {
+function CreateRecipeForm() {
     const [formImage, setFormImage] = useState<string | File>('');
     const [step, helpers] = useStep(4);
-    useTitle('Create Recipe');
 
     const {
         canGoToPreviousStep,
@@ -163,4 +159,4 @@ function RecipeForm() {
     );
 };
 
-export default RecipeForm; 
+export default CreateRecipeForm; 

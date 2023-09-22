@@ -1,13 +1,13 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import FoodieLoveApi from '../api/FoodieLoveApi'; 
 import { GetRecipes } from '../interface';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import useTitle from '../hooks/useTitle';
 import useDebounce from '../hooks/useDebounce';
 import ListCard from '../components/ListCard';
 import SearchBar from '../components/SearchBar';
 import MainModal from '../components/MainModal';
-import RecipeForm from './RecipeForm';
+import CreateRecipeForm from '../features/createRecipeForm/CreateRecipeForm';
 
 /**
  * Displays a list of recipes created 
@@ -71,7 +71,7 @@ function RecipeList() {
         <Box minHeight="100vh">
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: { xs: 'column-reverse', sm: "row" }, px: 5, py: 2}}>
                 <MainModal>
-                    <RecipeForm />
+                    <CreateRecipeForm />
                 </MainModal>
                 <Box sx={{ marginBottom: { xs: 2, sm: 0 }, width: { xs: '100%', sm: 'auto' }}}>
                     <SearchBar handleSearch={handleSearch} />

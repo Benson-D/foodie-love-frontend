@@ -41,9 +41,9 @@ function AddInstructions({ values }: { values: InstructionItems[] }) {
             </Typography>
             <Grid container spacing={3}>
                 <FieldArray name="instructions">
-                    {({remove, push}) => (
+                    {({remove, push}: { remove: (index: number) => void; push: ({instruction}: {instruction: string;}) => void}) => (
                         <>
-                             { values.map((instruction: InstructionItems, idx: number) => (
+                             { values.map((_, idx: number) => (
                                 <Instruction 
                                     key={idx} 
                                     index={idx}

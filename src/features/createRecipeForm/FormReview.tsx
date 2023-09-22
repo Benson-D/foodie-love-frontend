@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import FoodieFormContext from '../../context/FoodieFormContext';
 import { Grid, Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { CreateRecipe } from '../../interface/';
+import { CreateRecipe } from '../../interface';
 
 function GeneralReview({ formValues }: { formValues: CreateRecipe}) {
     const { 
