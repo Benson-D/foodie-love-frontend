@@ -1,5 +1,5 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-const FoodieFormContext = createContext<{step: number} | null>(null);
+const FoodieFormContext = createContext<{ step: number } | null>(null);
 
 export default FoodieFormContext;

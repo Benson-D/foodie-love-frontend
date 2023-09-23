@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * Custom Hook allows you to debounce fast changing values, e.c. search bar
@@ -7,17 +7,17 @@ import { useState, useEffect } from 'react';
  * @return debounce
  */
 function useDebounce<T>(value: T, delay?: number): T {
-	const [debounce, setDebounce] = useState<T>(value);
+  const [debounce, setDebounce] = useState<T>(value);
 
-	useEffect(() => {
-		const debouncedId = setTimeout(() => {
-			setDebounce(value);
-		}, delay ?? 800);
+  useEffect(() => {
+    const debouncedId = setTimeout(() => {
+      setDebounce(value);
+    }, delay ?? 800);
 
-		return () => clearTimeout(debouncedId);
-	},[value, delay]);
+    return () => clearTimeout(debouncedId);
+  }, [value, delay]);
 
-	return debounce;
+  return debounce;
 }
 
 export default useDebounce;

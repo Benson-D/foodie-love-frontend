@@ -1,8 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
-import NavBar from './features/navBar/NavBar';
-import FoodieRoutes from './routes/FoodieRoutes';
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "./features/navBar/NavBar";
+import FoodieRoutes from "./routes/FoodieRoutes";
 
-/** 
+/**
  * Renders foodie app
  *
  * prop: none
@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="Foodie-Container">
       <BrowserRouter>
-        <NavBar/>
-        <FoodieRoutes/>
+        <NavBar />
+        <FoodieRoutes />
       </BrowserRouter>
     </div>
   );
