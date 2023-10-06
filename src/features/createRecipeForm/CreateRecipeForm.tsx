@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { CreateRecipe } from "../../interface";
 import FoodieLoveApi from "../../api/FoodieLoveApi";
-import GeneralInfo from "./GeneralInfo";
-import AddIngredients from "./AddIngredients";
-import AddInstructions from "./AddInstructions";
-import FormReview from "./FormReview";
+import GeneralInfoField from "./GeneralInfoField";
+import IngredientsField from "./IngredientsField";
+import InstructionsField from "./InstructionsField";
+import ReviewField from "./ReviewField";
 import { Formik, Form, FormikHelpers, FormikState } from "formik";
-import { formField } from "../../data/foodieFormField";
 import FoodieFormContext from "../../context/FoodieFormContext";
-import FoodieValidationSchema from "../../data/validateSchema";
+import CreateValidationSchema from "./schema/CreateValidationSchema";
 import {
   Box,
   Stepper,
@@ -111,15 +110,15 @@ function CreateRecipeForm() {
         <FoodieFormContext.Provider value={{ step }}>
           <Formik
             initialValues={initialValues}
-            validationSchema={FoodieValidationSchema[step]}
+            validationSchema={CreateValidationSchema[step]}
             onSubmit={_submitForm}
           >
             {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
               <Form>
-                <GeneralInfo formField={formField} handleFile={handleFile} />
-                <AddIngredients values={values.ingredientList} />
-                <AddInstructions values={values.instructions} />
-                <FormReview />
+                <GeneralInfoField handleFile={handleFile} />
+                <IngredientsField values={values.ingredientList} />
+                <InstructionsField values={values.instructions} />
+                <ReviewField />
                 <Box
                   sx={{
                     display: { xs: "none", sm: "flex" },

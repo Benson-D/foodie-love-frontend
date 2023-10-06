@@ -14,7 +14,7 @@ import DeleteItem from "../../components/DeleteItem";
  *     removeItem: Formik helper (function)
  * State: none
  */
-function Instruction({ index, removeItem }: FormStepProps) {
+function InstructionFieldInput({ index, removeItemCb }: FormStepProps) {
   return (
     <>
       <Grid item xs={9} sm={9}>
@@ -24,13 +24,13 @@ function Instruction({ index, removeItem }: FormStepProps) {
         />
       </Grid>
       <Grid item xs={2} sm={2}>
-        <DeleteItem index={index} removeItem={removeItem} />
+        <DeleteItem index={index} removeItemCb={removeItemCb} />
       </Grid>
     </>
   );
 }
 
-function AddInstructions({ values }: { values: InstructionItems[] }) {
+function InstructionsField({ values }: { values: InstructionItems[] }) {
   const foodie = useContext(FoodieFormContext);
 
   return (
@@ -49,7 +49,11 @@ function AddInstructions({ values }: { values: InstructionItems[] }) {
           }) => (
             <>
               {values.map((_, idx: number) => (
-                <Instruction key={idx} index={idx} removeItem={remove} />
+                <InstructionFieldInput
+                  key={idx}
+                  index={idx}
+                  removeItemCb={remove}
+                />
               ))}
               <Button
                 type="button"
@@ -66,4 +70,4 @@ function AddInstructions({ values }: { values: InstructionItems[] }) {
   );
 }
 
-export default AddInstructions;
+export default InstructionsField;

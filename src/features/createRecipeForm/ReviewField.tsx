@@ -72,7 +72,7 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe }) {
  * Props: none
  * State: none
  */
-function FormReview() {
+function ReviewField() {
   const foodie = useContext(FoodieFormContext);
   const { values }: { values: CreateRecipe } = useFormikContext();
 
@@ -88,4 +88,4 @@ function FormReview() {
   );
 }
 
-export default FormReview;
+export default ReviewField;

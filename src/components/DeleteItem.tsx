@@ -23,11 +23,11 @@ const delectIcon = {
  * State: none
  *
  */
-function DeleteItem({ index, removeItem }: FormStepProps) {
+function DeleteItem({ index, removeItemCb }: FormStepProps) {
   return (
     <Button
       type="button"
-      onClick={() => removeItem(index)}
+      onClick={() => removeItemCb(index)}
       sx={{
         minWidth: "40px",
         mt: 1,

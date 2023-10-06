@@ -1,16 +1,15 @@
 import * as Yup from "yup";
-import { formField } from "./foodieFormField";
 
 //Foodie Validation Schema for Form
-const FoodieValidationSchema = [
+const CreateValidationSchema = [
   Yup.object().shape({
-    recipeName: Yup.string().required(formField.recipeName.errorMsg),
+    recipeName: Yup.string().required("Recipe name is required"),
     mealType: Yup.string(),
     prepTime: Yup.number(),
     cookingTime: Yup.number()
-      .positive(formField.cookingTime.invalidMsg)
+      .positive("Must be at least be 5 minutes")
       .min(5)
-      .required(formField.cookingTime.errorMsg),
+      .required("A number of minutes is required"),
   }),
   Yup.object().shape({
     ingredientList: Yup.array()
@@ -25,4 +24,4 @@ const FoodieValidationSchema = [
   }),
 ];
 
-export default FoodieValidationSchema;
+export default CreateValidationSchema;

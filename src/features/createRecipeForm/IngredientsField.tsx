@@ -31,7 +31,7 @@ const measurements = [
  *     removeItem: Formik helper (function)
  * State: none
  */
-function Ingredient({ index, removeItem }: FormStepProps) {
+function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
   return (
     <>
       <Grid item xs={6} sm={6} md={3}>
@@ -52,7 +52,7 @@ function Ingredient({ index, removeItem }: FormStepProps) {
         />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <DeleteItem index={index} removeItem={removeItem} />
+        <DeleteItem index={index} removeItemCb={removeItemCb} />
       </Grid>
     </>
   );
@@ -64,14 +64,9 @@ const generalIngredientList: IngredientItems = {
   ingredient: "",
 };
 
-function AddIngredients({ values }: { values: IngredientItems[] }) {
+function IngredientsField({ values }: { values: IngredientItems[] }) {
   const foodie = useContext(FoodieFormContext);
 
-  function remove(index: number): void {
-    throw new Error("Function not implemented.");
-  }
-
-  //(list: IngredientItems) => void
   return (
     <div style={{ display: `${foodie?.step === 1 ? "block" : "none"}` }}>
       <Typography variant="h6" gutterBottom>
@@ -88,7 +83,11 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
           }) => (
             <>
               {values.map((ingredient: IngredientItems, index: number) => (
-                <Ingredient key={index} index={index} removeItem={remove} />
+                <IngredientFieldInputs
+                  key={index}
+                  index={index}
+                  removeItemCb={remove}
+                />
               ))}
               <Button
                 type="button"
@@ -105,4 +104,4 @@ function AddIngredients({ values }: { values: IngredientItems[] }) {
   );
 }
 
-export default AddIngredients;
+export default IngredientsField;

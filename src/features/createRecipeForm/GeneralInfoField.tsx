@@ -9,19 +9,6 @@ import {
   InputLabel,
 } from "@mui/material";
 
-interface FormProperties {
-  name: string;
-  label: string;
-  errorMsg?: string;
-}
-
-interface FormField {
-  recipeName: FormProperties;
-  mealType: FormProperties;
-  prepTime: FormProperties;
-  cookingTime: FormProperties;
-}
-
 /**
  * First page of Foodie Recipe Form
  *
@@ -30,15 +17,12 @@ interface FormField {
  *     handleFild: function
  * State: none
  */
-function GeneralInfo({
-  formField,
+function GeneralInfoField({
   handleFile,
 }: {
-  formField: FormField;
   handleFile: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const foodie = useContext(FoodieFormContext);
-  const { recipeName, mealType, prepTime, cookingTime } = formField;
 
   const componentDisplay = foodie?.step === 0 ? "block" : "none";
   const minuteProps = {
@@ -52,23 +36,23 @@ function GeneralInfo({
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <InputField name={recipeName.name} label={recipeName.label} />
+          <InputField name="recipeName" label="Recipe Name*" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={mealType.name} label={mealType.label} />
+          <InputField name="mealType" label="Meal Type" />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField
-            name={prepTime.name}
-            label={prepTime.label}
+            name="prepTime"
+            label="Prep Time"
             type="number"
             InputProps={minuteProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField
-            name={cookingTime.name}
-            label={cookingTime.label}
+            name="cookingTime"
+            label="Cooking Time*"
             type="number"
             InputProps={minuteProps}
           />
@@ -87,4 +71,4 @@ function GeneralInfo({
   );
 }
 
-export default GeneralInfo;
+export default GeneralInfoField;
