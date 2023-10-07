@@ -17,6 +17,7 @@ interface FoodieRequest {
   endpoint: string;
   method?: string;
   data?: CreateRecipe | SearchRecipes;
+  credentials?: boolean;
 }
 
 /**
@@ -34,21 +35,36 @@ interface FoodieAxiosRequest {
 class FoodieLoveApi {
   static token: string;
 
-  static async request(axiosData: FoodieRequest): Promise<FoodieAxiosRequest> {
-    const { endpoint, data } = axiosData;
+  public static async request(
+    axiosData: FoodieRequest,
+  ): Promise<FoodieAxiosRequest> {
+    const { endpoint, data, credentials } = axiosData;
 
     const url = `${BASE_URL}/${endpoint}`;
     let method = axiosData.method || "GET";
     const params = method === "GET" ? axiosData.data : {};
+    const withCredentials = !credentials ? false : true;
+
+    console.log(withCredentials);
 
     try {
-      return (await axios({ url, data, params, method })).data;
+      return (await axios({ url, data, params, method, withCredentials })).data;
     } catch (err) {
       const recipeError = err as AxiosError;
 
       console.error("API Error Get", recipeError.response);
       throw recipeError.response;
     }
+  }
+
+  public static async googleLogin() {
+    const res = await this.request({
+      endpoint: `auth/google`,
+      credentials: true,
+    });
+    console.log(res, "check value");
+
+    return res;
   }
 
   /**
@@ -58,7 +74,7 @@ class FoodieLoveApi {
    * @param {object} params
    * @returns {Promise<Array>} JSON
    */
-  static async getRecipes(
+  public static async getRecipes(
     params: SearchRecipes = {
       skip: 0,
     },
@@ -73,7 +89,7 @@ class FoodieLoveApi {
    * @param {string} id
    * @returns {Promise<Array>} JSON
    */
-  static async getSingleRecipe(id: string): Promise<GetRecipe> {
+  public static async getSingleRecipe(id: string): Promise<GetRecipe> {
     try {
       const { data } = await axios({ url: `${BASE_URL}/recipes/${id}` });
 
@@ -92,7 +108,9 @@ class FoodieLoveApi {
    * @param {object} createData
    * @returns {Promise<Array>} JSON
    */
-  static async createRecipe(createData: CreateRecipe): Promise<CreatedRecipe> {
+  public static async createRecipe(
+    createData: CreateRecipe,
+  ): Promise<CreatedRecipe> {
     try {
       const { data } = await axios({
         url: `${BASE_URL}/recipes`,
@@ -115,7 +133,7 @@ class FoodieLoveApi {
    * @param file
    * @returns
    */
-  static async sendImage(file: FormData): Promise<string> {
+  public static async sendImage(file: FormData): Promise<string> {
     try {
       const { data } = await axios({
         url: `${BASE_URL}/recipes/image`,
