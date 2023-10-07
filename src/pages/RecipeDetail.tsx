@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import { styled } from "@mui/material/styles";
 import FoodieLoveApi from "../api/FoodieLoveApi";
 import Loader from "../components/Loader";
 import defaultImage from "/img/default-image.jpg";
@@ -29,18 +28,6 @@ function convertToFraction(num: number): string {
   return `${1 / divisor}/${denominator / divisor}`;
 }
 
-const CardLayout = styled(CardContent)({
-  cursor: "pointer",
-  ".MuiBox-root": {
-    display: "flex",
-    justifyContent: "space-between",
-    paddingBottom: "8px",
-  },
-  ".MuiTypography-root": {
-    fontSize: "15px",
-  },
-});
-
 function RecipeDetail() {
   const { id } = useParams();
 
@@ -55,7 +42,11 @@ function RecipeDetail() {
 
   const currentRecipe = recipe;
 
-  console.log(currentRecipe, "check values");
+  if (currentRecipe?.instructions) {
+    const instructions = currentRecipe.instructions;
+    console.log(instructions[0], typeof instructions);
+  }
+
   return (
     <Box sx={{ marginTop: 5 }}>
       <Card
@@ -113,7 +104,7 @@ function RecipeDetail() {
               {currentRecipe?.cookingTime}
             </Typography>
           </Box>
-          <Divider sx={{ marginY: 3 }} textAlign="left">
+          <Divider sx={{ marginY: 3 }} textAlign="center">
             <Typography variant="h4" sx={{ fontSize: "20px", color: "grey" }}>
               Ingredients
             </Typography>
@@ -130,17 +121,17 @@ function RecipeDetail() {
                 ))
               : "No ingredients"}
           </Box>
-          <Divider sx={{ marginY: 3 }} textAlign="left">
+          <Divider sx={{ marginY: 3 }} textAlign="center">
             <Typography variant="h4" sx={{ fontSize: "20px", color: "grey" }}>
               Instructions
             </Typography>
           </Divider>
           <Box>
-            {currentRecipe?.instructions?.length ? (
-              <Typography>{currentRecipe?.instructions}</Typography>
-            ) : (
-              "No instructions"
-            )}
+            {currentRecipe?.instructions.length
+              ? currentRecipe.instructions.map((item, idx) => (
+                  <Typography key={idx}>&bull; {item.instruction}</Typography>
+                ))
+              : "No ingredients"}
           </Box>
         </CardContent>
       </Card>
