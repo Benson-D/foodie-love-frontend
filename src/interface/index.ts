@@ -34,7 +34,7 @@ interface GetRecipe {
   cookingTime: string;
   recipeImage: string | null;
   mealType: string | null;
-  instructions: string | null;
+  instructions: { instruction: string }[];
   ingredients: IngredientList[];
 }
 
@@ -102,7 +102,7 @@ interface InstructionItems {
  */
 interface FormStepProps {
   index: number;
-  removeItem: (index: number) => void;
+  removeItemCb: (index: number) => void;
 }
 
 export type {

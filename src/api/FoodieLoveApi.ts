@@ -25,6 +25,7 @@ interface FoodieRequest {
  * @interface FoodieAxiosRequest
  */
 interface FoodieAxiosRequest {
+  data(data: any): { payload: any; type: "App/setAuthUser" };
   recipes: GetRecipes[];
   recipe: GetRecipe | CreatedRecipe;
 }
@@ -45,26 +46,23 @@ class FoodieLoveApi {
     const params = method === "GET" ? axiosData.data : {};
     const withCredentials = !credentials ? false : true;
 
-    console.log(withCredentials);
-
     try {
       return (await axios({ url, data, params, method, withCredentials })).data;
     } catch (err) {
       const recipeError = err as AxiosError;
 
-      console.error("API Error Get", recipeError.response);
+      console.error("API Error", recipeError.response);
       throw recipeError.response;
     }
   }
 
-  public static async googleLogin() {
-    const res = await this.request({
-      endpoint: `auth/google`,
+  public static async getAuthUser() {
+    const response = await this.request({
+      endpoint: "user/auth/user",
       credentials: true,
     });
-    console.log(res, "check value");
 
-    return res;
+    return response;
   }
 
   /**
@@ -136,7 +134,7 @@ class FoodieLoveApi {
   public static async sendImage(file: FormData): Promise<string> {
     try {
       const { data } = await axios({
-        url: `${BASE_URL}/recipes/image`,
+        url: `recipes/image`,
         data: file,
         method: "post",
       });
