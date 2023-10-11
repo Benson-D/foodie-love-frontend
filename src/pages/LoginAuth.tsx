@@ -1,9 +1,25 @@
 import FoodieLoveApi from "../api/FoodieLoveApi";
-import FormLayout from "../layout/FormLayout";
-import { Container } from "@mui/material";
+import { Container, Paper, Grid, Box, Avatar, Typography } from "@mui/material";
 import GoogleButton from "react-google-button";
+import { useDispatch } from "react-redux";
+import { setAuthUser, setIsAuthenticated } from "../appSlice";
+import { LockOutlined } from "@mui/icons-material";
 
 function LoginAuth() {
+  const dispatch = useDispatch();
+
+  const fetchAuthUser = async () => {
+    try {
+      const response = await FoodieLoveApi.getAuthUser();
+      dispatch(setIsAuthenticated(true));
+      dispatch(setAuthUser(response));
+    } catch (err) {
+      console.error("User not authenticated");
+      dispatch(setIsAuthenticated(false));
+      dispatch(setAuthUser(null));
+    }
+  };
+
   const redirectToGoggleSSO = async () => {
     let timer: number | null = null;
 
@@ -17,6 +33,8 @@ function LoginAuth() {
     if (newWindow) {
       timer = setInterval(() => {
         if (newWindow.closed) {
+          fetchAuthUser();
+
           if (timer) clearInterval(timer);
         }
       }, 500);
@@ -24,14 +42,43 @@ function LoginAuth() {
   };
 
   return (
-    <Container sx={{ paddingTop: 5, paddingX: 10 }}>
-      <FormLayout title="Login/Signup">
-        <div>
-          <div>Foodie Auth</div>
-          <GoogleButton onClick={redirectToGoggleSSO} />
-        </div>
-      </FormLayout>
-    </Container>
+    <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={6}
+        sx={{
+          backgroundImage: "url(/img/foodie-background-3.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      ></Grid>
+      <Grid item xs={12} sm={8} md={6} component={Paper}>
+        <Box
+          sx={{
+            paddingTop: 5,
+            paddingX: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlined />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Container sx={{ marginTop: "2rem", width: "100%" }}>
+            <GoogleButton
+              onClick={redirectToGoggleSSO}
+              style={{ width: "100%" }}
+            />
+          </Container>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
 
