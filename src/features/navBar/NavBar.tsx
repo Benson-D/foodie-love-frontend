@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -11,13 +12,15 @@ import {
   Tooltip,
   Typography,
   Button,
+  Menu,
   IconButton,
   Avatar,
+  MenuItem,
 } from "@mui/material";
 import useToggle from "../../hooks/useToggle";
 import SideModal from "../../components/SideModal";
 import ListItems from "./ListItems";
-import { LockOpen, Lock } from "@mui/icons-material";
+import { LockOpen } from "@mui/icons-material";
 
 const navItems = [
   {
@@ -33,12 +36,9 @@ const navItemsAuth = [
     link: "/recipes",
     icon: <RestaurantMenuIcon />,
   },
-  {
-    title: "Logout",
-    link: "/",
-    icon: <Lock />,
-  },
 ];
+
+const navUserSettings = ["Logout"];
 
 function MobileNavBar({
   navItems,
@@ -52,12 +52,15 @@ function MobileNavBar({
       <StorefrontIcon sx={{ display: { xs: "flex", sm: "none" }, mr: 1 }} />
       <Typography
         variant="h5"
+        component={Link}
+        to={"/"}
         noWrap
         sx={{
           display: { xs: "flex", sm: "none" },
+          flexGrow: 1,
           fontFamily: "monospace",
           fontWeight: 700,
-          flexGrow: 1,
+          color: "inherit",
           letterSpacing: ".15rem",
           textDecoration: "none",
           textAlign: "center",
@@ -82,6 +85,15 @@ function MobileNavBar({
 
 function NavBar() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const navItemsDisplayed = user !== null ? navItemsAuth : navItems;
 
@@ -94,11 +106,14 @@ function NavBar() {
           <StorefrontIcon sx={{ display: { xs: "none", sm: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
+            component={Link}
+            to={"/"}
             noWrap
             sx={{
               display: { xs: "none", sm: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
+              color: "inherit",
               letterSpacing: ".15rem",
               textDecoration: "none",
             }}
@@ -126,13 +141,25 @@ function NavBar() {
           {user && (
             <Box sx={{ display: "flex", flexGrow: { xs: 1, sm: 0 } }}>
               <Tooltip title="Open settings">
-                <IconButton>
+                <IconButton onClick={handleOpenUserMenu}>
                   <Avatar
                     alt="foodie-user"
                     src={user && user?.imageUrl ? user.imageUrl : ""}
                   />
                 </IconButton>
               </Tooltip>
+              <Menu
+                sx={{ mt: "4px" }}
+                anchorEl={anchorElUser}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {navUserSettings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
             </Box>
           )}
           <MobileNavBar navItems={navItems} />
