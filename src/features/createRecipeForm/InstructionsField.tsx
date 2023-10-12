@@ -4,7 +4,7 @@ import FoodieFormContext from "../../context/FoodieFormContext";
 import { FieldArray } from "formik";
 import TextareaField from "../../components/formFields/TextareaField";
 import { FormStepProps, InstructionItems } from "../../interface";
-import DeleteItem from "../../components/DeleteItem";
+import DeleteFormButton from "../../components/DeleteFormButton";
 
 /**
  *  Renders a single container for instruction inputs
@@ -24,7 +24,7 @@ function InstructionFieldInput({ index, removeItemCb }: FormStepProps) {
         />
       </Grid>
       <Grid item xs={2} sm={2}>
-        <DeleteItem index={index} removeItemCb={removeItemCb} />
+        <DeleteFormButton index={index} removeItemCb={removeItemCb} />
       </Grid>
     </>
   );

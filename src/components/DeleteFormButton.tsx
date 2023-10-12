@@ -23,7 +23,7 @@ const delectIcon = {
  * State: none
  *
  */
-function DeleteItem({ index, removeItemCb }: FormStepProps) {
+function DeleteFormButton({ index, removeItemCb }: FormStepProps) {
   return (
     <Button
       type="button"
@@ -42,4 +42,4 @@ function DeleteItem({ index, removeItemCb }: FormStepProps) {
   );
 }
 
-export default DeleteItem;
+export default DeleteFormButton;

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Arrow from "./Arrow";
-import useStep from "../hooks/useStep";
-import useInterval from "../hooks/useInterval";
+import useStep from "../../hooks/useStep";
+import useInterval from "../../hooks/useInterval";
 
 const sliderImage = [
   { url: "/img/gallery1.jpg", title: "mexican" },

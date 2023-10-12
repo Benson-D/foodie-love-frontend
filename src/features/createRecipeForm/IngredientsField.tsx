@@ -4,7 +4,7 @@ import { FieldArray } from "formik";
 import FoodieFormContext from "../../context/FoodieFormContext";
 import InputField from "../../components/formFields/InputField";
 import SelectField from "../../components/formFields/SelectField";
-import DeleteItem from "../../components/DeleteItem";
+import DeleteFormButton from "../../components/DeleteFormButton";
 import { IngredientItems } from "../../interface";
 import { FormStepProps } from "../../interface";
 
@@ -52,7 +52,7 @@ function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
         />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <DeleteItem index={index} removeItemCb={removeItemCb} />
+        <DeleteFormButton index={index} removeItemCb={removeItemCb} />
       </Grid>
     </>
   );

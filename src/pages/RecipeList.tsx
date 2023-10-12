@@ -1,10 +1,12 @@
 import { useEffect, useState, ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import FoodieLoveApi from "../api/FoodieLoveApi";
 import { GetRecipes } from "../interface";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import useTitle from "../hooks/useTitle";
 import useDebounce from "../hooks/useDebounce";
 import ListCard from "../components/ListCard";
+import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import MainModal from "../components/MainModal";
 import CreateRecipeForm from "../features/createRecipeForm/CreateRecipeForm";
@@ -96,7 +98,29 @@ function RecipeList() {
       >
         <Grid container spacing={2} sx={{ padding: 5 }}>
           {recipes.map((recipe, idx) => (
-            <ListCard key={idx} recipe={recipe} />
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
+              <Link
+                to={`/recipes/${recipe.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Card
+                  cardData={{
+                    title: recipe.recipeName,
+                    subheader: recipe.mealType,
+                    image: recipe.recipeImage,
+                  }}
+                >
+                  <>
+                    <Typography sx={{ fontSize: "12px" }}>
+                      Prep Time: {`${recipe?.prepTime} minutes`}
+                    </Typography>
+                    <Typography sx={{ fontSize: "12px" }}>
+                      Cooking Time: {`${recipe.cookingTime} minutes`}
+                    </Typography>
+                  </>
+                </Card>
+              </Link>
+            </Grid>
           ))}
         </Grid>
       </Box>
