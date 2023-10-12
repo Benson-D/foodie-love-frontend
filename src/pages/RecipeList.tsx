@@ -5,7 +5,6 @@ import { GetRecipes } from "../interface";
 import { Box, Grid, Typography } from "@mui/material";
 import useTitle from "../hooks/useTitle";
 import useDebounce from "../hooks/useDebounce";
-import ListCard from "../components/ListCard";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import MainModal from "../components/MainModal";
