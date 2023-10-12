@@ -4,15 +4,18 @@ import GoogleButton from "react-google-button";
 import { useDispatch } from "react-redux";
 import { setAuthUser, setIsAuthenticated } from "../appSlice";
 import { LockOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function LoginAuth() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fetchAuthUser = async () => {
     try {
       const response = await FoodieLoveApi.getAuthUser();
       dispatch(setIsAuthenticated(true));
       dispatch(setAuthUser(response));
+      navigate("/recipes");
     } catch (err) {
       console.error("User not authenticated");
       dispatch(setIsAuthenticated(false));
