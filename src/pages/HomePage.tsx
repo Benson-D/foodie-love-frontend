@@ -1,14 +1,14 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import homeImage from "/img/foodie-background.jpg";
-import ImageSlider from "../components/ImageSlider";
+import ImageSlider from "../features/imageSlider/ImageSlider";
 import useTitle from "../hooks/useTitle";
 
 const HomeLayout = styled("section")({
-  backgroundImage: `linear-gradient(4deg, 
-                       rgb(168 120 99 / 30%) 45%,
-                       rgba(232,120,12,0.3) 100%), 
-                       url(${homeImage})`,
+  backgroundImage: `linear-gradient(4deg,
+                        rgb(168 120 99 / 30%) 45%,
+                        rgba(232,120,12,0.3) 100%),
+                        url(${homeImage})`,
   backgroundPosition: "bottom left",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
