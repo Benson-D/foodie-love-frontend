@@ -12,7 +12,7 @@ function NotFound() {
         Whoops, we sincerely apologize!
       </Typography>
       <Typography variant="h6" sx={{ fontSize: 14, mt: 1, color: "#909090" }}>
-        The page you're looking for is no longer here or it doesn’t exist.
+        The page you're looking for is no longer here or it doesn't exist.
       </Typography>
       <Button component={Link} to="/" sx={{ mt: 2 }}>
         Go Home
