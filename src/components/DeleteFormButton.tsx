@@ -14,15 +14,7 @@ const delectIcon = {
   },
 } as const;
 
-/**
- * Deletes an individual item in Form Steps
- *
- * Props:
- *    index: number,
- *    removeItem: Formik Helper
- * State: none
- *
- */
+/** Deletes an individual item field in Form Steps */
 function DeleteFormButton({ index, removeItemCb }: FormStepProps) {
   return (
     <Button

@@ -49,7 +49,7 @@ function LoginAuth() {
       <Grid
         item
         xs={false}
-        sm={4}
+        sm={6}
         md={6}
         sx={{
           backgroundImage: "url(/img/foodie-background-3.jpg)",
@@ -57,7 +57,7 @@ function LoginAuth() {
           backgroundSize: "cover",
         }}
       ></Grid>
-      <Grid item xs={12} sm={8} md={6} component={Paper}>
+      <Grid item xs={12} sm={6} md={6} component={Paper}>
         <Box
           sx={{
             paddingTop: 5,

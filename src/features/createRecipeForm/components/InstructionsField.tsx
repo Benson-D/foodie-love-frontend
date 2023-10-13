@@ -1,10 +1,10 @@
 import { Grid, Typography, Button } from "@mui/material";
 import { useContext } from "react";
-import FoodieFormContext from "../../context/FoodieFormContext";
+import FoodieFormContext from "../../../context/FoodieFormContext";
 import { FieldArray } from "formik";
-import TextareaField from "../../components/formFields/TextareaField";
-import { FormStepProps, InstructionItems } from "../../interface";
-import DeleteFormButton from "../../components/DeleteFormButton";
+import TextareaField from "../../../components/formFields/TextareaField";
+import { FormStepProps, InstructionItems } from "../../../interface";
+import DeleteFormButton from "../../../components/DeleteFormButton";
 
 /**
  *  Renders a single container for instruction inputs

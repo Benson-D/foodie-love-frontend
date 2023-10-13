@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { CreateRecipe } from "../../interface";
 import FoodieLoveApi from "../../api/FoodieLoveApi";
-import GeneralInfoField from "./GeneralInfoField";
-import IngredientsField from "./IngredientsField";
-import InstructionsField from "./InstructionsField";
-import ReviewField from "./ReviewField";
+import FormStepper from "./components/FormStepper";
+import GeneralInfoField from "./components/GeneralInfoField";
+import IngredientsField from "./components/IngredientsField";
+import InstructionsField from "./components/InstructionsField";
+import ReviewField from "./components/ReviewField";
 import { Formik, Form, FormikHelpers, FormikState } from "formik";
 import FoodieFormContext from "../../context/FoodieFormContext";
 import CreateValidationSchema from "./schema/CreateValidationSchema";
-import {
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  MobileStepper,
-} from "@mui/material";
+import { Box, Button, MobileStepper } from "@mui/material";
 import FormLayout from "../../layout/FormLayout";
 import useStep from "../../hooks/useStep";
 
@@ -32,8 +26,6 @@ const initialValues: CreateRecipe = {
   }),
   instructions: [{ instruction: "" }],
 };
-
-const formLabels = ["General Info", "Ingredients", "Steps", "Review"];
 
 /**
  * Renders a multi step form to add a new Recipe
@@ -96,17 +88,7 @@ function CreateRecipeForm() {
   return (
     <FormLayout title="Create a Recipe">
       <>
-        <Stepper
-          activeStep={step}
-          sx={{ pt: 4, pb: 5, display: { xs: "none", sm: "flex" } }}
-        >
-          {formLabels.map((label: string) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-
+        <FormStepper step={step} />
         <FoodieFormContext.Provider value={{ step }}>
           <Formik
             initialValues={initialValues}

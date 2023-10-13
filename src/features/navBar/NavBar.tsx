@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -17,10 +17,12 @@ import {
   Avatar,
   MenuItem,
 } from "@mui/material";
+import { setAuthUser, setIsAuthenticated } from "../../appSlice";
 import useToggle from "../../hooks/useToggle";
 import SideModal from "../../components/SideModal";
-import ListItems from "./ListItems";
+import ListItems from "./components/ListItems";
 import { LockOpen } from "@mui/icons-material";
+import FoodieLoveApi from "../../api/FoodieLoveApi";
 
 const navItems = [
   {
@@ -85,19 +87,31 @@ function MobileNavBar({
 
 function NavBar() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (
+    evt: React.MouseEvent<HTMLElement, MouseEvent>,
+  ) => {
+    const target = evt.target as HTMLLIElement;
+
+    if (target && target.innerText.toLowerCase() === "logout") {
+      console.log("logout!");
+      FoodieLoveApi.logOut();
+      dispatch(setIsAuthenticated(false));
+      dispatch(setAuthUser(null));
+      navigate("/");
+    }
+
     setAnchorElUser(null);
   };
 
   const navItemsDisplayed = user !== null ? navItemsAuth : navItems;
-
-  console.log(user, "valid user");
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#04b597" }}>
@@ -162,7 +176,7 @@ function NavBar() {
               </Menu>
             </Box>
           )}
-          <MobileNavBar navItems={navItems} />
+          <MobileNavBar navItems={navItemsDisplayed} />
         </Toolbar>
       </Container>
     </AppBar>

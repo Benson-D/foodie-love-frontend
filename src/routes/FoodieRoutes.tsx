@@ -8,14 +8,7 @@ import RecipeDetail from "../pages/RecipeDetail";
 import LoginAuth from "../pages/LoginAuth";
 import LoginSuccess from "../pages/LoginSuccess";
 
-/**
- * Main Router for Foodie App
- *
- * Props: none
- * State: none
- *
- * App -> Routes ->{ HomePage, RecipeList, RecipeForm }
- */
+/** Main Router for Foodie App */
 function FoodieRoutes() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
 

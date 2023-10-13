@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Arrow from "./Arrow";
+import Arrow from "./components/Arrow";
 import useStep from "../../hooks/useStep";
 import useInterval from "../../hooks/useInterval";
 
@@ -21,15 +21,7 @@ const ImageLayout = styled(Box)({
 });
 
 /**
- * Image Slider rendering on Home Page,
- * displays a list of popular recipes
- *
- * Props: none
- * State:
- *   items: { url: string, title: string }
- *   image: number
- *
- * HomePage -> ImageSlider
+ * Image Slider rendering on Home Page, displays a list of popular recipes
  */
 function ImageSlider() {
   const [items] = useState(sliderImage);

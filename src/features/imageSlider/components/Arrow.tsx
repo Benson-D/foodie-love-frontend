@@ -2,16 +2,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box } from "@mui/material";
 
-/**
- * Arrow Icons that handle the direction of Image Slider
- *
- * Props:
- *    direction: string
- *    handleClick: function
- * State: none
- *
- * ImageSlider -> Arrow
- */
+/** Arrow Icons that handle the direction of Image Slider */
 function Arrow({
   direction,
   handleClick,

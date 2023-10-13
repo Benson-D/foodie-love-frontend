@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import FoodieFormContext from "../../context/FoodieFormContext";
-import InputField from "../../components/formFields/InputField";
+import FoodieFormContext from "../../../context/FoodieFormContext";
+import InputField from "../../../components/formFields/InputField";
 import {
   Grid,
   Typography,
