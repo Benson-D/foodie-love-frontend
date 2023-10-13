@@ -65,6 +65,15 @@ class FoodieLoveApi {
     return response;
   }
 
+  public static async logOut() {
+    const response = await this.request({
+      endpoint: "auth/logout",
+      credentials: true,
+    });
+
+    return response;
+  }
+
   /**
    * Request all recipes in database,
    * if params are there will handle search request
@@ -77,7 +86,11 @@ class FoodieLoveApi {
       skip: 0,
     },
   ): Promise<GetRecipes[]> {
-    const res = await this.request({ endpoint: `recipes`, data: params });
+    const res = await this.request({
+      endpoint: `recipes`,
+      data: params,
+      credentials: true,
+    });
     return res.recipes;
   }
 
@@ -89,7 +102,10 @@ class FoodieLoveApi {
    */
   public static async getSingleRecipe(id: string): Promise<GetRecipe> {
     try {
-      const { data } = await axios({ url: `${BASE_URL}/recipes/${id}` });
+      const { data } = await axios({
+        url: `${BASE_URL}/recipes/${id}`,
+        withCredentials: true,
+      });
 
       return data.recipe;
     } catch (err) {
@@ -114,6 +130,7 @@ class FoodieLoveApi {
         url: `${BASE_URL}/recipes`,
         data: createData,
         method: "post",
+        withCredentials: true,
       });
 
       return data.recipe;
@@ -137,6 +154,7 @@ class FoodieLoveApi {
         url: `recipes/image`,
         data: file,
         method: "post",
+        withCredentials: true,
       });
 
       return data.url;
