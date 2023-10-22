@@ -101,7 +101,6 @@ function NavBar() {
     const target = evt.target as HTMLLIElement;
 
     if (target && target.innerText.toLowerCase() === "logout") {
-      console.log("logout!");
       FoodieLoveApi.logOut();
       dispatch(setIsAuthenticated(false));
       dispatch(setAuthUser(null));

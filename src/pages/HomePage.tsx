@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import homeImage from "/img/foodie-background.jpg";
+import homeImage from "/img/foodie-background-2.jpg";
 import ImageSlider from "../features/imageSlider/ImageSlider";
 import useTitle from "../hooks/useTitle";
 
@@ -12,7 +12,7 @@ const HomeLayout = styled("section")({
   backgroundPosition: "bottom left",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  height: "100vh",
+  height: "75vh",
   color: "#fff",
   paddingTop: 60,
   paddingBottom: 70,

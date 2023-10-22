@@ -7,12 +7,13 @@ import NotFound from "../pages/NotFound";
 import RecipeDetail from "../pages/RecipeDetail";
 import LoginAuth from "../pages/LoginAuth";
 import LoginSuccess from "../pages/LoginSuccess";
+import LoginError from "../pages/LoginError";
 
 /** Main Router for Foodie App */
 function FoodieRoutes() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
 
-  console.log(user);
+  console.log(user, "<=== Current User for routes");
 
   return (
     <Routes>
@@ -20,6 +21,7 @@ function FoodieRoutes() {
       <Route index element={<HomePage />} />
       <Route path="/login" element={<LoginAuth />} />
       <Route path="login/success" element={<LoginSuccess />} />
+      <Route path="login/error" element={<LoginError />} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoutes user={user} />}>

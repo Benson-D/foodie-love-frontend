@@ -49,7 +49,7 @@ function LoginAuth() {
       <Grid
         item
         xs={false}
-        sm={6}
+        sm={false}
         md={6}
         sx={{
           backgroundImage: "url(/img/foodie-background-3.jpg)",
@@ -57,7 +57,7 @@ function LoginAuth() {
           backgroundSize: "cover",
         }}
       ></Grid>
-      <Grid item xs={12} sm={6} md={6} component={Paper}>
+      <Grid item xs={12} sm={12} md={6} component={Paper}>
         <Box
           sx={{
             paddingTop: 5,
@@ -73,7 +73,7 @@ function LoginAuth() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Container sx={{ marginTop: "2rem", width: "100%" }}>
+          <Container sx={{ marginTop: "2rem" }}>
             <GoogleButton
               onClick={redirectToGoggleSSO}
               style={{ width: "100%" }}
