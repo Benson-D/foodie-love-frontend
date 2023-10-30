@@ -149,9 +149,11 @@ class FoodieLoveApi {
    * @returns
    */
   public static async sendImage(file: FormData): Promise<string> {
+    console.log(file, "validate file");
+
     try {
       const { data } = await axios({
-        url: `recipes/image`,
+        url: `${BASE_URL}/recipes/image`,
         data: file,
         method: "post",
         withCredentials: true,
@@ -163,6 +165,51 @@ class FoodieLoveApi {
 
       console.error("API Error Get", recipeError.response);
       throw recipeError.response;
+    }
+  }
+
+  public static async addFavoriteRecipe(userId: string, recipeId: string) {
+    console.log(userId, recipeId, "params found");
+
+    try {
+      const favoriteResponse = await axios({
+        url: `${BASE_URL}/user/add-favorite`,
+        params: {
+          userId: userId,
+          recipeId: recipeId,
+        },
+        method: "post",
+        withCredentials: true,
+      });
+
+      console.log(favoriteResponse);
+      return favoriteResponse;
+    } catch (err) {
+      const favoriteError = err as AxiosError;
+
+      console.error("API Error Get", favoriteError.response);
+      throw favoriteError.response;
+    }
+  }
+
+  public static async removeFavoriteRecipe(userId: string, recipeId: string) {
+    try {
+      const favoriteResponse = await axios({
+        url: `${BASE_URL}/user/remove-favorite`,
+        params: {
+          userId: userId,
+          recipeId: recipeId,
+        },
+        method: "delete",
+        withCredentials: true,
+      });
+
+      return favoriteResponse;
+    } catch (err) {
+      const favoriteError = err as AxiosError;
+
+      console.error("API Error Get", favoriteError.response);
+      throw favoriteError.response;
     }
   }
 }
