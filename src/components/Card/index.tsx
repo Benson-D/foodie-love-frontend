@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Card,
   CardContent,
@@ -6,7 +7,9 @@ import {
   IconButton,
 } from "@mui/material";
 import defaultImage from "/img/default-image.jpg";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import useToggle from "../../hooks/useToggle";
+import FoodieLoveApi from "../../api/FoodieLoveApi";
 
 /**
  * Individual list card that displays a recipe
@@ -21,9 +24,34 @@ function FoodieCard({
   cardData,
   children,
 }: {
-  cardData: { title: string; subheader?: string; image: string | null };
+  cardData: {
+    id: string;
+    title: string;
+    subheader?: string;
+    image: string | null;
+    isLiked: boolean;
+  };
   children: JSX.Element;
 }) {
+  const user = useSelector((state: any) => state.app.authUser as any) as any;
+  const [value, toggleValue] = useToggle(cardData.isLiked);
+
+  const addOrRemoveFavorite = async (
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    userId: string,
+    recipeId: string,
+  ) => {
+    evt.preventDefault();
+
+    if (value) {
+      await FoodieLoveApi.removeFavoriteRecipe(userId, recipeId);
+    } else {
+      await FoodieLoveApi.addFavoriteRecipe(userId, recipeId);
+    }
+
+    toggleValue(!value);
+  };
+
   return (
     <Card
       sx={{
@@ -36,6 +64,7 @@ function FoodieCard({
       <CardHeader
         titleTypographyProps={{
           fontSize: 14,
+          textTransform: "capitalize",
         }}
         subheaderTypographyProps={{
           fontSize: 11,
@@ -43,8 +72,10 @@ function FoodieCard({
         title={cardData?.title}
         subheader={cardData?.subheader || "N/A"}
         action={
-          <IconButton>
-            <StarBorderIcon />
+          <IconButton
+            onClick={(evt) => addOrRemoveFavorite(evt, user?.id, cardData.id)}
+          >
+            <FavoriteIcon sx={{ color: `${value ? "#ee5050" : "inherit"}` }} />
           </IconButton>
         }
       />
