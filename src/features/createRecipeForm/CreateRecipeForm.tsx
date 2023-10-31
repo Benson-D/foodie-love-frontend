@@ -34,7 +34,13 @@ const initialValues: CreateRecipe = {
  * State:
  *   formImage: File | string
  */
-function CreateRecipeForm() {
+function CreateRecipeForm({
+  fetchLatestRecipes,
+  toggleValue,
+}: {
+  fetchLatestRecipes: () => void;
+  toggleValue?: (value?: boolean) => void;
+}) {
   const [formImage, setFormImage] = useState<string | File>("");
   const [step, helpers] = useStep(4);
 
@@ -69,6 +75,11 @@ function CreateRecipeForm() {
     }
 
     await FoodieLoveApi.createRecipe(recipeForm);
+
+    if (toggleValue) {
+      toggleValue(false);
+      fetchLatestRecipes();
+    }
   }
 
   async function _submitForm(
@@ -103,7 +114,7 @@ function CreateRecipeForm() {
                 <ReviewField />
                 <Box
                   sx={{
-                    display: { xs: "none", sm: "flex" },
+                    display: { xs: "none", sm: "none", md: "flex" },
                     justifyContent: "flex-end",
                   }}
                 >
@@ -124,7 +135,7 @@ function CreateRecipeForm() {
                 <MobileStepper
                   variant="text"
                   steps={4}
-                  sx={{ display: { xs: "flex", sm: "none" } }}
+                  sx={{ display: { xs: "flex", sm: "flex", md: "none" } }}
                   position="static"
                   activeStep={step}
                   nextButton={
