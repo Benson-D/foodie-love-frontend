@@ -4,10 +4,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const delectIcon = {
   width: "40px",
-  height: "2em",
-  fontSize: "20px",
+  height: "1.50rem",
+  fontSize: "0.875rem",
   color: "hsl(0deg 0% 0% / 38%)",
-  padding: "10px",
+  padding: "8px 0",
   "&:hover": {
     backgroundColor: "#ffe0e0",
     color: "hsl(0deg 80% 61%)",
