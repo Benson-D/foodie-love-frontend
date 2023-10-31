@@ -1,16 +1,16 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode, cloneElement } from "react";
 import useToggle from "../../hooks/useToggle";
 import { Modal, Box, Button, useMediaQuery, useTheme } from "@mui/material";
 
 function MainModal({ children }: { children: ReactNode }) {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const isMediumScreen = useMediaQuery(theme.breakpoints.between("md", "lg"));
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("xl"));
 
   const getModalWidth = () => {
     if (isSmallScreen) {
-      return 375;
+      return 385;
     } else if (isMediumScreen) {
       return 600;
     } else if (isLargeScreen) {
@@ -46,7 +46,9 @@ function MainModal({ children }: { children: ReactNode }) {
         Create Recipe
       </Button>
       <Modal open={value} onClose={handleClose}>
-        <Box sx={style}>{children}</Box>
+        <Box sx={style}>
+          {children && cloneElement(children as ReactElement, { toggleValue })}
+        </Box>
       </Modal>
     </div>
   );
