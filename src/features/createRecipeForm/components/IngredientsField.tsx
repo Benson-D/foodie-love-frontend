@@ -11,16 +11,19 @@ import { FormStepProps } from "../../../interface";
 //Measurement list for Foodie Form of ingredients
 const measurements = [
   { value: "", label: "none" },
-  { value: "tsp", label: "tsp" },
-  { value: "tbsp", label: "tbsp" },
+  { value: "teaspoon", label: "tsp" },
+  { value: "tablespoon", label: "tbsp" },
   { value: "cup", label: "cup" },
+  { value: "grams", label: "grams" },
   { value: "oz", label: "oz" },
   { value: "pint", label: "pint" },
+  { value: "liter", label: "liter" },
   { value: "quart", label: "quart" },
   { value: "gallon", label: "gallon" },
   { value: "small", label: "small" },
   { value: "medium", label: "medium" },
   { value: "large", label: "large" },
+  { value: "lbs", label: "lbs" },
 ];
 
 /**
@@ -34,10 +37,10 @@ const measurements = [
 function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
   return (
     <>
-      <Grid item xs={6} sm={6} md={3}>
+      <Grid item xs={6} sm={6} md={2}>
         <InputField name={`ingredientList.${index}.amount`} label="Amount*" />
       </Grid>
-      <Grid item xs={6} sm={6} md={3}>
+      <Grid item xs={6} sm={6} md={4}>
         <SelectField
           name={`ingredientList.${index}.measurement`}
           label="Measurement"
@@ -45,13 +48,13 @@ function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
           fullWidth
         />
       </Grid>
-      <Grid item xs={10} sm={10} md={4}>
+      <Grid item xs={10} sm={10} md={5}>
         <InputField
           name={`ingredientList.${index}.ingredient`}
           label="Ingredient*"
         />
       </Grid>
-      <Grid item xs={2} sm={2} md={2}>
+      <Grid item xs={2} sm={2} md={1}>
         <DeleteFormButton index={index} removeItemCb={removeItemCb} />
       </Grid>
     </>
@@ -69,10 +72,10 @@ function IngredientsField({ values }: { values: IngredientItems[] }) {
 
   return (
     <div style={{ display: `${foodie?.step === 1 ? "block" : "none"}` }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom paddingBottom={2}>
         Ingredient List
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <FieldArray name="ingredientList">
           {({
             remove,

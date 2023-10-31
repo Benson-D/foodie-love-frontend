@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import FoodieFormContext from "../../../context/FoodieFormContext";
-import { Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import { useFormikContext } from "formik";
 import { CreateRecipe } from "../../../interface";
 
@@ -16,28 +16,46 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe }) {
 
   return (
     <>
-      <Grid item xs={12} sm={6}>
-        <Typography variant="h6" gutterBottom>
-          General Info
-        </Typography>
-        <Typography gutterBottom>Name: {recipeName}</Typography>
-        <Typography gutterBottom>Prep Time: {prepTime || "0"}</Typography>
-        <Typography gutterBottom>Cooking Time: {cookingTime}</Typography>
-        <Typography gutterBottom>
-          Meal Type: {mealType || "Not Specified"}
-        </Typography>
+      <Grid item xs={12}>
+        <Grid container spacing={2} paddingTop={2}>
+          <Grid item xs={12} sm={12} md={8}>
+            <Typography gutterBottom sx={{ fontSize: "14px" }}>
+              Name: {recipeName}
+            </Typography>
+            <Typography gutterBottom sx={{ fontSize: "14px" }}>
+              Prep Time: {prepTime || "0"}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <Typography gutterBottom sx={{ fontSize: "14px" }}>
+              Cooking Time: {cookingTime}
+            </Typography>
+            <Typography gutterBottom sx={{ fontSize: "14px" }}>
+              Meal Type: {mealType || "Not Specified"}
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid item container direction="column" xs={12} sm={6}>
-        <Typography variant="h6" gutterBottom>
-          Ingredient List
-        </Typography>
-
+      <Grid item container direction="column" xs={12}>
+        <Divider>
+          <Typography
+            gutterBottom
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: "500",
+              lineHeight: "25px",
+              paddingY: "10px",
+            }}
+          >
+            Ingredient List
+          </Typography>
+        </Divider>
         <Grid container>
           {ingredientList?.map(({ amount, ingredient, measurement }, idx) => (
             <React.Fragment key={idx}>
-              <Grid item xs={6}>
-                <Typography gutterBottom>
+              <Grid item xs={12} sm={12} md={6}>
+                <Typography gutterBottom sx={{ fontSize: "14px" }}>
                   &bull; {`${amount} ${measurement || ""} ${ingredient}`}
                 </Typography>
               </Grid>
@@ -45,15 +63,25 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe }) {
           ))}
         </Grid>
       </Grid>
-      <Grid item container direction="column" xs={12} sm={6}>
-        <Typography variant="h6" gutterBottom>
-          Instructions
-        </Typography>
+      <Grid item container direction="column" xs={12}>
+        <Divider>
+          <Typography
+            gutterBottom
+            sx={{
+              fontSize: "0.875rem",
+              fontWeight: "500",
+              lineHeight: "25px",
+              paddingY: "10px",
+            }}
+          >
+            Instructions
+          </Typography>
+        </Divider>
         <Grid container>
           {instructions?.map(({ instruction }, idx) => (
             <React.Fragment key={idx}>
-              <Grid item xs={6}>
-                <Typography gutterBottom>
+              <Grid item xs={12}>
+                <Typography gutterBottom sx={{ fontSize: "14px" }}>
                   {`${idx + 1}. ${instruction}`}
                 </Typography>
               </Grid>
@@ -77,14 +105,28 @@ function ReviewField() {
   const { values }: { values: CreateRecipe } = useFormikContext();
 
   return (
-    <div style={{ display: `${foodie?.step === 3 ? "block" : "none"}` }}>
-      <Typography variant="h6" gutterBottom>
+    <Box
+      sx={{
+        display: `${foodie?.step === 3 ? "block" : "none"}`,
+        backgroundColor: "#ececec",
+        padding: "10px",
+      }}
+    >
+      <Typography
+        gutterBottom
+        sx={{
+          fontSize: "1.1rem",
+          fontWeight: "500",
+          lineHeight: "25px",
+        }}
+      >
         Review of Recipe
       </Typography>
-      <Grid container spacing={3}>
+      {/* <Divider/> */}
+      <Grid container>
         <GeneralReview formValues={values} />
       </Grid>
-    </div>
+    </Box>
   );
 }
 

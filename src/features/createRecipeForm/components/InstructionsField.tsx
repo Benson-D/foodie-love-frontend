@@ -17,7 +17,7 @@ import DeleteFormButton from "../../../components/DeleteFormButton";
 function InstructionFieldInput({ index, removeItemCb }: FormStepProps) {
   return (
     <>
-      <Grid item xs={9} sm={9}>
+      <Grid item xs={10} sm={10}>
         <TextareaField
           name={`instructions.${index}.instruction`}
           label="Instruction"
@@ -35,7 +35,7 @@ function InstructionsField({ values }: { values: InstructionItems[] }) {
 
   return (
     <div style={{ display: `${foodie?.step === 2 ? "block" : "none"}` }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom paddingBottom={2}>
         Add Recipe Instructions
       </Typography>
       <Grid container spacing={3}>
