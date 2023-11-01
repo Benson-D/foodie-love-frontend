@@ -20,13 +20,26 @@ function convertToFraction(num: number): string {
     return String(Math.round(num));
   }
 
-  const denominator: number = 1 / num;
+  const wholeNumberPart = Math.floor(num);
+  const decimalPart = num - wholeNumberPart;
 
   const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
+  const denominator: number = 1 / decimalPart;
   const divisor: number = gcd(1, denominator);
 
-  return `${1 / divisor}/${denominator / divisor}`;
+  const wholeNumberFraction = wholeNumberPart > 0 ? `${wholeNumberPart} ` : "";
+
+  return wholeNumberFraction + `${1 / divisor}/${denominator / divisor}`;
 }
+
+const convertTimeToFormattedString = (
+  foodieTime: string | null | undefined,
+): string => {
+  if (!foodieTime) return "0 minutes";
+
+  const minuteStatement = Number(foodieTime) > 1 ? "minutes" : "minute";
+  return `${foodieTime} ${minuteStatement}`;
+};
 
 function RecipeDetail() {
   const { id } = useParams();
@@ -42,11 +55,6 @@ function RecipeDetail() {
 
   const currentRecipe = recipe;
 
-  if (currentRecipe?.instructions) {
-    const instructions = currentRecipe.instructions;
-    console.log(instructions[0], typeof instructions);
-  }
-
   return (
     <Box sx={{ marginTop: 5 }}>
       <Card
@@ -58,13 +66,14 @@ function RecipeDetail() {
         }}
       >
         <CardHeader
-          title={currentRecipe?.recipeName}
+          title={currentRecipe?.name}
           subheader={currentRecipe?.mealType}
           action={
             <Button component={Link} to={"/recipes"}>
               Back
             </Button>
           }
+          sx={{ textTransform: "capitalize" }}
         />
         <CardMedia
           component="img"
@@ -98,10 +107,10 @@ function RecipeDetail() {
             }}
           >
             <Typography sx={{ fontSize: "15px" }}>
-              {currentRecipe?.prepTime}
+              {convertTimeToFormattedString(currentRecipe?.prepTime)}
             </Typography>
             <Typography sx={{ fontSize: "15px" }}>
-              {currentRecipe?.cookingTime}
+              {convertTimeToFormattedString(currentRecipe?.cookingTime)}
             </Typography>
           </Box>
           <Divider sx={{ marginY: 3 }} textAlign="center">
@@ -115,8 +124,8 @@ function RecipeDetail() {
                   <Typography key={idx}>
                     &bull;{" "}
                     {`${convertToFraction(Number(item.amount))} ${
-                      item?.measurement ?? ""
-                    } ${item.ingredient}`}
+                      item?.measurementUnit?.description ?? ""
+                    } ${item?.ingredient.name}`}
                   </Typography>
                 ))
               : "No ingredients"}
