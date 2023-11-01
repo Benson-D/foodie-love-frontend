@@ -3,12 +3,15 @@
  * data to expect in an individual recipe
  */
 interface GetRecipes {
-  id: number;
-  recipeName: string;
-  prepTime: string;
+  id: string;
+  name: string;
+  prepTime: string | null;
   cookingTime: string;
-  mealType: string;
+  mealType: string | null;
   recipeImage: string | null;
+  user: {
+    userId: string;
+  }[];
 }
 
 /**
@@ -17,10 +20,14 @@ interface GetRecipes {
  */
 interface IngredientList {
   amount: string;
-  ingredientId: number;
-  ingredient: string | null;
-  measurementId: number | null;
-  measurement: string | null;
+  ingredientId: string;
+  ingredient: {
+    name: string;
+  };
+  measurementUnitId: string | null;
+  measurementUnit: {
+    description: string;
+  } | null;
 }
 
 /**
@@ -29,7 +36,7 @@ interface IngredientList {
  */
 interface GetRecipe {
   id: number;
-  recipeName: string;
+  name: string;
   prepTime: string | null;
   cookingTime: string;
   recipeImage: string | null;
