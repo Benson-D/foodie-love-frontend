@@ -44,6 +44,20 @@ function RecipeList() {
     }
   };
 
+  const fetchLatestRecipes = async () => {
+    try {
+      const data = await FoodieLoveApi.getRecipes({
+        recipeName: debounceValue,
+        skip: 0, // Reset skip to 0 to start from the beginning
+      });
+
+      setSkip(0);
+      setRecipes(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(
     function fetchRecipes() {
       async function getAllRecipes() {
@@ -80,7 +94,7 @@ function RecipeList() {
         }}
       >
         <MainModal>
-          <CreateRecipeForm />
+          <CreateRecipeForm fetchLatestRecipes={fetchLatestRecipes} />
         </MainModal>
         <Box
           sx={{
@@ -104,9 +118,11 @@ function RecipeList() {
               >
                 <Card
                   cardData={{
-                    title: recipe.recipeName,
-                    subheader: recipe.mealType,
+                    id: recipe.id,
+                    title: recipe.name,
+                    subheader: recipe.mealType ?? "other",
                     image: recipe.recipeImage,
+                    isLiked: recipe.user.length > 0,
                   }}
                 >
                   <>
