@@ -1,3 +1,16 @@
+interface AuthUser {
+  user: {
+    id: string;
+    username: string | null;
+    email: string;
+    firstName: string;
+    lastName: string;
+    imageUrl: string | null;
+    role: string;
+  };
+  token: string;
+}
+
 /**
  *  A full list of each recipe,
  * data to expect in an individual recipe
@@ -35,14 +48,16 @@ interface IngredientList {
  * retrieved from a get request
  */
 interface GetRecipe {
-  id: number;
-  name: string;
-  prepTime: string | null;
-  cookingTime: string;
-  recipeImage: string | null;
-  mealType: string | null;
-  instructions: { instruction: string }[];
-  ingredients: IngredientList[];
+  recipe: {
+    id: number;
+    name: string;
+    prepTime: string | null;
+    cookingTime: string;
+    recipeImage: string | null;
+    mealType: string | null;
+    instructions: { instruction: string }[];
+    ingredients: IngredientList[];
+  };
 }
 
 /**
@@ -53,17 +68,6 @@ interface SearchRecipes {
   cookingTime?: number;
   mealType?: string;
   skip: number;
-}
-
-/**
- * A single list container that is associated with a recipe,
- * Generally used within a form submission
- *
- */
-interface IngredientItems {
-  amount: string;
-  measurement?: string;
-  ingredient: string;
 }
 
 /**
@@ -97,6 +101,31 @@ interface CreatedRecipe {
   ingredients: CreatedIngredientList;
 }
 
+interface AddFavoriteRecipeResponse {
+  added: {
+    userId: string;
+    recipeId: string;
+  };
+}
+
+interface RemoveFavoriteRecipeResponse {
+  deleted: {
+    userId: string;
+    recipeId: string;
+  };
+}
+
+/**
+ * A single list container that is associated with a recipe,
+ * Generally used within a form submission
+ *
+ */
+interface IngredientItems {
+  amount: string;
+  measurement?: string;
+  ingredient: string;
+}
+
 /**
  * A single item of each instruction
  */
@@ -113,11 +142,14 @@ interface FormStepProps {
 }
 
 export type {
+  AuthUser,
   GetRecipes,
   GetRecipe,
   SearchRecipes,
   CreateRecipe,
   CreatedRecipe,
+  AddFavoriteRecipeResponse,
+  RemoveFavoriteRecipeResponse,
   IngredientItems,
   InstructionItems,
   FormStepProps,
