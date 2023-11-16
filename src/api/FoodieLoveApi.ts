@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import {
   GetRecipes,
   SearchRecipes,
-  GetRecipe,
   CreateRecipe,
   CreatedRecipe,
 } from "../interface";
@@ -27,7 +26,7 @@ interface FoodieRequest {
 interface FoodieAxiosRequest {
   data(data: any): { payload: any; type: "App/setAuthUser" };
   recipes: GetRecipes[];
-  recipe: GetRecipe | CreatedRecipe;
+  recipe: CreatedRecipe;
 }
 
 /**
@@ -57,9 +56,9 @@ class FoodieLoveApi {
   }
 
   public static async getAuthUser() {
-    const response = await this.request({
-      endpoint: "user/auth/user",
-      credentials: true,
+    const response = await axios({
+      url: "http://localhost:3001/auth/user",
+      withCredentials: true,
     });
 
     return response;
@@ -85,32 +84,21 @@ class FoodieLoveApi {
     params: SearchRecipes = {
       skip: 0,
     },
+    token: string,
   ): Promise<GetRecipes[]> {
-    const res = await this.request({
-      endpoint: `recipes`,
-      data: params,
-      credentials: true,
-    });
-    return res.recipes;
-  }
-
-  /**
-   * Grabs an id to return a specific recipe with all of it's data
-   *
-   * @param {string} id
-   * @returns {Promise<Array>} JSON
-   */
-  public static async getSingleRecipe(id: string): Promise<GetRecipe> {
     try {
       const { data } = await axios({
-        url: `${BASE_URL}/recipes/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        url: `${BASE_URL}/recipes`,
+        params,
         withCredentials: true,
       });
 
-      return data.recipe;
+      return data.recipes;
     } catch (err) {
       const recipeError = err as AxiosError;
-
       console.error("API Error Get", recipeError.response);
       throw recipeError.response;
     }
@@ -165,51 +153,6 @@ class FoodieLoveApi {
 
       console.error("API Error Get", recipeError.response);
       throw recipeError.response;
-    }
-  }
-
-  public static async addFavoriteRecipe(userId: string, recipeId: string) {
-    console.log(userId, recipeId, "params found");
-
-    try {
-      const favoriteResponse = await axios({
-        url: `${BASE_URL}/user/add-favorite`,
-        params: {
-          userId: userId,
-          recipeId: recipeId,
-        },
-        method: "post",
-        withCredentials: true,
-      });
-
-      console.log(favoriteResponse);
-      return favoriteResponse;
-    } catch (err) {
-      const favoriteError = err as AxiosError;
-
-      console.error("API Error Get", favoriteError.response);
-      throw favoriteError.response;
-    }
-  }
-
-  public static async removeFavoriteRecipe(userId: string, recipeId: string) {
-    try {
-      const favoriteResponse = await axios({
-        url: `${BASE_URL}/user/remove-favorite`,
-        params: {
-          userId: userId,
-          recipeId: recipeId,
-        },
-        method: "delete",
-        withCredentials: true,
-      });
-
-      return favoriteResponse;
-    } catch (err) {
-      const favoriteError = err as AxiosError;
-
-      console.error("API Error Get", favoriteError.response);
-      throw favoriteError.response;
     }
   }
 }

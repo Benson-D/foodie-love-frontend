@@ -1,27 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IAppState {
-  isAuthenticated: boolean;
   authUser: any | null;
+  token: string | null;
 }
 
 const initialState: IAppState = {
-  isAuthenticated: false,
   authUser: null,
+  token: null,
 };
 
 const AppSlice = createSlice({
   name: "App",
   initialState,
   reducers: {
-    setIsAuthenticated: (state, action: PayloadAction<boolean>) => {
-      state.isAuthenticated = action.payload;
-    },
     setAuthUser: (state, action: PayloadAction<any | null>) => {
       state.authUser = action.payload;
+    },
+    setToken: (state, action: PayloadAction<string | null>) => {
+      state.token = action.payload;
     },
   },
 });
 
-export const { setIsAuthenticated, setAuthUser } = AppSlice.actions;
+export const { setAuthUser, setToken } = AppSlice.actions;
 export default AppSlice.reducer;
