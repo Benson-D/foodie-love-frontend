@@ -98,21 +98,20 @@ interface CreatedIngredientList {
  */
 interface CreatedRecipe {
   id: number;
-  ingredients: CreatedIngredientList;
+  ingredients: CreatedIngredientList[];
 }
 
-interface AddFavoriteRecipeResponse {
-  added: {
-    userId: string;
-    recipeId: string;
-  };
+interface IFavoriteRecipe {
+  userId: string;
+  recipeId: string;
 }
 
-interface RemoveFavoriteRecipeResponse {
-  deleted: {
-    userId: string;
-    recipeId: string;
-  };
+interface IAddFavoriteRecipe {
+  added: IFavoriteRecipe;
+}
+
+interface IRemoveFavoriteRecipe {
+  deleted: IFavoriteRecipe;
 }
 
 /**
@@ -148,8 +147,9 @@ export type {
   SearchRecipes,
   CreateRecipe,
   CreatedRecipe,
-  AddFavoriteRecipeResponse,
-  RemoveFavoriteRecipeResponse,
+  IAddFavoriteRecipe,
+  IRemoveFavoriteRecipe,
+  IFavoriteRecipe,
   IngredientItems,
   InstructionItems,
   FormStepProps,

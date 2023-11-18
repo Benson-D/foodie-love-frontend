@@ -9,7 +9,10 @@ import {
 import defaultImage from "/img/default-image.jpg";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useToggle from "../../hooks/useToggle";
-import FoodieLoveApi from "../../api/FoodieLoveApi";
+import {
+  useAddFavoriteRecipeMutation,
+  useRemoveFavoriteRecipeMutation,
+} from "../../service/foodieService";
 
 /**
  * Individual list card that displays a recipe
@@ -35,6 +38,8 @@ function FoodieCard({
 }) {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
   const [value, toggleValue] = useToggle(cardData.isLiked);
+  const [addFavoriteRecipe] = useAddFavoriteRecipeMutation();
+  const [removeFavoriteRecipe] = useRemoveFavoriteRecipeMutation();
 
   const addOrRemoveFavorite = async (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -44,9 +49,9 @@ function FoodieCard({
     evt.preventDefault();
 
     if (value) {
-      await FoodieLoveApi.removeFavoriteRecipe(userId, recipeId);
+      removeFavoriteRecipe({ userId, recipeId });
     } else {
-      await FoodieLoveApi.addFavoriteRecipe(userId, recipeId);
+      addFavoriteRecipe({ userId, recipeId });
     }
 
     toggleValue(!value);

@@ -17,12 +17,12 @@ import {
   Avatar,
   MenuItem,
 } from "@mui/material";
-import { setAuthUser, setIsAuthenticated } from "../../appSlice";
+import { setAuthUser, setToken } from "../../appSlice";
 import useToggle from "../../hooks/useToggle";
 import SideModal from "../../components/SideModal";
 import ListItems from "./components/ListItems";
 import { LockOpen } from "@mui/icons-material";
-import FoodieLoveApi from "../../api/FoodieLoveApi";
+import { useLogoutCurentUserMutation } from "../../service/foodieService";
 
 const navItems = [
   {
@@ -90,6 +90,7 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [logoutCurrentUser] = useLogoutCurentUserMutation();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -101,8 +102,8 @@ function NavBar() {
     const target = evt.target as HTMLLIElement;
 
     if (target && target.innerText.toLowerCase() === "logout") {
-      FoodieLoveApi.logOut();
-      dispatch(setIsAuthenticated(false));
+      logoutCurrentUser();
+      dispatch(setToken(null));
       dispatch(setAuthUser(null));
       navigate("/");
     }

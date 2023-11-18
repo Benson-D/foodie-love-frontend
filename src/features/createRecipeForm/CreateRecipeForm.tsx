@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { CreateRecipe } from "../../interface";
-import FoodieLoveApi from "../../api/FoodieLoveApi";
 import FormStepper from "./components/FormStepper";
 import GeneralInfoField from "./components/GeneralInfoField";
 import IngredientsField from "./components/IngredientsField";
@@ -12,6 +11,10 @@ import CreateValidationSchema from "./schema/CreateValidationSchema";
 import { Box, Button, MobileStepper } from "@mui/material";
 import FormLayout from "../../layout/FormLayout";
 import useStep from "../../hooks/useStep";
+import {
+  useCreateRecipeMutation,
+  useCreateS3ImageMutation,
+} from "../../service/foodieService";
 
 //Initial Values of Foodie Form
 const initialValues: CreateRecipe = {
@@ -43,6 +46,8 @@ function CreateRecipeForm({
 }) {
   const [formImage, setFormImage] = useState<string | File>("");
   const [step, helpers] = useStep(4);
+  const [createRecipe] = useCreateRecipeMutation();
+  const [createS3Image] = useCreateS3ImageMutation();
 
   const { canGoToPreviousStep, canGoToNextStep, previousStep, nextStep } =
     helpers;
@@ -56,25 +61,19 @@ function CreateRecipeForm({
     if (image) setFormImage(image);
   }
 
-  /**
-   * Sends a post request to aws bucket, returns a url
-   * @param formImage
-   * @returns
-   */
-  async function addImage(formImage: FormData): Promise<string> {
-    return await FoodieLoveApi.sendImage(formImage);
+  async function uploadRecipeImageToS3(): Promise<string> {
+    const sendData: FormData = new FormData();
+    sendData.append("recipeImage", formImage);
+
+    const recipeImage = await createS3Image(sendData).unwrap();
+    return recipeImage.url;
   }
 
   async function handleSubmission(recipeForm: CreateRecipe) {
-    const sendData = new FormData();
-    sendData.append("recipeImage", formImage);
-    const recipeImage = await addImage(sendData);
+    const recipeImage = await uploadRecipeImageToS3();
 
-    if (recipeImage) {
-      recipeForm["recipeImage"] = recipeImage;
-    }
-
-    await FoodieLoveApi.createRecipe(recipeForm);
+    if (recipeImage) recipeForm["recipeImage"] = recipeImage;
+    createRecipe(recipeForm);
 
     if (toggleValue) {
       toggleValue(false);
