@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetRecipe } from "../interface";
+import { CreateRecipe, CreatedRecipe, GetRecipe } from "../interface";
 import {
   AuthUser,
-  AddFavoriteRecipeResponse,
-  RemoveFavoriteRecipeResponse,
+  IAddFavoriteRecipe,
+  IRemoveFavoriteRecipe,
+  IFavoriteRecipe,
 } from "../interface";
 
 export const foodieLoveApi = createApi({
@@ -19,10 +20,21 @@ export const foodieLoveApi = createApi({
     getSingleRecipe: builder.query<GetRecipe, string>({
       query: (id) => `/recipes/${id}`,
     }),
-    addFavoriteRecipe: builder.mutation<
-      AddFavoriteRecipeResponse,
-      { userId: string; recipeId: string }
-    >({
+    createRecipe: builder.mutation<CreatedRecipe, CreateRecipe>({
+      query: (createData) => ({
+        url: "/recipes",
+        method: "post",
+        body: createData,
+      }),
+    }),
+    createS3Image: builder.mutation<{ url: string }, FormData>({
+      query: (fileData) => ({
+        url: "/recipes/image",
+        method: "post",
+        body: fileData,
+      }),
+    }),
+    addFavoriteRecipe: builder.mutation<IAddFavoriteRecipe, IFavoriteRecipe>({
       query: ({ userId, recipeId }) => ({
         url: "/user/add-favorite",
         method: "post",
@@ -33,8 +45,8 @@ export const foodieLoveApi = createApi({
       }),
     }),
     removeFavoriteRecipe: builder.mutation<
-      RemoveFavoriteRecipeResponse,
-      { userId: string; recipeId: string }
+      IRemoveFavoriteRecipe,
+      IFavoriteRecipe
     >({
       query: ({ userId, recipeId }) => ({
         url: "/user/remove-favorite",
@@ -45,12 +57,21 @@ export const foodieLoveApi = createApi({
         },
       }),
     }),
+    logoutCurentUser: builder.mutation<{ message: string }, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "post",
+      }),
+    }),
   }),
 });
 
 export const {
   useGetAuthUserQuery,
   useGetSingleRecipeQuery,
+  useCreateRecipeMutation,
+  useCreateS3ImageMutation,
   useAddFavoriteRecipeMutation,
   useRemoveFavoriteRecipeMutation,
+  useLogoutCurentUserMutation,
 } = foodieLoveApi;
