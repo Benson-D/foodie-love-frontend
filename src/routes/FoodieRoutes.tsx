@@ -14,8 +14,6 @@ import NavLayout from "./NavLayout";
 function FoodieRoutes() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
 
-  console.log(user, "<=== Current User for routes");
-
   return (
     <Routes>
       <Route element={<NavLayout />}>
@@ -27,10 +25,10 @@ function FoodieRoutes() {
           <Route path="/recipes" element={<RecipeList />} />
           <Route path="/recipes/:id" element={<RecipeDetail />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="login/success" element={<LoginSuccess />} />
       <Route path="login/error" element={<LoginError />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
