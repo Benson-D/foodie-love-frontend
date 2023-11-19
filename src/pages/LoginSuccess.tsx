@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect } from "react";
 
 function LoginSuccess() {
@@ -7,7 +8,11 @@ function LoginSuccess() {
     }, 500);
   }, []);
 
-  return <div>Thanks for Logging In!</div>;
+  return (
+    <Typography sx={{ color: "black", padding: "10px" }}>
+      Thanks for logging in!
+    </Typography>
+  );
 }
 
 export default LoginSuccess;
