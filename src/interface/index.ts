@@ -1,4 +1,7 @@
-interface AuthUser {
+/**
+ * The data of an authorized user, including token
+ */
+interface IAuthUser {
   user: {
     id: string;
     username: string | null;
@@ -28,10 +31,27 @@ interface GetRecipes {
 }
 
 /**
+ * A single recipe items,
+ * retrieved from a get request
+ */
+interface ISingleRecipe {
+  recipe: {
+    id: number;
+    name: string;
+    prepTime: string | null;
+    cookingTime: string;
+    recipeImage: string | null;
+    mealType: string | null;
+    instructions: { instruction: string }[];
+    ingredients: ISingleIngredientList[];
+  };
+}
+
+/**
  * Each Ingredient List item,
  * retrieved from a get request
  */
-interface IngredientList {
+interface ISingleIngredientList {
   amount: string;
   ingredientId: string;
   ingredient: {
@@ -41,23 +61,6 @@ interface IngredientList {
   measurementUnit: {
     description: string;
   } | null;
-}
-
-/**
- * A single recipe items,
- * retrieved from a get request
- */
-interface GetRecipe {
-  recipe: {
-    id: number;
-    name: string;
-    prepTime: string | null;
-    cookingTime: string;
-    recipeImage: string | null;
-    mealType: string | null;
-    instructions: { instruction: string }[];
-    ingredients: IngredientList[];
-  };
 }
 
 /**
@@ -84,34 +87,34 @@ interface CreateRecipe {
 }
 
 /**
+ * The return of the created recipe
+ */
+interface CreatedRecipe {
+  id: number;
+  ingredients: ICreatedIngredientList[];
+}
+
+/**
  * The input returned from each created ingredient list
  */
-interface CreatedIngredientList {
+interface ICreatedIngredientList {
   recipeId: number;
   ingredientId: string;
   measurementId: string | null;
   amount: string;
 }
 
-/**
- * The return of the created recipe
- */
-interface CreatedRecipe {
-  id: number;
-  ingredients: CreatedIngredientList[];
+interface IAddFavRecipe {
+  added: IFavRecipeParams;
 }
 
-interface IFavoriteRecipe {
+interface IRemoveFavRecipe {
+  deleted: IFavRecipeParams;
+}
+
+interface IFavRecipeParams {
   userId: string;
   recipeId: string;
-}
-
-interface IAddFavoriteRecipe {
-  added: IFavoriteRecipe;
-}
-
-interface IRemoveFavoriteRecipe {
-  deleted: IFavoriteRecipe;
 }
 
 /**
@@ -141,15 +144,15 @@ interface FormStepProps {
 }
 
 export type {
-  AuthUser,
+  IAuthUser,
   GetRecipes,
-  GetRecipe,
+  ISingleRecipe,
   SearchRecipes,
   CreateRecipe,
   CreatedRecipe,
-  IAddFavoriteRecipe,
-  IRemoveFavoriteRecipe,
-  IFavoriteRecipe,
+  IAddFavRecipe,
+  IRemoveFavRecipe,
+  IFavRecipeParams,
   IngredientItems,
   InstructionItems,
   FormStepProps,

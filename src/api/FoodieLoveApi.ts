@@ -1,21 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { GetRecipes, SearchRecipes } from "../interface";
 
-const BASE_URL: string = "http://localhost:3001";
-
 /**
  * Main Class for handling various Foodie api calls
  */
 class FoodieLoveApi {
-  public static async getAuthUser() {
-    const response = await axios({
-      url: "http://localhost:3001/auth/user",
-      withCredentials: true,
-    });
-
-    return response;
-  }
-
   /**
    * Request all recipes in database,
    * if params are there will handle search request
@@ -24,17 +13,11 @@ class FoodieLoveApi {
    * @returns {Promise<Array>} JSON
    */
   public static async getRecipes(
-    params: SearchRecipes = {
-      skip: 0,
-    },
-    token: string,
+    params: SearchRecipes = { skip: 0 },
   ): Promise<GetRecipes[]> {
     try {
       const { data } = await axios({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        url: `${BASE_URL}/recipes`,
+        url: `http://localhost:3001/recipes`,
         params,
         withCredentials: true,
       });
