@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useGetSingleRecipeQuery } from "../service/recipeService";
 import {
   Box,
   Button,
@@ -11,14 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import FoodieLoveApi from "../api/FoodieLoveApi";
 import Loader from "../components/Loader";
 import defaultImage from "/img/default-image.jpg";
 
 function convertToFraction(num: number): string {
-  if (Number.isInteger(num)) {
-    return String(Math.round(num));
-  }
+  if (Number.isInteger(num)) return String(Math.round(num));
 
   const wholeNumberPart = Math.floor(num);
   const decimalPart = num - wholeNumberPart;
@@ -43,17 +40,13 @@ const convertTimeToFormattedString = (
 
 function RecipeDetail() {
   const { id } = useParams();
-
-  const { isLoading, data: recipe } = useQuery({
-    queryKey: ["recipe"],
-    queryFn: async () => await FoodieLoveApi.getSingleRecipe(String(id)),
-  });
+  const { data, isLoading } = useGetSingleRecipeQuery(String(id));
 
   if (isLoading) {
     return <Loader />;
   }
 
-  const currentRecipe = recipe;
+  const currentRecipe = data?.recipe;
 
   return (
     <Box sx={{ marginTop: 5 }}>
