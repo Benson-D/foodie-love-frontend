@@ -1,47 +1,10 @@
-import FoodieLoveApi from "../api/FoodieLoveApi";
 import { Container, Paper, Grid, Box, Avatar, Typography } from "@mui/material";
 import GoogleButton from "react-google-button";
-import { useDispatch } from "react-redux";
-import { setAuthUser, setIsAuthenticated } from "../appSlice";
 import { LockOutlined } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 
 function LoginAuth() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const fetchAuthUser = async () => {
-    try {
-      const response = await FoodieLoveApi.getAuthUser();
-      dispatch(setIsAuthenticated(true));
-      dispatch(setAuthUser(response));
-      navigate("/recipes");
-    } catch (err) {
-      console.error("User not authenticated");
-      dispatch(setIsAuthenticated(false));
-      dispatch(setAuthUser(null));
-    }
-  };
-
-  const redirectToGoggleSSO = async () => {
-    let timer: number | null = null;
-
-    const googleLoginURL = "http://localhost:3001/auth/google";
-    const newWindow = window.open(
-      googleLoginURL,
-      "_blank",
-      "width=500, height=600",
-    );
-
-    if (newWindow) {
-      timer = setInterval(() => {
-        if (newWindow.closed) {
-          fetchAuthUser();
-
-          if (timer) clearInterval(timer);
-        }
-      }, 500);
-    }
+  const redirectToGoggleSSO = () => {
+    location.href = "http://localhost:3001/auth/google";
   };
 
   return (
