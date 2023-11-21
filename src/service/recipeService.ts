@@ -1,23 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  IAllRecipes,
   ISingleRecipe,
   CreateRecipe,
   CreatedRecipe,
-  GetRecipes,
   SearchRecipes,
 } from "../interface";
 
 export const recipeApi = createApi({
   reducerPath: "recipeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001",
+    baseUrl: "http://localhost:3001/recipes",
     credentials: "include",
   }),
   tagTypes: ["Recipes"],
   endpoints: (builder) => ({
     getAllRecipes: builder.query<IAllRecipes, SearchRecipes>({
       query: (recipeParams) => ({
-        url: "/recipes",
+        url: "/",
         params: recipeParams,
       }),
       providesTags: ["Recipes"],
@@ -39,11 +39,11 @@ export const recipeApi = createApi({
       },
     }),
     getSingleRecipe: builder.query<ISingleRecipe, string>({
-      query: (id) => `/recipes/${id}`,
+      query: (id) => `/${id}`,
     }),
     createRecipe: builder.mutation<CreatedRecipe, CreateRecipe>({
       query: (createData) => ({
-        url: "/recipes",
+        url: "/",
         method: "POST",
         body: createData,
       }),
@@ -51,7 +51,7 @@ export const recipeApi = createApi({
     }),
     createS3Image: builder.mutation<{ url: string }, FormData>({
       query: (fileData) => ({
-        url: "/recipes/image",
+        url: "/image",
         method: "POST",
         body: fileData,
       }),
