@@ -22,7 +22,7 @@ import useToggle from "../../hooks/useToggle";
 import SideModal from "../../components/SideModal";
 import ListItems from "./components/ListItems";
 import { LockOpen } from "@mui/icons-material";
-import { useLogoutCurentUserMutation } from "../../service/foodieService";
+import { useLogoutCurentUserMutation } from "../../service/authService";
 
 const navItems = [
   {

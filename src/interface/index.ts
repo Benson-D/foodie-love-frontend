@@ -30,6 +30,20 @@ interface GetRecipes {
   }[];
 }
 
+interface IAllRecipes {
+  recipes: {
+    id: string;
+    name: string;
+    prepTime: string | null;
+    cookingTime: string;
+    mealType: string | null;
+    recipeImage: string | null;
+    user: {
+      userId: string;
+    }[];
+  }[];
+}
+
 /**
  * A single recipe items,
  * retrieved from a get request
@@ -146,6 +160,7 @@ interface FormStepProps {
 export type {
   IAuthUser,
   GetRecipes,
+  IAllRecipes,
   ISingleRecipe,
   SearchRecipes,
   CreateRecipe,

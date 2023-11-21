@@ -14,6 +14,8 @@ import NavLayout from "./NavLayout";
 function FoodieRoutes() {
   const user = useSelector((state: any) => state.app.authUser as any) as any;
 
+  console.log(user, "checking user");
+
   return (
     <Routes>
       <Route element={<NavLayout />}>
