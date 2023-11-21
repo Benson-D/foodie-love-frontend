@@ -15,12 +15,28 @@ export const recipeApi = createApi({
   }),
   tagTypes: ["Recipes"],
   endpoints: (builder) => ({
-    getAllRecipes: builder.query<GetRecipes[], SearchRecipes>({
+    getAllRecipes: builder.query<IAllRecipes, SearchRecipes>({
       query: (recipeParams) => ({
         url: "/recipes",
         params: recipeParams,
       }),
       providesTags: ["Recipes"],
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems, otherArgs) => {
+        const currentSkip = otherArgs.arg.skip;
+        const recipes = newItems?.recipes;
+
+        if (currentSkip !== 0) {
+          currentCache.recipes.push(...recipes);
+        } else {
+          currentCache.recipes = [...recipes];
+        }
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
     getSingleRecipe: builder.query<ISingleRecipe, string>({
       query: (id) => `/recipes/${id}`,
