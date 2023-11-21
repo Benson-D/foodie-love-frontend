@@ -14,7 +14,7 @@ import useStep from "../../hooks/useStep";
 import {
   useCreateRecipeMutation,
   useCreateS3ImageMutation,
-} from "../../service/foodieService";
+} from "../../service/recipeService";
 
 //Initial Values of Foodie Form
 const initialValues: CreateRecipe = {
@@ -38,10 +38,8 @@ const initialValues: CreateRecipe = {
  *   formImage: File | string
  */
 function CreateRecipeForm({
-  fetchLatestRecipes,
   toggleValue,
 }: {
-  fetchLatestRecipes: () => void;
   toggleValue?: (value?: boolean) => void;
 }) {
   const [formImage, setFormImage] = useState<string | File>("");
@@ -77,7 +75,6 @@ function CreateRecipeForm({
 
     if (toggleValue) {
       toggleValue(false);
-      fetchLatestRecipes();
     }
   }
 

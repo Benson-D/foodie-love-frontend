@@ -1,7 +1,5 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
-import FoodieLoveApi from "../api/FoodieLoveApi";
-import { GetRecipes } from "../interface";
 import { Box, Grid, Typography } from "@mui/material";
 import useTitle from "../hooks/useTitle";
 import useDebounce from "../hooks/useDebounce";
@@ -9,6 +7,7 @@ import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import MainModal from "../components/MainModal";
 import CreateRecipeForm from "../features/createRecipeForm/CreateRecipeForm";
+import { useGetAllRecipesQuery } from "../service/recipeService";
 
 /**
  * Displays a list of recipes created
@@ -20,12 +19,17 @@ import CreateRecipeForm from "../features/createRecipeForm/CreateRecipeForm";
  * Routes -> RecipeList
  */
 function RecipeList() {
-  const [recipes, setRecipes] = useState<GetRecipes[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
   const [skip, setSkip] = useState<number>(0);
   const debounceValue = useDebounce(searchTerm);
+  const { data } = useGetAllRecipesQuery({
+    recipeName: debounceValue,
+    skip: skip,
+  });
 
   useTitle("Recipe Items");
+
+  const recipes = data?.recipes;
 
   /** Handles search event handler, updates state */
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,46 +44,9 @@ function RecipeList() {
     const { offsetHeight, scrollTop, scrollHeight } = e.currentTarget;
 
     if (offsetHeight + scrollTop >= scrollHeight - 5) {
-      setSkip(recipes.length);
+      setSkip(recipes?.length ?? 0);
     }
   };
-
-  const fetchLatestRecipes = async () => {
-    try {
-      const data = await FoodieLoveApi.getRecipes({
-        recipeName: debounceValue,
-        skip: 0, // Reset skip to 0 to start from the beginning
-      });
-
-      setSkip(0);
-      setRecipes(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(
-    function fetchRecipes() {
-      async function getAllRecipes() {
-        try {
-          const data = await FoodieLoveApi.getRecipes({
-            recipeName: debounceValue,
-            skip: skip,
-          });
-
-          if (skip === 0) {
-            setRecipes(data);
-          } else {
-            setRecipes((recipes) => [...recipes, ...data]);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-      getAllRecipes();
-    },
-    [debounceValue, skip],
-  );
 
   return (
     <Box minHeight="100vh">
@@ -94,7 +61,7 @@ function RecipeList() {
         }}
       >
         <MainModal>
-          <CreateRecipeForm fetchLatestRecipes={fetchLatestRecipes} />
+          <CreateRecipeForm />
         </MainModal>
         <Box
           sx={{
@@ -110,7 +77,7 @@ function RecipeList() {
         onScroll={handleScroll}
       >
         <Grid container spacing={2} sx={{ padding: 5 }}>
-          {recipes.map((recipe, idx) => (
+          {recipes?.map((recipe, idx) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
               <Link
                 to={`/recipes/${recipe.id}`}
