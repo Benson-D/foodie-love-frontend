@@ -38,19 +38,15 @@ function MainModal({ children }: { children: ReactNode }) {
   const handleClose = () => toggleValue(false);
 
   return (
-    <div style={{ width: isSmallScreen ? "100%" : "auto" }}>
-      <Button
-        onClick={handleOpen}
-        sx={{ width: isSmallScreen ? "100%" : "auto" }}
-      >
-        Create Recipe
-      </Button>
+    <Box>
+      <Button onClick={handleOpen}>Create Recipe</Button>
+
       <Modal open={value} onClose={handleClose}>
         <Box sx={style}>
           {children && cloneElement(children as ReactElement, { toggleValue })}
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }
 

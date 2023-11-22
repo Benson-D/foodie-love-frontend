@@ -83,7 +83,6 @@ function CreateRecipeForm({
     actions: FormikHelpers<CreateRecipe>,
   ) {
     if (!canGoToNextStep) {
-      console.log(values);
       handleSubmission(values);
     } else {
       nextStep();
