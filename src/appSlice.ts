@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IAutherUser } from "./interface";
 
 interface IAppState {
-  authUser: any | null;
+  authUser: IAutherUser | null;
   token: string | null;
 }
 
@@ -14,7 +15,7 @@ const AppSlice = createSlice({
   name: "App",
   initialState,
   reducers: {
-    setAuthUser: (state, action: PayloadAction<any | null>) => {
+    setAuthUser: (state, action: PayloadAction<IAutherUser | null>) => {
       state.authUser = action.payload;
     },
     setToken: (state, action: PayloadAction<string | null>) => {
