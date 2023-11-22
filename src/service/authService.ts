@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAuthUser } from "../interface";
+import { IAuthUserData } from "../interface";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -8,7 +8,7 @@ export const authApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    getAuthUser: builder.query<IAuthUser, void>({
+    getAuthUser: builder.query<IAuthUserData, void>({
       query: () => "/user",
     }),
     logoutCurentUser: builder.mutation<{ message: string }, void>({

@@ -1,35 +1,27 @@
 /**
  * The data of an authorized user, including token
  */
-interface IAuthUser {
-  user: {
-    id: string;
-    username: string | null;
-    email: string;
-    firstName: string;
-    lastName: string;
-    imageUrl: string | null;
-    role: string;
-  };
+interface IAuthUserData {
+  user: IAutherUser;
   token: string;
 }
 
 /**
- *  A full list of each recipe,
- * data to expect in an individual recipe
+ * The data of an authorized user
  */
-interface GetRecipes {
+interface IAutherUser {
   id: string;
-  name: string;
-  prepTime: string | null;
-  cookingTime: string;
-  mealType: string | null;
-  recipeImage: string | null;
-  user: {
-    userId: string;
-  }[];
+  username: string | null;
+  email: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string | null;
+  role: string;
 }
 
+/**
+ *  The list daata of recipes
+ */
 interface IAllRecipes {
   recipes: {
     id: string;
@@ -80,7 +72,7 @@ interface ISingleIngredientList {
 /**
  * Optional parameters in a get request search
  */
-interface SearchRecipes {
+interface IAllRecipesParams {
   recipeName?: string;
   cookingTime?: number;
   mealType?: string;
@@ -158,11 +150,11 @@ interface FormStepProps {
 }
 
 export type {
-  IAuthUser,
-  GetRecipes,
+  IAuthUserData,
+  IAutherUser,
   IAllRecipes,
   ISingleRecipe,
-  SearchRecipes,
+  IAllRecipesParams,
   CreateRecipe,
   CreatedRecipe,
   IAddFavRecipe,

@@ -4,7 +4,7 @@ import {
   ISingleRecipe,
   CreateRecipe,
   CreatedRecipe,
-  SearchRecipes,
+  IAllRecipesParams,
 } from "../interface";
 
 export const recipeApi = createApi({
@@ -15,7 +15,7 @@ export const recipeApi = createApi({
   }),
   tagTypes: ["Recipes"],
   endpoints: (builder) => ({
-    getAllRecipes: builder.query<IAllRecipes, SearchRecipes>({
+    getAllRecipes: builder.query<IAllRecipes, IAllRecipesParams>({
       query: (recipeParams) => ({
         url: "/",
         params: recipeParams,
