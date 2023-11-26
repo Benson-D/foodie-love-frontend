@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   IAllRecipes,
-  ISingleRecipe,
-  CreateRecipe,
-  CreatedRecipe,
   IAllRecipesParams,
+  ISingleRecipe,
+  IRecipeFormData,
+  CreatedRecipe,
 } from "../interface";
 
 export const recipeApi = createApi({
@@ -40,8 +40,15 @@ export const recipeApi = createApi({
     }),
     getSingleRecipe: builder.query<ISingleRecipe, string>({
       query: (id) => `/${id}`,
+      providesTags: ["Recipes"],
     }),
-    createRecipe: builder.mutation<CreatedRecipe, CreateRecipe>({
+    getAllMeasurementUnits: builder.query<
+      { value: string; label: string }[],
+      void
+    >({
+      query: () => "/measurements",
+    }),
+    createRecipe: builder.mutation<CreatedRecipe, IRecipeFormData>({
       query: (createData) => ({
         url: "/",
         method: "POST",
@@ -56,12 +63,25 @@ export const recipeApi = createApi({
         body: fileData,
       }),
     }),
+    updateRecipe: builder.mutation<
+      CreatedRecipe,
+      { recipeData: IRecipeFormData }
+    >({
+      query: ({ recipeData }) => ({
+        url: "/",
+        method: "PATCH",
+        body: recipeData,
+      }),
+      invalidatesTags: ["Recipes"],
+    }),
   }),
 });
 
 export const {
   useGetAllRecipesQuery,
   useGetSingleRecipeQuery,
+  useGetAllMeasurementUnitsQuery,
   useCreateRecipeMutation,
   useCreateS3ImageMutation,
+  useUpdateRecipeMutation,
 } = recipeApi;
