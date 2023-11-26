@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CreateRecipe } from "../../interface";
+import { IRecipeFormData } from "../../interface";
 import FormStepper from "./components/FormStepper";
 import GeneralInfoField from "./components/GeneralInfoField";
 import IngredientsField from "./components/IngredientsField";
@@ -7,7 +7,7 @@ import InstructionsField from "./components/InstructionsField";
 import ReviewField from "./components/ReviewField";
 import { Formik, Form, FormikHelpers, FormikState } from "formik";
 import FoodieFormContext from "../../context/FoodieFormContext";
-import CreateValidationSchema from "./schema/CreateValidationSchema";
+import RecipeFormValidationSchema from "./schema/RecipeFormValidationSchema";
 import { Box, Button, MobileStepper } from "@mui/material";
 import FormLayout from "../../layout/FormLayout";
 import useStep from "../../hooks/useStep";
@@ -17,7 +17,7 @@ import {
 } from "../../service/recipeService";
 
 //Initial Values of Foodie Form
-const initialValues: CreateRecipe = {
+const initialValues: IRecipeFormData = {
   recipeName: "",
   mealType: "",
   prepTime: 0,
@@ -67,7 +67,7 @@ function CreateRecipeForm({
     return recipeImage.url;
   }
 
-  async function handleSubmission(recipeForm: CreateRecipe) {
+  async function handleSubmission(recipeForm: IRecipeFormData) {
     const recipeImage = await uploadRecipeImageToS3();
 
     if (recipeImage) recipeForm["recipeImage"] = recipeImage;
@@ -79,8 +79,8 @@ function CreateRecipeForm({
   }
 
   async function _submitForm(
-    values: CreateRecipe,
-    actions: FormikHelpers<CreateRecipe>,
+    values: IRecipeFormData,
+    actions: FormikHelpers<IRecipeFormData>,
   ) {
     if (!canGoToNextStep) {
       handleSubmission(values);
@@ -98,10 +98,10 @@ function CreateRecipeForm({
         <FoodieFormContext.Provider value={{ step }}>
           <Formik
             initialValues={initialValues}
-            validationSchema={CreateValidationSchema[step]}
+            validationSchema={RecipeFormValidationSchema[step]}
             onSubmit={_submitForm}
           >
-            {({ values, isSubmitting }: FormikState<CreateRecipe>) => (
+            {({ values, isSubmitting }: FormikState<IRecipeFormData>) => (
               <Form>
                 <GeneralInfoField handleFile={handleFile} />
                 <IngredientsField values={values.ingredientList} />

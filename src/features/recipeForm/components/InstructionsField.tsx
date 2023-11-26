@@ -3,7 +3,7 @@ import { useContext } from "react";
 import FoodieFormContext from "../../../context/FoodieFormContext";
 import { FieldArray } from "formik";
 import TextareaField from "../../../components/formFields/TextareaField";
-import { FormStepProps, InstructionItems } from "../../../interface";
+import { IFormFieldProps, InstructionItems } from "../../../interface";
 import DeleteFormButton from "../../../components/DeleteFormButton";
 
 /**
@@ -14,7 +14,7 @@ import DeleteFormButton from "../../../components/DeleteFormButton";
  *     removeItem: Formik helper (function)
  * State: none
  */
-function InstructionFieldInput({ index, removeItemCb }: FormStepProps) {
+function InstructionFieldInput({ index, removeItemCb }: IFormFieldProps) {
   return (
     <>
       <Grid item xs={10} sm={10}>

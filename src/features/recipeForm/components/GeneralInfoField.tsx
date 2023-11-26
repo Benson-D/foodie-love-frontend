@@ -2,6 +2,7 @@ import { useContext } from "react";
 import FoodieFormContext from "../../../context/FoodieFormContext";
 import InputField from "../../../components/formFields/InputField";
 import {
+  Box,
   Grid,
   Typography,
   TextField,
@@ -30,7 +31,7 @@ function GeneralInfoField({
   };
 
   return (
-    <div style={{ display: componentDisplay }}>
+    <Box sx={{ display: componentDisplay }}>
       <Typography variant="h6" gutterBottom paddingBottom={2}>
         General Info
       </Typography>
@@ -67,7 +68,7 @@ function GeneralInfoField({
           />
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 

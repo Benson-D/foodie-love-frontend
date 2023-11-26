@@ -6,25 +6,8 @@ import InputField from "../../../components/formFields/InputField";
 import SelectField from "../../../components/formFields/SelectField";
 import DeleteFormButton from "../../../components/DeleteFormButton";
 import { IngredientItems } from "../../../interface";
-import { FormStepProps } from "../../../interface";
-
-//Measurement list for Foodie Form of ingredients
-const measurements = [
-  { value: "", label: "none" },
-  { value: "teaspoon", label: "tsp" },
-  { value: "tablespoon", label: "tbsp" },
-  { value: "cup", label: "cup" },
-  { value: "grams", label: "grams" },
-  { value: "oz", label: "oz" },
-  { value: "pint", label: "pint" },
-  { value: "liter", label: "liter" },
-  { value: "quart", label: "quart" },
-  { value: "gallon", label: "gallon" },
-  { value: "small", label: "small" },
-  { value: "medium", label: "medium" },
-  { value: "large", label: "large" },
-  { value: "lbs", label: "lbs" },
-];
+import { IFormFieldProps } from "../../../interface";
+import { useGetAllMeasurementUnitsQuery } from "../../../service/recipeService";
 
 /**
  *  Renders a single container for ingredient inputs
@@ -34,7 +17,9 @@ const measurements = [
  *     removeItem: Formik helper (function)
  * State: none
  */
-function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
+function IngredientFieldInputs({ index, removeItemCb }: IFormFieldProps) {
+  const { data: measurementUnits } = useGetAllMeasurementUnitsQuery();
+
   return (
     <>
       <Grid item xs={6} sm={6} md={2}>
@@ -44,7 +29,7 @@ function IngredientFieldInputs({ index, removeItemCb }: FormStepProps) {
         <SelectField
           name={`ingredientList.${index}.measurement`}
           label="Measurement"
-          data={measurements}
+          data={measurementUnits}
           fullWidth
         />
       </Grid>

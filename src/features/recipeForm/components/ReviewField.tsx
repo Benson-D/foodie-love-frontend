@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import FoodieFormContext from "../../../context/FoodieFormContext";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import { useFormikContext } from "formik";
-import { CreateRecipe } from "../../../interface";
+import { IRecipeFormData } from "../../../interface";
 
-function GeneralReview({ formValues }: { formValues: CreateRecipe }) {
+function GeneralReview({ formValues }: { formValues: IRecipeFormData }) {
   const {
     recipeName,
     prepTime,
@@ -102,7 +102,7 @@ function GeneralReview({ formValues }: { formValues: CreateRecipe }) {
  */
 function ReviewField() {
   const foodie = useContext(FoodieFormContext);
-  const { values }: { values: CreateRecipe } = useFormikContext();
+  const { values }: { values: IRecipeFormData } = useFormikContext();
 
   return (
     <Box
@@ -122,7 +122,6 @@ function ReviewField() {
       >
         Review of Recipe
       </Typography>
-      {/* <Divider/> */}
       <Grid container>
         <GeneralReview formValues={values} />
       </Grid>

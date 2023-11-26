@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 //Foodie Validation Schema for Form
-const CreateValidationSchema = [
+const RecipeFormValidationSchema = [
   Yup.object().shape({
     recipeName: Yup.string().required("Recipe name is required"),
     mealType: Yup.string(),
@@ -24,4 +24,4 @@ const CreateValidationSchema = [
   }),
 ];
 
-export default CreateValidationSchema;
+export default RecipeFormValidationSchema;
