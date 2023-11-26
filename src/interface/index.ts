@@ -41,16 +41,16 @@ interface IAllRecipes {
  * retrieved from a get request
  */
 interface ISingleRecipe {
-  recipe: {
-    id: number;
-    name: string;
-    prepTime: string | null;
-    cookingTime: string;
-    recipeImage: string | null;
-    mealType: string | null;
-    instructions: { instruction: string }[];
-    ingredients: ISingleIngredientList[];
-  };
+  id: string;
+  name: string;
+  createdAt: string;
+  createdBy: string;
+  prepTime: string | null;
+  cookingTime: string;
+  recipeImage: string | null;
+  mealType: string | null;
+  instructions: { instruction: string }[];
+  ingredients: ISingleIngredientList[];
 }
 
 /**
@@ -82,7 +82,7 @@ interface IAllRecipesParams {
 /**
  * General data input from recipe form when submitted
  */
-interface CreateRecipe {
+interface IRecipeFormData {
   recipeName: string;
   mealType?: string;
   prepTime?: number;
@@ -92,22 +92,21 @@ interface CreateRecipe {
   recipeImage?: string;
 }
 
+interface IUpdateRecipeData extends IRecipeFormData {
+  id: string;
+}
+
 /**
  * The return of the created recipe
  */
 interface CreatedRecipe {
   id: number;
-  ingredients: ICreatedIngredientList[];
-}
-
-/**
- * The input returned from each created ingredient list
- */
-interface ICreatedIngredientList {
-  recipeId: number;
-  ingredientId: string;
-  measurementId: string | null;
-  amount: string;
+  ingredients: {
+    recipeId: number;
+    ingredientId: string;
+    measurementId: string | null;
+    amount: string;
+  }[];
 }
 
 interface IAddFavRecipe {
@@ -142,9 +141,9 @@ interface InstructionItems {
 }
 
 /**
- * A generic type of props passed in each step
+ * A generic type of props passed in form field component
  */
-interface FormStepProps {
+interface IFormFieldProps {
   index: number;
   removeItemCb: (index: number) => void;
 }
@@ -155,12 +154,13 @@ export type {
   IAllRecipes,
   ISingleRecipe,
   IAllRecipesParams,
-  CreateRecipe,
+  IRecipeFormData,
+  IUpdateRecipeData,
   CreatedRecipe,
   IAddFavRecipe,
   IRemoveFavRecipe,
   IFavRecipeParams,
   IngredientItems,
   InstructionItems,
-  FormStepProps,
+  IFormFieldProps,
 };
