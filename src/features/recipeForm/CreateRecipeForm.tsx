@@ -51,7 +51,7 @@ function CreateRecipeForm({
     helpers;
 
   /**
-   * Handles the file image input of Component General Info
+   * Sets Image state for recipeImage
    * @param evt
    */
   function handleFile(evt: React.ChangeEvent<HTMLInputElement>): void {

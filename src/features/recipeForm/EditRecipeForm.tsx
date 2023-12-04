@@ -56,12 +56,12 @@ function EditRecipeForm({
   }
 
   async function handleSubmission(recipeForm: IUpdateRecipeData) {
+    if (formImage) {
+      const recipeImage = await uploadRecipeImageToS3();
+      recipeForm.recipeImage = recipeImage;
+    }
+
     updateRecipe({ recipeData: recipeForm });
-
-    // const recipeImage = await uploadRecipeImageToS3();
-
-    // if (recipeImage) recipeForm["recipeImage"] = recipeImage;
-    // createRecipe(recipeForm);
 
     if (toggleValue) {
       toggleValue(false);
