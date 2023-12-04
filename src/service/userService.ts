@@ -8,7 +8,7 @@ import {
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/user",
+    baseUrl: "https://foodieloveapi.onrender.com/user",
     credentials: "include",
   }),
   endpoints: (builder) => ({

@@ -10,7 +10,7 @@ import {
 export const recipeApi = createApi({
   reducerPath: "recipeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/recipes",
+    baseUrl: "https://foodieloveapi.onrender.com/recipes",
     credentials: "include",
   }),
   tagTypes: ["Recipes"],

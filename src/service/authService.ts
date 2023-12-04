@@ -4,7 +4,7 @@ import { IAuthUserData } from "../interface";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/auth",
+    baseUrl: "https://foodieloveapi.onrender.com/auth",
     credentials: "include",
   }),
   endpoints: (builder) => ({
