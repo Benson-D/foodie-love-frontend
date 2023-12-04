@@ -2,7 +2,13 @@ import { ReactElement, ReactNode, cloneElement } from "react";
 import useToggle from "../../hooks/useToggle";
 import { Modal, Box, Button, useMediaQuery, useTheme } from "@mui/material";
 
-function MainModal({ children }: { children: ReactNode }) {
+function MainModal({
+  children,
+  buttonLabel,
+}: {
+  children: ReactNode;
+  buttonLabel?: string;
+}) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const isMediumScreen = useMediaQuery(theme.breakpoints.between("md", "lg"));
@@ -39,7 +45,7 @@ function MainModal({ children }: { children: ReactNode }) {
 
   return (
     <Box>
-      <Button onClick={handleOpen}>Create Recipe</Button>
+      <Button onClick={handleOpen}>{buttonLabel}</Button>
 
       <Modal open={value} onClose={handleClose}>
         <Box sx={style}>
