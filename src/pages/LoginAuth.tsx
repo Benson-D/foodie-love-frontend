@@ -4,7 +4,7 @@ import { LockOutlined } from "@mui/icons-material";
 
 function LoginAuth() {
   const redirectToGoggleSSO = () => {
-    location.href = "http://localhost:3001/auth/google";
+    location.href = "https://foodieloveapi.onrender.com/auth/google";
   };
 
   return (
