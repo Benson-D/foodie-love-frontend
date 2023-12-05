@@ -9,7 +9,7 @@ interface FoodieOptions {
 interface SelectProps {
   name: string;
   label: string;
-  data: FoodieOptions[];
+  data: FoodieOptions[] | undefined;
   fullWidth: boolean;
 }
 
@@ -28,7 +28,7 @@ function SelectField(props: SelectProps) {
     <FormControl {...rest} variant="standard">
       <InputLabel>{label}</InputLabel>
       <Select {...field}>
-        {data.map((option: FoodieOptions, index: number) => (
+        {data?.map((option: FoodieOptions, index: number) => (
           <MenuItem key={index} value={option.value}>
             {option.label}
           </MenuItem>
