@@ -1,13 +1,14 @@
 import { useState, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
+import { useGetAllRecipesQuery } from "../service/recipeService";
 import useTitle from "../hooks/useTitle";
 import useDebounce from "../hooks/useDebounce";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import MainModal from "../components/MainModal";
-import CreateRecipeForm from "../features/createRecipeForm/CreateRecipeForm";
-import { useGetAllRecipesQuery } from "../service/recipeService";
+import Loader from "../components/Loader";
+import CreateRecipeForm from "../features/recipeForm/CreateRecipeForm";
 
 /**
  * Displays a list of recipes created
@@ -22,7 +23,7 @@ function RecipeList() {
   const [searchTerm, setSearchTerm] = useState<string>();
   const [skip, setSkip] = useState<number>(0);
   const debounceValue = useDebounce(searchTerm);
-  const { data } = useGetAllRecipesQuery({
+  const { data, isLoading } = useGetAllRecipesQuery({
     recipeName: debounceValue,
     skip: skip,
   });
@@ -48,6 +49,10 @@ function RecipeList() {
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Box minHeight="100vh">
       <Box
@@ -60,7 +65,7 @@ function RecipeList() {
           py: 2,
         }}
       >
-        <MainModal>
+        <MainModal buttonLabel="Create Recipe">
           <CreateRecipeForm />
         </MainModal>
         <Box

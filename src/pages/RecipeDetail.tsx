@@ -1,4 +1,6 @@
 import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { useGetSingleRecipeQuery } from "../service/recipeService";
 import {
   Box,
@@ -11,23 +13,12 @@ import {
   Typography,
 } from "@mui/material";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import MainModal from "../components/MainModal";
 import Loader from "../components/Loader";
+import EditRecipeForm from "../features/recipeForm/EditRecipeForm";
 import defaultImage from "/img/default-image.jpg";
-
-function convertToFraction(num: number): string {
-  if (Number.isInteger(num)) return String(Math.round(num));
-
-  const wholeNumberPart = Math.floor(num);
-  const decimalPart = num - wholeNumberPart;
-
-  const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
-  const denominator: number = 1 / decimalPart;
-  const divisor: number = gcd(1, denominator);
-
-  const wholeNumberFraction = wholeNumberPart > 0 ? `${wholeNumberPart} ` : "";
-
-  return wholeNumberFraction + `${1 / divisor}/${denominator / divisor}`;
-}
+import { convertToFraction } from "../utils/conversions";
+import { ISingleRecipe, IUpdateRecipeData } from "../interface";
 
 const convertTimeToFormattedString = (
   foodieTime: string | null | undefined,
@@ -38,15 +29,38 @@ const convertTimeToFormattedString = (
   return `${foodieTime} ${minuteStatement}`;
 };
 
+function formatInitialEditValues(recipeData: ISingleRecipe): IUpdateRecipeData {
+  const formattedIngredients = recipeData.ingredients.map(
+    ({ amount, ingredient, measurementUnit }) => {
+      return {
+        amount: convertToFraction(Number(amount)),
+        ingredient: ingredient.name,
+        measurement: measurementUnit?.description ?? "",
+      };
+    },
+  );
+
+  return {
+    id: recipeData.id,
+    recipeName: recipeData.name,
+    mealType: recipeData?.mealType ?? "",
+    prepTime: Number(recipeData.prepTime) ?? 0,
+    cookingTime: Number(recipeData.cookingTime),
+    ingredientList: formattedIngredients,
+    instructions: recipeData.instructions,
+  };
+}
+
 function RecipeDetail() {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleRecipeQuery(String(id));
+  const { data: recipe, isLoading } = useGetSingleRecipeQuery(String(id));
+  const user = useSelector((state: RootState) => state.app.authUser);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  const currentRecipe = data?.recipe;
+  const editInitialValues = formatInitialEditValues(recipe as ISingleRecipe);
 
   return (
     <Box sx={{ marginTop: 5 }}>
@@ -59,8 +73,8 @@ function RecipeDetail() {
         }}
       >
         <CardHeader
-          title={currentRecipe?.name}
-          subheader={currentRecipe?.mealType}
+          title={recipe?.name}
+          subheader={recipe?.mealType}
           action={
             <Button component={Link} to={"/recipes"}>
               Back
@@ -71,7 +85,7 @@ function RecipeDetail() {
         <CardMedia
           component="img"
           height="300"
-          image={currentRecipe?.recipeImage ?? defaultImage}
+          image={recipe?.recipeImage ?? defaultImage}
           alt="fight-map"
         />
         <CardContent>
@@ -100,10 +114,10 @@ function RecipeDetail() {
             }}
           >
             <Typography sx={{ fontSize: "15px" }}>
-              {convertTimeToFormattedString(currentRecipe?.prepTime)}
+              {convertTimeToFormattedString(recipe?.prepTime)}
             </Typography>
             <Typography sx={{ fontSize: "15px" }}>
-              {convertTimeToFormattedString(currentRecipe?.cookingTime)}
+              {convertTimeToFormattedString(recipe?.cookingTime)}
             </Typography>
           </Box>
           <Divider sx={{ marginY: 3 }} textAlign="center">
@@ -112,8 +126,8 @@ function RecipeDetail() {
             </Typography>
           </Divider>
           <Box>
-            {currentRecipe?.ingredients.length
-              ? currentRecipe.ingredients.map((item, idx) => (
+            {recipe?.ingredients.length
+              ? recipe.ingredients.map((item, idx) => (
                   <Typography key={idx}>
                     &bull;{" "}
                     {`${convertToFraction(Number(item.amount))} ${
@@ -129,12 +143,20 @@ function RecipeDetail() {
             </Typography>
           </Divider>
           <Box>
-            {currentRecipe?.instructions.length
-              ? currentRecipe.instructions.map((item, idx) => (
+            {recipe?.instructions.length
+              ? recipe.instructions.map((item, idx) => (
                   <Typography key={idx}>&bull; {item.instruction}</Typography>
                 ))
               : "No ingredients"}
           </Box>
+
+          {user?.id === recipe?.createdBy && (
+            <Box sx={{ marginTop: 4 }}>
+              <MainModal buttonLabel="Edit">
+                <EditRecipeForm initialValues={editInitialValues} />
+              </MainModal>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </Box>
