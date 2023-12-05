@@ -1,4 +1,4 @@
-import { FormStepProps } from "../interface";
+import { IFormFieldProps } from "../interface";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -15,7 +15,7 @@ const delectIcon = {
 } as const;
 
 /** Deletes an individual item field in Form Steps */
-function DeleteFormButton({ index, removeItemCb }: FormStepProps) {
+function DeleteFormButton({ index, removeItemCb }: IFormFieldProps) {
   return (
     <Button
       type="button"
