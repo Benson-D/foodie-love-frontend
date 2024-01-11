@@ -10,11 +10,19 @@ function LoginSuccess() {
   const navigate = useNavigate();
   const { data, error } = useGetAuthUserQuery();
 
+  console.log(
+    data,
+    "<==== data from request",
+    error,
+    "<==== error from request",
+  );
+
   useEffect(() => {
+    setTimeout(() => navigate("/login"), 9000);
+
     if (data) {
       dispatch(setAuthUser(data?.user ?? null));
       dispatch(setToken(data?.token ?? null));
-      setTimeout(() => navigate("/recipes"), 500);
     }
   }, [data]);
 
