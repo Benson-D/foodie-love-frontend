@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Container,
   Paper,
@@ -8,11 +7,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import {
-  GoogleLogin,
-  useGoogleLogin,
-  CredentialResponse,
-} from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { LockOutlined } from "@mui/icons-material";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useVerifyOAuth2Mutation } from "../service/authService";
@@ -21,7 +16,6 @@ import { useDispatch } from "react-redux";
 import { setAuthUser, setToken } from "../appSlice";
 
 function LoginAuth() {
-  const [user, setUser] = useState();
   const [verifyOAuth2] = useVerifyOAuth2Mutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,14 +31,6 @@ function LoginAuth() {
     },
     onError: (error) => console.log("Login Failed:", error),
   });
-
-  const responseMessage = (response: CredentialResponse) => {
-    console.log("Login successful", response);
-  };
-
-  const errorMessage = (): void => {
-    console.error("User Couldn't log in");
-  };
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -86,12 +72,6 @@ function LoginAuth() {
             >
               Sign in with Google <GoogleIcon sx={{ marginLeft: "12px" }} />
             </Button>
-            <GoogleLogin
-              onSuccess={responseMessage}
-              onError={errorMessage}
-              shape="pill"
-              width={400}
-            />
           </Container>
         </Box>
       </Grid>
