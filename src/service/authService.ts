@@ -11,6 +11,13 @@ export const authApi = createApi({
     getAuthUser: builder.query<IAuthUserData, void>({
       query: () => "/user",
     }),
+    verifyOAuth2: builder.mutation<IAuthUserData, { access_token: string }>({
+      query: (authorizedData) => ({
+        url: "/",
+        method: "POST",
+        body: authorizedData,
+      }),
+    }),
     logoutCurentUser: builder.mutation<{ message: string }, void>({
       query: () => ({
         url: "/logout",
@@ -20,4 +27,8 @@ export const authApi = createApi({
   }),
 });
 
-export const { useGetAuthUserQuery, useLogoutCurentUserMutation } = authApi;
+export const {
+  useGetAuthUserQuery,
+  useLogoutCurentUserMutation,
+  useVerifyOAuth2Mutation,
+} = authApi;
