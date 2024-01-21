@@ -22,11 +22,10 @@ function LoginAuth() {
 
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-      const verifiedUser = await verifyOAuth2(codeResponse);
+      const verifiedUser = await verifyOAuth2(codeResponse).unwrap();
 
-      console.log(verifiedUser.data, "user");
-      dispatch(setAuthUser(verifiedUser.data?.user));
-      dispatch(setToken(verifiedUser.data?.token));
+      dispatch(setAuthUser(verifiedUser?.user));
+      dispatch(setToken(verifiedUser?.token));
       navigate("/recipes");
     },
     onError: (error) => console.log("Login Failed:", error),
