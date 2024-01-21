@@ -12,7 +12,7 @@ const HomeLayout = styled("section")({
   backgroundPosition: "bottom left",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  height: "75vh",
+  height: "80vh",
   color: "#fff",
   paddingTop: 60,
   paddingBottom: 70,
