@@ -67,9 +67,12 @@ function LoginAuth() {
                 border: "1px solid #dadce0",
                 color: "#3c4043",
                 borderRadius: "20px",
+                fontSize: "13px",
+                width: "100%",
               }}
             >
-              Sign in with Google <GoogleIcon sx={{ marginLeft: "12px" }} />
+              <GoogleIcon sx={{ marginRight: "12px" }} />
+              Sign in with Google
             </Button>
           </Container>
         </Box>
