@@ -77,6 +77,7 @@ interface IAllRecipesParams {
   cookingTime?: number;
   mealType?: string;
   skip: number;
+  userId?: string;
 }
 
 /**

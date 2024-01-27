@@ -28,7 +28,7 @@ function LoginAuth() {
       dispatch(setToken(verifiedUser?.token));
       navigate("/recipes");
     },
-    onError: (error) => console.log("Login Failed:", error),
+    onError: (error) => console.error("Login Failed:", error),
   });
 
   return (
@@ -67,11 +67,12 @@ function LoginAuth() {
                 border: "1px solid #dadce0",
                 color: "#3c4043",
                 borderRadius: "20px",
-                fontSize: "13px",
+                fontSize: "12px",
+                fontWeight: 600,
                 width: "100%",
               }}
             >
-              <GoogleIcon sx={{ marginRight: "12px" }} />
+              <GoogleIcon sx={{ marginRight: "12px", color: "#4285f4" }} />
               Sign in with Google
             </Button>
           </Container>

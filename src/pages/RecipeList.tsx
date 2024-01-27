@@ -1,4 +1,6 @@
 import { useState, ChangeEvent } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import { useGetAllRecipesQuery } from "../service/recipeService";
@@ -23,9 +25,12 @@ function RecipeList() {
   const [searchTerm, setSearchTerm] = useState<string>();
   const [skip, setSkip] = useState<number>(0);
   const debounceValue = useDebounce(searchTerm);
+  const user = useSelector((state: RootState) => state.app.authUser);
+
   const { data, isLoading } = useGetAllRecipesQuery({
     recipeName: debounceValue,
     skip: skip,
+    userId: user?.id ?? "0",
   });
 
   useTitle("Recipe Items");
