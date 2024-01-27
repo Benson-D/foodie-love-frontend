@@ -13,12 +13,22 @@ const sliderImage = [
   { url: "/img/gallery5.jpg", title: "pasta" },
 ];
 
-const ImageLayout = styled(Box)({
+const ImageLayout = styled(Box)(({ theme }) => ({
   position: "relative",
   overflow: "hidden",
-  maxWidth: 450,
-  marginTop: 70,
-});
+  maxWidth: 340,
+  marginTop: "18rem",
+  height: 300,
+  [theme.breakpoints.up("sm")]: {
+    maxWidth: 500,
+    height: 400,
+    marginTop: "15rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    maxWidth: 700,
+    height: 450,
+  },
+}));
 
 /**
  * Image Slider rendering on Home Page, displays a list of popular recipes
@@ -35,7 +45,7 @@ function ImageSlider() {
     <ImageLayout>
       <div
         style={{
-          height: "300px",
+          height: "100%",
           width: "100%",
           whiteSpace: "nowrap",
           transform: `translate3d(${-image * 100}%, 0, 0)`,

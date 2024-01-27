@@ -115,7 +115,7 @@ function NavBar() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#04b597" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
           <StorefrontIcon sx={{ display: { xs: "none", sm: "flex" }, mr: 1 }} />
           <Typography
