@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useGoogleLogin } from "@react-oauth/google";
 import { LockOutlined } from "@mui/icons-material";
+import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useVerifyOAuth2Mutation } from "../service/authService";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +55,10 @@ function LoginAuth() {
             alignItems: "center",
           }}
         >
+          <Alert severity="warning" sx={{ marginBottom: 2 }}>
+            The backend utilizes Renders free tier deployment. Will take 50
+            seconds or more on first initial request.
+          </Alert>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlined />
           </Avatar>

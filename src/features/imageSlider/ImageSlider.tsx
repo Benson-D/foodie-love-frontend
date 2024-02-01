@@ -17,16 +17,17 @@ const ImageLayout = styled(Box)(({ theme }) => ({
   position: "relative",
   overflow: "hidden",
   maxWidth: 340,
-  marginTop: "18rem",
+  marginTop: "2rem",
   height: 300,
   [theme.breakpoints.up("sm")]: {
-    maxWidth: 500,
-    height: 400,
-    marginTop: "15rem",
+    maxWidth: 450,
+    height: 300,
+    marginTop: "7rem",
   },
   [theme.breakpoints.up("md")]: {
-    maxWidth: 700,
-    height: 450,
+    maxWidth: 550,
+    height: 400,
+    marginTop: "4rem",
   },
 }));
 
