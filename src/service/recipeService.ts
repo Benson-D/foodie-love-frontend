@@ -5,6 +5,9 @@ import {
   ISingleRecipe,
   IRecipeFormData,
   CreatedRecipe,
+  IAddFavRecipe,
+  IRemoveFavRecipe,
+  IFavRecipeParams,
 } from "../interface";
 
 export const recipeApi = createApi({
@@ -74,6 +77,28 @@ export const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipes"],
     }),
+    addFavoriteRecipe: builder.mutation<IAddFavRecipe, IFavRecipeParams>({
+      query: ({ userId, recipeId }) => ({
+        url: "/add-favorite",
+        method: "POST",
+        params: {
+          userId,
+          recipeId,
+        },
+      }),
+      invalidatesTags: ["Recipes"],
+    }),
+    removeFavoriteRecipe: builder.mutation<IRemoveFavRecipe, IFavRecipeParams>({
+      query: ({ userId, recipeId }) => ({
+        url: "/remove-favorite",
+        method: "DELETE",
+        params: {
+          userId,
+          recipeId,
+        },
+      }),
+      invalidatesTags: ["Recipes"],
+    }),
   }),
 });
 
@@ -84,4 +109,6 @@ export const {
   useCreateRecipeMutation,
   useCreateS3ImageMutation,
   useUpdateRecipeMutation,
+  useAddFavoriteRecipeMutation,
+  useRemoveFavoriteRecipeMutation,
 } = recipeApi;

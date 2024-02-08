@@ -2,20 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import appReducer from "./appSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { recipeApi } from "./service/recipeService";
-import { userApi } from "./service/userService";
 import { authApi } from "./service/authService";
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
     [authApi.reducerPath]: authApi.reducer,
-    [userApi.reducerPath]: userApi.reducer,
     [recipeApi.reducerPath]: recipeApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(authApi.middleware)
-      .concat(userApi.middleware)
       .concat(recipeApi.middleware),
 });
 

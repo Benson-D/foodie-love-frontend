@@ -12,7 +12,7 @@ import useToggle from "../../hooks/useToggle";
 import {
   useAddFavoriteRecipeMutation,
   useRemoveFavoriteRecipeMutation,
-} from "../../service/userService";
+} from "../../service/recipeService";
 
 /**
  * Individual list card that displays a recipe
