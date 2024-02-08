@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { useGoogleLogin } from "@react-oauth/google";
 import { LockOutlined } from "@mui/icons-material";
-import Alert from "@mui/material/Alert";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useVerifyOAuth2Mutation } from "../service/authService";
 import { useNavigate } from "react-router-dom";
@@ -46,10 +45,6 @@ function LoginAuth() {
         }}
       ></Grid>
       <Grid item xs={12} sm={12} md={6} component={Paper}>
-        <Alert severity="warning" sx={{ marginBottom: 2 }}>
-          The backend utilizes Renders free tier deployment. Will take 50
-          seconds or more on first initial request.
-        </Alert>
         <Box
           sx={{
             paddingTop: 5,
